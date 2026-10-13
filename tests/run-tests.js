@@ -24,12 +24,12 @@ const ce = loadData('ce.json'), co = loadData('co.json'), ee = loadData('ee.json
 
 ok(ce.items.length === 184, 'CE items = 184', String(ce.items.length));
 ok(ce.strategies.length === 8, 'CE strategies = 8');
-ok(co.items.length === 139, 'CO items = 139', String(co.items.length));
+ok(co.items.length === 163, 'CO items = 163', String(co.items.length));
 const scored = co.items.filter(i => i.scored), unscored = co.items.filter(i => !i.scored);
-ok(scored.length === 132, 'CO scored = 132', String(scored.length));
+ok(scored.length === 156, 'CO scored = 156', String(scored.length));
 ok(unscored.length === 7, 'CO unscored = 7', String(unscored.length));
 ok(unscored.every(i => i.set.includes('CO-A 세트 2')), 'unscored are all CO-A 세트 2');
-ok(co.items.filter(i => i.stt).length === 16, 'STT mock-B items = 16');
+ok(co.items.filter(i => i.stt).length === 40, 'STT mock-B/C items = 40');
 const covocabCount = co.vocab.reduce((a, s) => a + s.words.length, 0);
 ok(covocabCount === 184, 'CO vocab = 184', String(covocabCount));
 ok(ee.prep.length === 10, 'EE drills = 10');
@@ -48,7 +48,7 @@ for (const p of eo.posters) checkAsset(p.image);
 ok(missingAssets.length === 0, 'all referenced audio/image assets exist', missingAssets.slice(0, 5).join(', '));
 const coAudioFiles = new Set();
 for (const it of co.items) if (it.audio) coAudioFiles.add(it.audio);
-ok(coAudioFiles.size === 97, 'distinct CO audio files = 97', String(coAudioFiles.size));
+ok(coAudioFiles.size === 121, 'distinct CO audio files = 121', String(coAudioFiles.size));
 
 // ---------- answer validity ----------
 let badAnswers = [];
