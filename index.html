@@ -5,29 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>나만의 TEF 트레이너</title>
 <meta name="description" content="TEF Canada 프랑스어 공부 트레이너 — 읽기, 듣기, 표현, 단어">
-<meta name="theme-color" content="#0e5a56">
+<meta name="theme-color" content="#1d4a5e">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="topbar">
-  <div class="topbar-inner">
-    <button id="backBtn" class="icon-btn hidden" aria-label="뒤로">←</button>
-    <div class="brand">
-      <div class="brand-title">나만의 TEF 트레이너</div>
-      <div class="brand-sub" id="brandSub">TEF Canada · 읽기 · 듣기 · 표현 · 단어</div>
-    </div>
+<div class="back-row">
+  <button id="backBtn" class="back-btn hidden" aria-label="뒤로 가기">‹ 뒤로</button>
+</div>
+<main id="app" class="container"><div class="loading-msg">불러오는 중…</div></main>
+<nav class="bottom" id="bottomNav" aria-label="주요 메뉴">
+  <div class="inner">
+    <button data-tab="home" class="nav-btn active"><span>오늘</span><span class="ndot" aria-hidden="true"></span></button>
+    <button data-tab="ce" class="nav-btn"><span>읽기</span><span class="ndot" aria-hidden="true"></span></button>
+    <button data-tab="co" class="nav-btn"><span>듣기</span><span class="ndot" aria-hidden="true"></span></button>
+    <button data-tab="expr" class="nav-btn"><span>표현</span><span class="ndot" aria-hidden="true"></span></button>
+    <button data-tab="words" class="nav-btn"><span>단어</span><span class="ndot" aria-hidden="true"></span></button>
   </div>
-</header>
-<main id="app" class="container"><div class="loading">불러오는 중…</div></main>
-<nav class="bottom-nav" id="bottomNav">
-  <button data-tab="home" class="nav-btn active"><span class="nav-ico">🏠</span><span>오늘</span></button>
-  <button data-tab="ce" class="nav-btn"><span class="nav-ico">📖</span><span>읽기</span></button>
-  <button data-tab="co" class="nav-btn"><span class="nav-ico">🎧</span><span>듣기</span></button>
-  <button data-tab="expr" class="nav-btn"><span class="nav-ico">✍️</span><span>표현</span></button>
-  <button data-tab="words" class="nav-btn"><span class="nav-ico">🗂️</span><span>단어</span></button>
 </nav>
 <script src="app.js"></script>
 <script>

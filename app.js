@@ -173,7 +173,7 @@ function wordRows(words, keyPrefix) {
 }
 function optionsHtml(item, answered) {
   const ko = (DATA.optionKo || {})[item.id];
-  return item.options.map((opt, idx) => {
+  const rows = item.options.map((opt, idx) => {
     const a = state.answers[item.id];
     let cls = 'opt';
     if (a && a.choice === idx) cls += ' sel';
@@ -184,20 +184,32 @@ function optionsHtml(item, answered) {
     const isDessin = /Dessin/i.test(opt);
     const key = item.id + ':' + idx;
     const showKo = ui.optKoOpen[key] && ko && ko[idx];
-    return '<div><button class="' + cls + '" data-answer="' + item.id + '" data-choice="' + idx + '">' + esc(opt) + '</button>' +
-      (!isDessin && ko && ko[idx] ? '<button class="linkish" data-optko="' + esc(key) + '">해석 ' + (ui.optKoOpen[key] ? '숨기기' : '보기') + '</button>' + (showKo ? '<div class="opt" style="border-style:dashed"><span class="ko">' + esc(ko[idx]) + '</span></div>' : '') : '') +
+    let side = '';
+    if (!isDessin) {
+      side = '<div class="opt-side">' + speakBtn(opt) +
+        (ko && ko[idx] ? '<button class="trans-toggle' + (ui.optKoOpen[key] ? ' open' : '') + '" data-optko="' + esc(key) + '">해석 ' + (ui.optKoOpen[key] ? '숨기기' : '보기') + '</button>' : '') +
+        '</div>';
+    }
+    return '<div><div class="opt-row"><button class="' + cls + '" data-answer="' + item.id + '" data-choice="' + idx + '">' +
+      '<span class="letter">' + String.fromCharCode(65 + idx) + '.</span>' +
+      '<span class="txt fr">' + esc(opt) + '</span></button>' + side + '</div>' +
+      (showKo ? '<div class="opt-trans"><b>해석 · </b>' + esc(ko[idx]) + '</div>' : '') +
       '</div>';
   }).join('');
+  return '<div class="opt-wrap">' + rows + '</div>';
 }
 function sentencesHtml(item, pairs, kind) {
-  return pairs.map((p, idx) => {
+  const rows = pairs.map((p, idx) => {
     const fr = kind === 'stt' ? p.fr : p[0];
     const ko = kind === 'stt' ? p.ko : p[1];
     const key = item.id + ':' + kind + ':' + idx;
     const open = !!ui.sentOpen[key];
-    return '<div class="sent' + (open ? ' on' : '') + '" data-sent="' + esc(key) + '"><span class="fr">' + esc(fr) + '</span>' + speakBtn(fr) +
-      (open ? '<span class="ko">' + esc(ko) + '</span>' : '') + '</div>';
+    const sentCls = kind === 'ce' ? 'sent-doc' : 'sent-script';
+    return '<div><div class="sent-row"><button class="sent-btn' + (open ? ' open' : '') + '" data-sent="' + esc(key) + '">' +
+      '<span class="fr ' + sentCls + '">' + esc(fr) + '</span></button>' + speakBtn(fr) + '</div>' +
+      (open ? '<p class="sent-ko"><b>해석 · </b>' + esc(ko) + '</p>' : '') + '</div>';
   }).join('');
+  return '<div class="sent-list">' + rows + '</div>';
 }
 function answerItem(item, choice) {
   state.lastItem = { id: item.id, set: item.set, mod: DATA.ce.items.indexOf(item) >= 0 ? '읽기' : '듣기', ts: Date.now() };
@@ -221,23 +233,42 @@ function viewHome() {
   const seq = globalOrder();
   const next = seq.find((e) => !isDone(e.it.id));
   const doneCount = seq.filter((e) => isDone(e.it.id)).length;
-  let h = '';
+  const now = new Date();
+  const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+  let h = '<div class="stack">';
+  let hero = '<section class="hero">' +
+    '<p class="kicker">' + (now.getMonth() + 1) + '월 ' + now.getDate() + '일 (' + dayNames[now.getDay()] + '요일)</p>' +
+    '<p class="kicker" style="margin-top:20px;font-weight:600;letter-spacing:.02em;">이어서 공부하기</p>';
   if (next) {
-    h += '<div class="card hero"><h2>오늘 이어서</h2><p>' + esc(next.mod) + ' · ' + esc(next.set) + ' · ' + esc(next.it.id) + '</p>' +
-      '<p class="small">전체 ' + seq.length + '문항 중 ' + doneCount + '문항을 마쳤어요.</p>' +
-      '<button class="btn light" data-openitem="' + esc(next.it.id) + '" data-mod="' + esc(next.mod) + '">바로 이어서 풀기 →</button></div>';
+    hero += '<h2>' + esc(next.mod) + ' · ' + esc(next.set) + '</h2>';
+    if (next.it.stem) hero += '<p class="fr preview" lang="fr">' + esc(next.it.stem) + ' …</p>';
+    hero += '<p class="desc">' + esc(next.it.id) + '부터 이어서 풀어요. 전체 ' + seq.length + '문항 중 ' + doneCount + '문항을 마쳤어요.</p>';
+    const pct = seq.length ? Math.round((doneCount / seq.length) * 100) : 0;
+    hero += '<div class="bar"><div style="width:' + pct + '%"></div></div>' +
+      '<p class="bar-label">' + doneCount + ' / ' + seq.length + ' 문항</p>' +
+      '<button class="cta" data-openitem="' + esc(next.it.id) + '" data-mod="' + esc(next.mod) + '">이어서 공부하기</button>';
   } else {
-    h += '<div class="card hero"><h2>오늘 이어서</h2><p>모든 문항을 마쳤어요. 복습으로 다시 풀어 보세요.</p></div>';
+    hero += '<h2>오늘 이어서</h2><p class="desc">모든 문항을 마쳤어요. 복습으로 다시 풀어 보세요.</p>';
   }
-  h += '<div class="card"><h3>지금 집중 · 모의고사 CO-B</h3><p class="muted">세트를 누르면 아직 안 푼 첫 문항으로 바로 이동해요.</p><div class="grid5">';
-  COB_SETS.forEach((s, i) => {
+  hero += '</section>';
+  h += hero;
+  h += '<section aria-label="모의고사 CO-B 바로 가기"><h3 class="sec-label">지금 공부할 것</h3>' +
+    '<p class="small dim" style="line-height:1.65;margin-bottom:12px">모의고사 CO-B 세트 1~5예요. 세트를 누르면 그 세트의 아직 안 푼 첫 문항으로 바로 가요.</p><div class="stack-sm">';
+  COB_SETS.forEach((s) => {
     const p = setProgress(coBySet(s));
-    h += '<button class="btn ghost" data-goset="듣기|' + esc(s) + '">세트 ' + (i + 1) + '<br><span class="small">' + p.done + '/' + p.total + '</span></button>';
+    const complete = p.total > 0 && p.done >= p.total;
+    h += '<button class="listrow" data-goset="듣기|' + esc(s) + '">' +
+      '<span class="dot' + (complete ? ' done' : '') + '">' + (complete ? '✓' : '·') + '</span>' +
+      '<span class="main"><span class="t" style="font-weight:600">' + esc(s) + '</span>' +
+      '<span class="s">' + p.done + '/' + p.total + ' 완료 · 채점</span></span>' +
+      '<span class="chev" aria-hidden="true">›</span></button>';
   });
-  h += '</div></div>';
-  h += '<div class="card"><h3>공부 달력</h3><p class="muted">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
-    '<button class="btn" data-go="home|calendar">공부 달력 열기</button>' +
-    '<p class="muted small" style="margin-top:12px">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요.</p></div>';
+  h += '</div></section>';
+  h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
+    '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
+    '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요.</p>';
+  h += '</div>';
   return h;
 }
 function viewCalendar() {
@@ -255,7 +286,8 @@ function viewCalendar() {
     const key = y + '-' + String(mo + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
     const rec = state.activity[key];
     const isToday = key === todayKey();
-    h += '<div class="cal-day' + (isToday ? ' today' : '') + '" data-calday="' + key + '">' + d + (rec ? '<span class="dot"></span>' : '') + '</div>';
+    const isSel = ui.calSel === key;
+    h += '<button class="cal-day' + (isToday ? ' today' : '') + (isSel ? ' selected' : '') + '" data-calday="' + key + '"><span>' + d + '</span>' + (rec ? '<span class="dot"></span>' : '') + '</button>';
   }
   h += '</div></div>';
   const sel = ui.calSel;
@@ -273,16 +305,23 @@ function viewCalendar() {
 function setRowHtml(mod, set) {
   const items = mod === '읽기' ? ceBySet(set) : coBySet(set);
   const p = setProgress(items);
-  const pct = p.total ? Math.round((p.done / p.total) * 100) : 0;
-  return '<button class="set-row" data-setlist="' + esc(mod) + '|' + esc(set) + '"><span class="t">' + esc(set) + '</span><span class="prog">' + p.done + '/' + p.total + '</span></button>' +
-    '<div class="progbar" style="margin:-4px 4px 12px"><i style="width:' + pct + '%"></i></div>';
+  const complete = p.total > 0 && p.done >= p.total;
+  return '<button class="listrow" data-setlist="' + esc(mod) + '|' + esc(set) + '">' +
+    '<span class="dot' + (complete ? ' done' : '') + '">' + (complete ? '✓' : '·') + '</span>' +
+    '<span class="main"><span class="t">' + esc(set) + '</span>' +
+    '<span class="s">' + p.done + '/' + p.total + ' 문항</span></span>' +
+    '<span class="chev" aria-hidden="true">›</span></button>';
 }
 function viewCeList() {
-  let h = '<h2 class="sec">연습 세트</h2>';
+  let h = '<div class="stack"><div><h2 class="page-title">읽기 — CE ' + DATA.ce.items.length + '문항</h2>' +
+    '<p class="lead">바로 지문을 읽고 답을 고르는 흐름이에요. 낯선 단어는 읽으면서, 또는 답을 확인한 뒤에 눌러 두면 단어 탭에 모입니다. 시간 제한은 없어요.</p></div>';
+  h += '<section><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">연습 세트</h3><div class="stack-sm">';
   CE_PRACTICE.forEach((s) => { h += setRowHtml('읽기', s); });
-  h += '<h2 class="sec">모의고사</h2>';
+  h += '</div></section><section><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">모의고사</h3><div class="stack-sm">';
   CE_MOCK.forEach((s) => { h += setRowHtml('읽기', s); });
-  h += '<div class="card"><h3>읽기 전략</h3><p class="muted">섹션별 전략과 팁 ' + DATA.ce.strategies.length + '개</p><button class="btn" data-go="ce|ceStrategies">전략 보기</button></div>';
+  h += '</div></section>';
+  h += '<div class="card"><h3>읽기 전략</h3><p class="muted">섹션별 전략과 팁 ' + DATA.ce.strategies.length + '개</p><button class="btn" style="margin-top:10px" data-go="ce|ceStrategies">전략 보기</button></div>';
+  h += '</div>';
   return h;
 }
 function viewSetItems(mod, set) {
@@ -294,8 +333,21 @@ function viewSetItems(mod, set) {
   const startIdx = lastId ? items.findIndex((i) => i.id === lastId) : -1;
   for (let k = startIdx + 1; k < items.length; k++) { if (!finished(items[k])) { nextId = items[k].id; break; } }
   if (!nextId && startIdx === -1) { const f = items.find((i) => !finished(i)); if (f) nextId = f.id; }
-  let h = '<h2 class="sec">' + esc(set) + '</h2>';
-  items.forEach((it, i) => {
+  let h = '<div class="stack"><div><h2 class="page-title">' + esc(set) + '</h2></div>';
+  if (lastId) {
+    const lastItem = items.find((i) => i.id === lastId);
+    const nextItem = nextId ? items.find((i) => i.id === nextId) : null;
+    if (lastItem) {
+      h += '<section class="resume-banner" aria-label="방금 푼 문항 안내"><p class="rb-title">방금 푼 문항이에요</p>' +
+        '<p class="fr rb-item">' + esc(lastItem.id) + ' · ' + esc(lastItem.stem || '대화를 듣고 알맞은 그림 고르기') + '</p>' +
+        '<p class="rb-sub">목록에서 이 문항을 강조해 뒀고, 화면을 그 위치로 바로 옮겨 뒀어요.</p>' +
+        '<div class="rb-btns"><button class="btn ghost small" data-openitem="' + esc(lastItem.id) + '" data-mod="' + esc(mod) + '">그 문항 다시 보기</button>' +
+        (nextItem ? '<button class="btn small" data-openitem="' + esc(nextItem.id) + '" data-mod="' + esc(mod) + '">다음 문항 이어서 풀기 (' + esc(nextItem.id) + ') ›</button>' : '') +
+        '</div></section>';
+    }
+  }
+  h += '<div class="stack-sm">';
+  items.forEach((it) => {
     const a = state.answers[it.id];
     let badge;
     if (!a) badge = '<span class="badge todo">안 풂</span>';
@@ -304,9 +356,16 @@ function viewSetItems(mod, set) {
     else badge = '<span class="badge mid">선택함</span>';
     if (it.id === lastId) badge += '<span class="badge last">방금 푼 문항</span>';
     if (it.id === nextId) badge += '<span class="badge next">다음 문항</span>';
+    if (it.uncertain) badge += '<span class="badge warn">확인 필요</span>';
+    const doneRow = !!a;
     const cls = 'set-row' + (it.id === lastId ? ' just-done' : '') + (it.id === nextId ? ' next-up' : '');
-    h += '<button class="' + cls + '" data-rowitem="' + esc(it.id) + '" data-openitem="' + esc(it.id) + '" data-mod="' + esc(mod) + '"><span class="t">' + (i + 1) + '. ' + esc(it.id) + '</span><span class="prog" style="white-space:normal;text-align:right">' + badge + (it.uncertain ? '<span class="small">확인 필요</span>' : '') + '</span></button>';
+    h += '<button class="' + cls + '" data-rowitem="' + esc(it.id) + '" data-openitem="' + esc(it.id) + '" data-mod="' + esc(mod) + '">' +
+      '<span class="dot' + (doneRow ? ' done' : '') + '">' + (doneRow ? '✓' : '·') + '</span>' +
+      '<span class="main"><span class="t fr">' + esc(it.stem || '대화를 듣고 알맞은 그림 고르기') + '</span>' +
+      '<span class="s">' + esc(it.id) + '</span></span>' +
+      '<span class="badges">' + badge + '</span></button>';
   });
+  h += '</div></div>';
   return h;
 }
 function viewCeStrategies() {
@@ -315,19 +374,23 @@ function viewCeStrategies() {
     (s.tips && s.tips.length ? '<ul>' + s.tips.map((t) => '<li>' + esc(t) + '</li>').join('') + '</ul>' : '') + '</div>'
   ).join('');
 }
+function studyHeadHtml(item) {
+  return '<div class="head-row"><span class="small" style="font-weight:600">' + esc(item.set) + ' · ' + esc(item.id) + '</span>' +
+    (item.uncertain ? '<span class="badge warn">정답 확신 낮음</span>' : '') + '</div>';
+}
 function viewCeItem(item) {
   const a = state.answers[item.id];
   const answered = isDone(item.id);
   const pairs = (DATA.sentKo || {})[item.id] || (item.doc ? [[item.doc, item.trans || '']] : []);
-  let h = '<div class="card"><div class="row spread"><span class="badge teal">' + esc(item.set) + '</span><span class="muted small">' + esc(item.id) + (item.uncertain ? ' · 확인 필요' : '') + '</span></div>';
-  if (item.image) h += '<img class="doc-img" src="' + esc(item.image) + '" alt="">';
-  h += '<p class="muted small">문장을 누르면 해석이 바로 아래에 열려요.</p>' + sentencesHtml(item, pairs, 'ce');
-  if (item.stem) h += '<div class="stem">' + esc(item.stem) + '</div>';
+  let h = '<div class="stack-md">' + studyHeadHtml(item);
+  if (item.image) h += '<div class="card img-card"><img class="doc-img" src="' + esc(item.image) + '" alt=""></div>';
+  h += '<div class="card card-pad-lg"><p class="xs dim" style="margin-bottom:8px">문장을 누르면 그 문장의 해석이 펼쳐져요.</p>' + sentencesHtml(item, pairs, 'ce') + '</div>';
+  if (item.stem) h += '<div class="stem"><span style="flex:1;min-width:0" class="fr">' + esc(item.stem) + '</span>' + speakBtn(item.stem) + '</div>';
   h += optionsHtml(item, answered);
   if (answered) {
     h += feedbackHtml(item, a);
     h += '<details><summary>문서 전체 해석</summary><p>' + esc(item.trans || '') + '</p></details>';
-    if (item.words && item.words.length) h += '<h3 style="margin-top:16px">이 문항의 단어</h3>' + wordRows(item.words);
+    if (item.words && item.words.length) h += '<div><h4 class="sub-title">이 문항의 단어</h4>' + wordRows(item.words) + '</div>';
     h += navItemHtml('읽기', item);
   }
   h += '</div>';
@@ -335,15 +398,18 @@ function viewCeItem(item) {
 }
 function feedbackHtml(item, a) {
   if (!a) return '';
-  if (a.correct === true) return '<div class="feedback good"><b>맞았어요 ✓</b><p style="margin:6px 0 0">' + esc(item.expl || '') + '</p></div>';
-  if (a.correct === false) return '<div class="feedback bad"><b>여기서 갈렸어요</b><p style="margin:6px 0 0">' + esc(item.expl || '') + '</p></div>';
-  return '<div class="feedback"><b>선택을 저장했어요.</b></div>';
+  if (a.correct === true || a.correct === false) {
+    const ok = a.correct === true;
+    return '<div class="stack-md"><p class="banner ' + (ok ? 'ok' : 'no') + '">' + (ok ? '맞았어요' : '여기서 갈렸어요 — 해설을 확인해 보세요') + '</p>' +
+      '<div class="card"><h4 class="sub-title">해설</h4><p class="small" style="line-height:1.7;margin-top:4px;font-size:15px">' + esc(item.expl || '') + '</p></div></div>';
+  }
+  return '<div class="note-box"><b>선택을 저장했어요.</b></div>';
 }
 function navItemHtml(mod, item) {
   const items = mod === '읽기' ? ceBySet(item.set) : coBySet(item.set);
   const idx = items.findIndex((i) => i.id === item.id);
   const prev = items[idx - 1], next = items[idx + 1];
-  let h = '<div class="row" style="margin-top:16px;gap:8px">';
+  let h = '<div class="row nav-row" style="margin-top:16px;gap:8px">';
   if (prev) h += '<button class="btn ghost" data-openitem="' + esc(prev.id) + '" data-mod="' + esc(mod) + '" data-nopush="1">← 이전 문항</button>';
   if (next) h += '<button class="btn" data-openitem="' + esc(next.id) + '" data-mod="' + esc(mod) + '" data-nopush="1">다음 문항 →</button>';
   h += '<button class="btn ghost" data-setlist="' + esc(mod) + '|' + esc(item.set) + '" data-nopush="1">목록</button></div>';
@@ -352,14 +418,17 @@ function navItemHtml(mod, item) {
 
 /* ================= views: 듣기 (CO) ================= */
 function viewCoHome() {
-  let h = '<h2 class="sec">CO-A</h2>';
+  let h = '<div class="stack"><div><h2 class="page-title">듣기 — CO ' + DATA.co.items.length + '문항</h2>' +
+    '<p class="lead">바로 듣고 답을 고르는 흐름이에요 — 대본은 답한 뒤에만 열리고, 낯선 단어는 문항 안에서 눌러 두면 단어 탭에 모입니다. 기본은 시험처럼 1회 재생이에요.</p></div>';
+  h += '<section><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">CO-A</h3><div class="stack-sm">';
   CO_A1.forEach((s) => { h += setRowHtml('듣기', s); });
-  h += '<h2 class="sec">CO B · C · D · F 연습</h2>';
+  h += '</div></section><section><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">CO B · C · D · F 연습</h3><div class="stack-sm">';
   CO_PRACTICE.forEach((s) => { h += setRowHtml('듣기', s); });
-  h += '<h2 class="sec">모의고사</h2>';
+  h += '</div></section><section><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">모의고사</h3><div class="stack-sm">';
   CO_MOCK.forEach((s) => { h += setRowHtml('듣기', s); });
-  h += '<h2 class="sec">CO-A 세트 2 (미채점 연습)</h2>';
+  h += '</div></section><section><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">CO-A 세트 2 (미채점 연습)</h3><div class="stack-sm">';
   CO_A2.forEach((s) => { h += setRowHtml('듣기', s); });
+  h += '</div></section></div>';
   return h;
 }
 function playerHtml(item) {
@@ -368,11 +437,14 @@ function playerHtml(item) {
   const scoredLimited = item.scored !== false && item.answer != null;
   const plays = attemptPlays[item.id] || 0;
   const blocked = scoredLimited && !answered && plays >= 1;
-  let h = '<div class="player-box"><div class="row spread"><b>🎧 듣기</b><span class="muted small" data-play-count="' + esc(item.id) + '">재생 횟수 ' + (state.plays[item.id] || 0) + '회</span></div>';
-  if (scoredLimited && !answered) h += '<p class="small" style="margin:6px 0 0">시험 모드: 1회 재생 — 답을 고르기 전에는 한 번만 들을 수 있어요.</p>';
-  if (blocked) h += '<p class="small" style="margin:6px 0 0"><b>시험 모드: 1회 재생</b>을 마쳤어요. 답을 고른 뒤에는 복습으로 다시 들을 수 있어요.</p>';
-  h += '<button class="btn" data-play="' + esc(item.id) + '"' + (blocked ? ' disabled' : '') + '>▶ 재생</button>' +
-    '<span data-player-msg="' + esc(item.id) + '" class="small muted"></span>' +
+  let h = '<div class="card player-card"><div class="player-row">' +
+    '<button class="play-big" data-play="' + esc(item.id) + '"' + (blocked ? ' disabled' : '') + ' aria-label="오디오 재생">▶</button>' +
+    '<div class="player-status"><p class="p-main">🎧 듣기</p>' +
+    '<p class="xs dim" data-play-count="' + esc(item.id) + '">재생 횟수 ' + (state.plays[item.id] || 0) + '회</p>';
+  if (scoredLimited && !answered) h += '<p class="xs dim">시험 모드: 1회 재생 — 답을 고르기 전에는 한 번만 들을 수 있어요.</p>';
+  if (blocked) h += '<p class="xs dim"><b>시험 모드: 1회 재생</b>을 마쳤어요. 답을 고른 뒤에는 복습으로 다시 들을 수 있어요.</p>';
+  h += '</div></div>' +
+    '<span data-player-msg="' + esc(item.id) + '" class="ok-text"></span>' +
     '<div data-native-slot="' + esc(item.id) + '"></div></div>';
   return h;
 }
@@ -444,26 +516,26 @@ function viewCoItem(item) {
   const a = state.answers[item.id];
   const answered = isDone(item.id);
   const unscored = item.scored === false || item.answer == null;
-  let h = '<div class="card"><div class="row spread"><span class="badge teal">' + esc(item.set) + '</span><span class="muted small">' + esc(item.id) + '</span></div>';
+  let h = '<div class="stack-md">' + studyHeadHtml(item);
   if (unscored) {
     h += '<div class="note-box"><span class="badge warn">근거 자료 없음 · 확인 필요</span><p style="margin:8px 0 0">' + esc(item.note || '') + '</p></div>';
   }
   if (item.stt) h += '<p><span class="badge">음성인식 대본</span>' + (item.note ? '<span class="small muted">' + esc(item.note) + '</span>' : '') + '</p>';
   if (!item.audio && item.transcript) {
-    h += '<p class="muted small">소리 파일이 없는 문항이에요. 아래 글을 읽고 답해 보세요.</p><div class="fr" style="background:var(--paper2);border-radius:13px;padding:13px">' + esc(item.transcript) + '</div>' + speakBtn(item.transcript);
+    h += '<p class="muted small">소리 파일이 없는 문항이에요. 아래 글을 읽고 답해 보세요.</p><div class="card"><p class="fr">' + esc(item.transcript) + '</p></div><div>' + speakBtn(item.transcript) + '</div>';
   } else {
     h += playerHtml(item);
   }
-  if (item.image) h += '<img class="doc-img" src="' + esc(item.image) + '" alt="">';
-  if (item.stem) h += '<div class="stem">' + esc(item.stem) + '</div>';
+  if (item.image) h += '<div class="card img-card"><img class="doc-img" src="' + esc(item.image) + '" alt=""></div>';
+  if (item.stem) h += '<div class="stem"><span style="flex:1;min-width:0" class="fr">' + esc(item.stem) + '</span>' + speakBtn(item.stem) + '</div>';
   h += optionsHtml(item, answered);
   if (!unscored && answered) {
     h += feedbackHtml(item, a);
     h += transcriptReviewHtml(item);
-    if (item.words && item.words.length) h += '<h3 style="margin-top:16px">이 문항의 단어</h3>' + wordRows(item.words);
+    if (item.words && item.words.length) h += '<div><h4 class="sub-title">이 문항의 단어</h4>' + wordRows(item.words) + '</div>';
     h += navItemHtml('듣기', item);
   } else if (unscored) {
-    if (a) h += '<div class="feedback"><b>선택을 저장했어요.</b> 채점하지 않는 연습 문항이에요.</div>';
+    if (a) h += '<div class="note-box"><b>선택을 저장했어요.</b> 채점하지 않는 연습 문항이에요.</div>';
     h += navItemHtml('듣기', item);
   } else if (!item.audio && answered) {
     h += navItemHtml('듣기', item);
@@ -474,17 +546,17 @@ function viewCoItem(item) {
 function transcriptReviewHtml(item) {
   const pairs = transcriptPairs(item);
   if (!pairs && !item.transcript) return '';
-  let h = '<h3 style="margin-top:18px">대본 복습</h3>';
+  let h = '<div><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">대본 복습</h3>';
   if (item.stt) h += '<p><span class="badge">음성인식 대본</span></p>';
   if (pairs) {
-    h += '<p class="muted small">문장을 누르면 해석이 열려요.</p>' + sentencesHtml(item, pairs, item.stt ? 'stt' : 'co');
+    h += '<p class="xs dim" style="margin-bottom:8px">문장을 누르면 그 문장의 해석이 펼쳐져요.</p>' + sentencesHtml(item, pairs, item.stt ? 'stt' : 'co');
     // dictation
     h += '<details><summary>딕테이션 — 듣고 받아쓰기</summary>';
     pairs.forEach((p, idx) => {
       const fr = item.stt ? p.fr : p[0];
       const key = item.id + ':dict:' + idx;
       const res = ui.dictResult[key];
-      h += '<div style="margin:12px 0"><div class="row"><b>문장 ' + (idx + 1) + '</b>' + speakBtn(fr) + '</div>' +
+      h += '<div class="dict-box" style="margin:12px 0"><div class="row"><b>문장 ' + (idx + 1) + '</b>' + speakBtn(fr) + '</div>' +
         '<textarea rows="2" data-dict-input="' + esc(key) + '" placeholder="들은 대로 적어 보세요">' + esc(ui.dictInput[key] || '') + '</textarea>' +
         '<button class="btn small" data-dict-check="' + esc(key) + '" data-target="' + esc(fr) + '">확인</button>' +
         (res ? '<p class="fr16" style="margin-top:8px">' + renderDiff(res) + '</p><p class="muted small">맞힌 비율 ' + Math.round(res.score * 100) + '%</p>' : '') + '</div>';
@@ -499,35 +571,44 @@ function transcriptReviewHtml(item) {
       const words = tokenize(fr);
       let shown = esc(fr);
       if (mode === 'head') { const cut = Math.max(1, Math.ceil(words.length * 0.4)); shown = esc(words.slice(0, cut).join(' ')) + ' •••'; }
-      if (mode === 'hide') shown = '<span class="muted">(눌러서 보기)</span>';
-      h += '<div style="margin:12px 0"><div class="row"><b>문장 ' + (idx + 1) + '</b>' + speakBtn(fr) + '</div>' +
-        '<div class="seg"><button data-shadow="' + esc(key) + '|full" class="' + (mode === 'full' ? 'on' : '') + '">전체 보기</button>' +
-        '<button data-shadow="' + esc(key) + '|head" class="' + (mode === 'head' ? 'on' : '') + '">앞부분만</button>' +
-        '<button data-shadow="' + esc(key) + '|hide" class="' + (mode === 'hide' ? 'on' : '') + '">가리기</button></div>' +
-        '<p class="fr" data-shadow-text="' + esc(key) + '">' + shown + '</p></div>';
+      if (mode === 'hide') shown = '(눌러서 보기)';
+      h += '<div class="masked" style="margin:12px 0"><div class="row"><b>문장 ' + (idx + 1) + '</b>' + speakBtn(fr) + '</div>' +
+        '<p class="fr txt' + (mode === 'hide' ? ' hidden-mode' : '') + '" data-shadow-text="' + esc(key) + '">' + shown + '</p>' +
+        '<div class="modes"><button data-shadow="' + esc(key) + '|full" class="mbtn' + (mode === 'full' ? ' active' : '') + '">전체 보기</button>' +
+        '<button data-shadow="' + esc(key) + '|head" class="mbtn' + (mode === 'head' ? ' active' : '') + '">앞부분만</button>' +
+        '<button data-shadow="' + esc(key) + '|hide" class="mbtn' + (mode === 'hide' ? ' active' : '') + '">가리기</button></div></div>';
     });
     h += '</details>';
   } else {
     h += '<p class="fr">' + esc(item.transcript) + '</p>' + speakBtn(item.transcript);
   }
   if (item.trans) h += '<details><summary>대본 전체 해석</summary><p>' + esc(item.trans) + '</p></details>';
-  return h;
+  return h + '</div>';
 }
 
 /* ================= views: 표현 (EE / EO) ================= */
 function viewExprHome() {
-  let h = '<h2 class="sec">쓰기 (EE) — 모델</h2><div class="card"><h3>편지 모델 틀</h3><p class="muted">틀 ' + DATA.ee.model.template.length + '부분 + 완성 예시 1편</p>' +
-    '<button class="btn" data-go="expr|eeModel">모델 보기</button> <button class="btn ghost" data-go="expr|eeStrategies">전략 보기</button></div>';
-  h += '<h2 class="sec">쓰기 패턴 드릴 10</h2>';
+  let h = '<div class="stack"><div><h2 class="page-title">표현 — EE · EO</h2>' +
+    '<p class="lead">쓰기 모델과 패턴 드릴, 말하기 스크립트와 포스터 연습이에요.</p></div>';
+  h += '<section><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">쓰기 (EE) — 모델</h3><div class="card"><h3>편지 모델 틀</h3><p class="muted">틀 ' + DATA.ee.model.template.length + '부분 + 완성 예시 1편</p>' +
+    '<button class="btn" style="margin-top:10px" data-go="expr|eeModel">모델 보기</button> <button class="btn ghost" style="margin-top:10px" data-go="expr|eeStrategies">전략 보기</button></div></section>';
+  h += '<section><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">쓰기 패턴 드릴 10</h3><div class="stack-sm">';
   DATA.ee.prep.forEach((p) => {
     const d = state.drill['ee' + p.no] || {};
     const steps = [1, 2, 3, 4].filter((s) => d['step' + s]).length;
-    h += '<button class="set-row" data-drill="' + p.no + '"><span class="t">' + p.no + '. ' + esc(p.title) + '</span><span class="prog">' + steps + '/4 단계</span></button>';
+    const complete = steps >= 4;
+    h += '<button class="listrow" data-drill="' + p.no + '">' +
+      '<span class="dot' + (complete ? ' done' : '') + '">' + (complete ? '✓' : '·') + '</span>' +
+      '<span class="main"><span class="t">' + p.no + '. ' + esc(p.title) + '</span>' +
+      '<span class="s">' + steps + '/4 단계</span></span>' +
+      '<span class="chev" aria-hidden="true">›</span></button>';
   });
-  h += '<h2 class="sec">말하기 (EO) — 스크립트</h2><div class="card"><h3>전화 문의 스크립트 트레이너</h3><p class="muted">도입 만들기 · 카테고리 질문 ' + DATA.eo.script.categories.length + '개 · 반응 문장 · 결론</p>' +
-    '<button class="btn" data-go="expr|eoScript">스크립트 연습</button></div>';
-  h += '<div class="card"><h3>포스터 연습 40</h3><p class="muted">제목을 가리고 키워드로 말해 본 뒤 확인해요. 마친 포스터 ' + Object.keys(state.posterDone).length + '/40</p>' +
-    '<button class="btn" data-go="expr|eoPosters">포스터 보기</button></div>';
+  h += '</div></section>';
+  h += '<section><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">말하기 (EO) — 스크립트</h3><div class="card"><h3>전화 문의 스크립트 트레이너</h3><p class="muted">도입 만들기 · 카테고리 질문 ' + DATA.eo.script.categories.length + '개 · 반응 문장 · 결론</p>' +
+    '<button class="btn" style="margin-top:10px" data-go="expr|eoScript">스크립트 연습</button></div>' +
+    '<div class="card" style="margin-top:8px"><h3>포스터 연습 40</h3><p class="muted">제목을 가리고 키워드로 말해 본 뒤 확인해요. 마친 포스터 ' + Object.keys(state.posterDone).length + '/40</p>' +
+    '<button class="btn" style="margin-top:10px" data-go="expr|eoPosters">포스터 보기</button></div></section>';
+  h += '</div>';
   return h;
 }
 function viewEeModel() {
@@ -657,7 +738,7 @@ function viewEoPosters() {
     const done = !!state.posterDone[p.no];
     h += '<div class="card"><div class="row spread"><span class="badge teal">' + esc(p.theme) + ' · ' + p.no + '/40</span>' + (done ? '<span class="small">마침 ✓</span>' : '') + '</div>' +
       '<img class="poster" src="' + esc(p.image) + '" alt="포스터 ' + p.no + '">' +
-      '<p style="margin:10px 0 4px">' + (p.keywords || []).map((k) => '<span class="chip">' + esc(k) + '</span>').join('') + '</p>';
+      '<p style="margin:10px 0 4px">' + (p.keywords || []).map((k) => '<span class="chip kw">' + esc(k) + '</span>').join('') + '</p>';
     if (reveal) h += speakableLine(p.titleFr);
     else h += '<button class="btn ghost" data-poster-reveal="' + p.no + '">제목 보기</button>';
     h += ' <button class="btn ' + (done ? 'ghost' : '') + ' small" data-poster-done="' + p.no + '">' + (done ? '연습 마침 ✓' : '연습 마쳤어요') + '</button></div>';
@@ -674,7 +755,9 @@ function stateBtns(fr) {
 }
 function viewWordsHome() {
   const sub = ui.wordSub;
-  let h = '<div class="seg">' +
+  let h = '<div><h2 class="page-title">단어</h2>' +
+    '<p class="lead" style="margin-bottom:16px">프랑스어를 보고 뜻을 떠올린 뒤 눌러서 확인하고, 지금 느낌대로 상태를 남겨 두세요.</p></div>' +
+    '<div class="seg">' +
     [['core', '핵심 단어 24'], ['covocab', 'CO 어휘 184'], ['mine', '내 단어'], ['idioms', '관용표현 305'], ['sujet', 'Sujet 137']].map(([k, label]) =>
       '<button data-wordsub="' + k + '" class="' + (sub === k ? 'on' : '') + '">' + label + '</button>').join('') + '</div>';
   if (sub === 'core') h += wordsFlash(DATA.refs.vocabCore, 'core');
@@ -692,15 +775,16 @@ function wordsFlash(list, prefix) {
   const fr = Array.isArray(w) ? w[0] : w.fr;
   const kr = Array.isArray(w) ? w[1] : w.kr;
   const face = ui.flashFace[prefix + idx] ? 'back' : 'front';
-  let h = '<div class="card flash"><div class="muted small">' + (idx + 1) + ' / ' + list.length + '</div>';
+  let h = '<div class="card flip-card"><div class="row spread"><span class="muted small">' + (idx + 1) + ' / ' + list.length + '</span>' + speakBtn(fr) + '</div>' +
+    '<div class="fr-big fr" style="margin-top:10px">' + esc(fr) + '</div>';
   if (face === 'front') {
-    h += '<div class="big">' + esc(fr) + '</div>' + speakBtn(fr) + '<button class="btn ghost" data-flip="' + esc(prefix + idx) + '">뜻 보기</button>';
+    h += '<div style="margin-top:12px"><button class="btn ghost" data-flip="' + esc(prefix + idx) + '">뜻 보기</button></div>';
   } else {
-    h += '<div class="big">' + esc(fr) + '</div>' + speakBtn(fr) + '<p style="font-size:19px;margin:0">' + esc(kr) + '</p>';
-    if (w.ex) { h += '<p class="fr16" style="margin:0">' + esc(w.ex) + '</p>' + speakBtn(w.ex); if (w.exKr) h += '<p class="muted" style="margin:0">' + esc(w.exKr) + '</p>'; }
+    h += '<p style="font-size:19px;margin:8px 0 0">' + esc(kr) + '</p>';
+    if (w.ex) { h += '<div class="row" style="align-items:flex-start;margin-top:10px"><span class="fr16" style="flex:1">' + esc(w.ex) + '</span>' + speakBtn(w.ex) + '</div>'; if (w.exKr) h += '<p class="muted" style="margin:2px 0 0">' + esc(w.exKr) + '</p>'; }
     h += stateBtns(fr);
   }
-  h += '<div class="row"><button class="btn ghost small" data-flashnav="' + esc(prefix) + '|' + key + '|-1|' + list.length + '">← 이전</button>' +
+  h += '<div class="row" style="margin-top:14px"><button class="btn ghost small" data-flashnav="' + esc(prefix) + '|' + key + '|-1|' + list.length + '">← 이전</button>' +
     '<button class="btn ghost small" data-flashnav="' + esc(prefix) + '|' + key + '|1|' + list.length + '">다음 →</button></div></div>';
   return h;
 }
