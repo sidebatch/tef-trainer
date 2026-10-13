@@ -138,10 +138,79 @@ for (const rel of ['icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touc
 }
 const sw = fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
 ok(sw.includes('fetch'), 'sw has fetch handler');
-ok(indexHtml.includes('app.js?v=9') && indexHtml.includes('styles.css?v=9'), 'shell assets are cache-busted (?v=9) so phones pick up fixes');
-ok(sw.includes("tef-trainer-v9"), 'sw cache bumped to tef-trainer-v9');
+ok(indexHtml.includes('app.js?v=10') && indexHtml.includes('styles.css?v=10'), 'shell assets are cache-busted (?v=10) so phones pick up fixes');
+ok(sw.includes("tef-trainer-v10"), 'sw cache bumped to tef-trainer-v10');
 ok(appJs.includes('isCollapsed'), 'click handler ignores clicks that end a text selection (selection survives mouse-up)');
 ok(!/addAll\(\[[^\]]*assets\/(co|tts)/.test(sw), 'sw does not precache audio');
+
+// ---------- CE-C pilot: chunk-aligned translation (직독직해) ----------
+const chunks = loadData('chunks.json');
+const cecItems = ce.items.filter(i => i.set.includes('CE-C'));
+ok(cecItems.length === 43, 'CE-C items = 43', String(cecItems.length));
+ok(JSON.stringify(Object.keys(chunks).sort()) === JSON.stringify(cecItems.map(i => i.id).sort()),
+  'chunks.json covers exactly the 43 CE-C ids');
+let chunkProblems = [];
+for (const it of cecItems) {
+  const sents = chunks[it.id], pairs = sentKo[it.id];
+  if (!sents) { chunkProblems.push(it.id + ':missing'); continue; }
+  if (sents.length !== pairs.length) { chunkProblems.push(it.id + ':sentence-count'); continue; }
+  sents.forEach((sent, si) => {
+    for (const [fr, ko] of sent) {
+      if (!String(fr).trim() || !String(ko).trim()) chunkProblems.push(it.id + ':empty-pair');
+    }
+    const joined = norm(sent.map(c => c[0]).join(' '));
+    if (joined !== norm(pairs[si][0])) chunkProblems.push(it.id + ':join-mismatch:S' + si);
+    if (pairs[si][0].includes('______')) {
+      const holders = sent.filter(c => c[0].includes('______'));
+      if (holders.length !== 1) chunkProblems.push(it.id + ':cloze-chunks:S' + si);
+    }
+  });
+  const chunkBlanks = sents.flat().filter(c => c[0].includes('______')).length;
+  const docBlanks = (it.doc.match(/______/g) || []).length;
+  if (chunkBlanks !== docBlanks) chunkProblems.push(it.id + ':blank-count');
+}
+ok(chunkProblems.length === 0, 'chunks: non-empty pairs, joins reproduce sent_ko sentences, one ______ chunk per cloze sentence',
+  chunkProblems.slice(0, 5).join(', '));
+
+// ---------- CE-C pilot: blank-word typing ----------
+ok(appJs.includes('문장 뜯어보기 — 직독직해'), 'chunk section title present');
+ok(appJs.includes('빈칸 타이핑'), 'blank typing block present');
+ok(appJs.includes('data-blank-check'), 'blank typing check handler wired');
+ok(appJs.includes("chunks: 'data/chunks.json'"), 'chunks.json loaded at boot');
+(function blankTests() {
+  const grab = (name) => {
+    const m = appJs.match(new RegExp('function ' + name + '\\b[\\s\\S]*?\\n}'));
+    return m ? m[0] : '';
+  };
+  const code = ['stripFrAccents', 'frLemma', 'blankHint', 'judgeBlank'].map(grab).join('\n');
+  ok(code.includes('function judgeBlank'), 'blank helpers extractable from app.js');
+  let blankHint, judgeBlank;
+  try {
+    ({ blankHint, judgeBlank } = new Function(code + '\nreturn { blankHint, judgeBlank };')());
+  } catch (e) {
+    ok(false, 'blank helpers evaluate', String(e).slice(0, 100));
+    return;
+  }
+  const byId = id => ce.items.find(i => i.id === id);
+  let meaningHints = 0, leaks = [];
+  for (const it of cecItems) {
+    const h = blankHint(it);
+    if (h.type === '뜻') meaningHints++;
+    if (!h.text || h.text === it.options[it.answer]) leaks.push(it.id);
+  }
+  ok(meaningHints >= 38, 'blank hint: Korean meaning derived for most CE-C items', String(meaningHints) + '/43');
+  ok(leaks.length === 0, 'blank hint never prints the full answer word', leaks.join(','));
+  const mc06 = byId('MC-06');
+  ok(blankHint(mc06).text === '감염된', 'blank hint: contaminées → 감염된');
+  ok(judgeBlank(mc06, 'contaminées').level === 'ok', 'blank judge: exact = 정답');
+  ok(judgeBlank(mc06, '  contaminées ').level === 'ok', 'blank judge: trim-only difference = 정답');
+  ok(judgeBlank(mc06, 'Contaminées').level === 'almost', 'blank judge: case difference = 거의 맞음');
+  ok(judgeBlank(mc06, 'contaminees').level === 'almost', 'blank judge: missing accents = 거의 맞음');
+  ok(judgeBlank(mc06, 'contaminé').level === 'no', 'blank judge: different word form = 틀림');
+  ok(judgeBlank(mc06, '') === null, 'blank judge: empty input = no verdict');
+  const mc08 = byId('MC-08');
+  ok(judgeBlank(mc08, 'savoir faire').level === 'almost', 'blank judge: hyphen typed as space = 거의 맞음');
+})();
 
 // ---------- audio encoding: CO files (full check) ----------
 function probe(file) {

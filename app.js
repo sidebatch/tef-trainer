@@ -19,7 +19,7 @@ let navStack = [];
 let sharedAudio = null;
 let blobCache = new Map();
 let attemptPlays = {}; // per-item plays in the current attempt (before answering)
-let ui = { sentOpen: {}, optKoOpen: {}, repeat: {}, transOpen: false, shadowMode: {}, dictInput: {}, dictResult: {}, drillSel: {}, eoIntroSel: {}, posterReveal: {}, flashFace: {}, idiomOpen: {}, sujetFilter: '전체', wordSub: 'core', coVocabSection: 0, calCursor: null, calSel: null };
+let ui = { sentOpen: {}, optKoOpen: {}, repeat: {}, transOpen: false, shadowMode: {}, dictInput: {}, dictResult: {}, blankInput: {}, blankResult: {}, drillSel: {}, eoIntroSel: {}, posterReveal: {}, flashFace: {}, idiomOpen: {}, sujetFilter: '전체', wordSub: 'core', coVocabSection: 0, calCursor: null, calSel: null };
 
 function loadState() {
   try {
@@ -414,11 +414,81 @@ function viewCeItem(item) {
   if (answered) {
     h += feedbackHtml(item, a);
     h += '<details><summary>문서 전체 해석</summary><p>' + esc(item.trans || '') + '</p></details>';
+    h += chunksHtml(item);
     if (item.words && item.words.length) h += '<div><h4 class="sub-title">이 문항의 단어</h4>' + wordRows(item.words) + '</div>';
+    h += blankTypingHtml(item);
     h += navItemHtml('읽기', item);
   }
   h += '</div>';
   return h;
+}
+/* ----- CE review extras: chunk-aligned translation (직독직해) + blank-word typing -----
+   Both render ONLY in the answered/review state (called from viewCeItem's answered block).
+   Chunk data: data/chunks.json, keyed by item id → sentences → [frChunk, koChunk] pairs.
+   Items without chunk data simply skip the section. */
+function chunksHtml(item) {
+  const sents = (DATA.chunks || {})[item.id];
+  if (!sents || !sents.length) return '';
+  let h = '<details><summary>문장 뜯어보기 — 직독직해</summary><div class="chunk-wrap">';
+  sents.forEach((sent) => {
+    h += '<p class="chunk-sent">';
+    sent.forEach((pair) => {
+      h += '<span class="chunk-unit"><span class="chunk-fr">' + esc(pair[0]) + '</span><span class="chunk-ko">' + esc(pair[1]) + '</span></span>';
+    });
+    h += '</p>';
+  });
+  return h + '</div></details>';
+}
+function stripFrAccents(s) {
+  return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+function frLemma(fr) {
+  // "l'immigration (f)" → "immigration"; "le renouvellement" → "renouvellement"
+  return String(fr || '').split('(')[0].trim().replace(/^(une?|le|la|les|des)\s+/i, '').replace(/^l'/i, '');
+}
+function blankHint(item) {
+  // Korean meaning of the answer word, matched from item.words by lemma/stem.
+  // Falls back to a first-letters hint — never returns the full answer word.
+  const ans = item.options[item.answer] || '';
+  const core = stripFrAccents(frLemma(ans)).replace(/['’]/g, '');
+  for (const w of (item.words || [])) {
+    const lem = stripFrAccents(frLemma(w[0])).replace(/['’]/g, '');
+    if (!lem) continue;
+    if (core === lem || core.startsWith(lem) || lem.startsWith(core)) return { type: '뜻', text: w[1] };
+    const toks = lem.split(/[\s-]+/).filter((t) => t.length >= 4);
+    if (toks.some((t) => t === core || t.slice(0, 4) === core.slice(0, 4))) return { type: '뜻', text: w[1] };
+  }
+  const letters = ans.replace(/^l'/i, '');
+  return { type: '첫 글자', text: letters.slice(0, 2) + '… (' + letters.length + '글자)' };
+}
+function judgeBlank(item, input) {
+  // Same spirit as the CO dictation check: an exact tier, then a forgiving tier.
+  const ans = item.options[item.answer] || '';
+  const t = String(input || '').trim().replace(/\s+/g, ' ');
+  if (!t) return null;
+  if (t === ans) return { level: 'ok', ans };
+  const loose = (s) => stripFrAccents(s).replace(/[.,;:!?…'"'’‘“”«»()-]/g, ' ').replace(/[\s-]+/g, ' ').trim();
+  if (loose(t) === loose(ans)) return { level: 'almost', ans };
+  return { level: 'no', ans };
+}
+function blankTypingHtml(item) {
+  if (!item.doc || !item.doc.includes('______')) return '';
+  const key = item.id + ':blank';
+  const pairs = (DATA.sentKo || {})[item.id] || [];
+  const cloze = (pairs.map((p) => p[0]).find((s) => s.includes('______')) || item.doc).replace(/\s*\n\s*/g, ' ');
+  const hint = blankHint(item);
+  const res = ui.blankResult[key];
+  let h = '<div class="card"><h4 class="sub-title">빈칸 타이핑</h4>' +
+    '<p class="fr16" style="line-height:1.7;margin:6px 0">' + esc(cloze) + '</p>' +
+    '<p class="small muted" style="margin:4px 0 10px">힌트 — ' + esc(hint.type) + ': ' + esc(hint.text) + '</p>' +
+    '<div class="row" style="gap:8px"><input type="text" data-blank-input="' + esc(key) + '" placeholder="빈칸에 들어갈 단어를 써 보세요" value="' + esc(ui.blankInput[key] || '') + '" autocomplete="off" autocapitalize="off" spellcheck="false">' +
+    '<button class="btn small" data-blank-check="' + esc(key) + '">확인</button></div>';
+  if (res) {
+    if (res.level === 'ok') h += '<p class="banner ok" style="margin-top:10px">정답이에요 ✓</p>';
+    else if (res.level === 'almost') h += '<p class="note-box" style="margin-top:10px">거의 맞음 — 바른 철자는 <b>' + esc(res.ans) + '</b>예요.</p>';
+    else h += '<p class="banner no" style="margin-top:10px">틀림 — 정답은 <b>' + esc(res.ans) + '</b>예요. 다시 써 보세요.</p>';
+  }
+  return h + '</div>';
 }
 function feedbackHtml(item, a) {
   if (!a) return '';
@@ -958,7 +1028,7 @@ document.addEventListener('click', (ev) => {
   // row it would even record an answer the learner never meant to pick.
   const sel = window.getSelection ? window.getSelection() : null;
   if (sel && !sel.isCollapsed && sel.toString().trim() !== '') return;
-  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-optko],[data-sent],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday]');
+  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-optko],[data-sent],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-blank-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday]');
   // bottom nav + back handled separately below
   if (ev.target.closest('.nav-btn')) { setTab(ev.target.closest('.nav-btn').dataset.tab); return; }
   if (ev.target.closest('#backBtn')) { back(); return; }
@@ -989,6 +1059,15 @@ document.addEventListener('click', (ev) => {
     const input = document.querySelector('[data-dict-input="' + CSS.escape(key) + '"]');
     ui.dictInput[key] = input ? input.value : '';
     ui.dictResult[key] = wordDiff(t.dataset.target, ui.dictInput[key]);
+    render(); return;
+  }
+  if (t.dataset.blankCheck) {
+    const key = t.dataset.blankCheck;
+    const item = findItem(key.split(':')[0]);
+    if (!item) return;
+    const input = document.querySelector('[data-blank-input="' + CSS.escape(key) + '"]');
+    ui.blankInput[key] = input ? input.value : '';
+    ui.blankResult[key] = judgeBlank(item, ui.blankInput[key]);
     render(); return;
   }
   if (t.dataset.shadow) { const [key, mode] = t.dataset.shadow.split('|'); ui.shadowMode[key] = mode; render(); return; }
@@ -1073,7 +1152,7 @@ function findWordKr(fr) {
 
 /* ================= boot ================= */
 async function boot() {
-  const files = { ce: 'data/ce.json', co: 'data/co.json', ee: 'data/ee.json', eo: 'data/eo.json', refs: 'data/refs.json', optionKo: 'data/option_ko.json', sentKo: 'data/sent_ko.json', tts: 'data/tts.json' };
+  const files = { ce: 'data/ce.json', co: 'data/co.json', ee: 'data/ee.json', eo: 'data/eo.json', refs: 'data/refs.json', optionKo: 'data/option_ko.json', sentKo: 'data/sent_ko.json', chunks: 'data/chunks.json', tts: 'data/tts.json' };
   const entries = await Promise.all(Object.entries(files).map(async ([k, path]) => {
     const r = await fetch(path);
     if (!r.ok) throw new Error(path + ' ' + r.status);
