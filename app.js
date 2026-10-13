@@ -266,8 +266,8 @@ function viewHome() {
   });
   h += '</div></section>';
   h += '<section aria-label="모의고사 CO-C 바로 가기"><h3 class="sec-label">새로 들어온 문제</h3>' +
-    '<p class="small dim" style="line-height:1.65;margin-bottom:12px">모의고사 CO-C 세트 1·3·4·5예요. 세트 2는 \'모의고사 CO 2-A\'에 이미 들어 있어요. 세트를 누르면 그 세트의 아직 안 푼 첫 문항으로 바로 가요.</p><div class="stack-sm">';
-  COC_SETS.forEach((s) => {
+    '<p class="small dim" style="line-height:1.65;margin-bottom:12px">모의고사 CO-C 세트 1·3·4·5예요. 세트 2는 \'모의고사 CO 2-A\'의 9~14번이라 바로가기 행으로 따로 넣어 뒀어요. 세트를 누르면 그 세트의 아직 안 푼 첫 문항으로 바로 가요.</p><div class="stack-sm">';
+  COC_SETS.forEach((s, idx) => {
     const p = setProgress(coBySet(s));
     const complete = p.total > 0 && p.done >= p.total;
     h += '<button class="listrow" data-goset="듣기|' + esc(s) + '">' +
@@ -275,12 +275,23 @@ function viewHome() {
       '<span class="main"><span class="t" style="font-weight:600">' + esc(s) + '</span>' +
       '<span class="s">' + p.done + '/' + p.total + ' 완료 · 채점</span></span>' +
       '<span class="chev" aria-hidden="true">›</span></button>';
+    if (idx === 0) {
+      const c2ids = ['CO-M2A-09', 'CO-M2A-10', 'CO-M2A-11', 'CO-M2A-12', 'CO-M2A-13', 'CO-M2A-14'];
+      const c2done = c2ids.filter((id) => isDone(id)).length;
+      const c2complete = c2done >= c2ids.length;
+      const c2target = c2ids.find((id) => !isDone(id)) || c2ids[0];
+      h += '<button class="listrow" data-openitem="' + esc(c2target) + '" data-mod="듣기">' +
+        '<span class="dot' + (c2complete ? ' done' : '') + '">' + (c2complete ? '✓' : '·') + '</span>' +
+        '<span class="main"><span class="t" style="font-weight:600">모의고사 CO-C 세트 2</span>' +
+        '<span class="s">' + c2done + '/6 완료 · 모의고사 CO 2-A의 9~14번이에요</span></span>' +
+        '<span class="chev" aria-hidden="true">›</span></button>';
+    }
   });
   h += '</div></section>';
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 8)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 9)</p>';
   h += '</div>';
   return h;
 }
