@@ -232,7 +232,7 @@ summary{cursor:pointer;font-weight:600;padding:6px 0}
 .opt-row{display:flex;align-items:stretch;gap:8px}
 .opt{
   flex:1;min-width:0;display:flex;align-items:center;gap:8px;
-  min-height:52px;padding:14px;text-align:left;font-size:16px;
+  min-height:52px;padding:14px;text-align:left;font-size:16px;cursor:pointer;
   border:2px solid var(--border);border-radius:var(--radius);
   background:var(--surface);color:var(--text);
 }
@@ -255,6 +255,12 @@ summary{cursor:pointer;font-weight:600;padding:6px 0}
 }
 .trans-toggle.open{border-color:transparent;background:var(--accent-tint);font-weight:600;color:var(--accent)}
 
+/* study text stays selectable: long-press / drag to copy a word and look it up */
+.opt,.opt .txt,.opt-trans,.sent-btn,.sent-ko,.stem,.fr,.fr16{
+  -webkit-user-select:text;user-select:text;
+}
+.sent-btn{cursor:pointer}
+
 /* listening player */
 .player-card{position:sticky;top:8px;z-index:10}
 .player-row{display:flex;align-items:center;gap:12px}
@@ -267,6 +273,13 @@ summary{cursor:pointer;font-weight:600;padding:6px 0}
 .player-status{min-width:0;flex:1}
 .player-status .p-main{font-size:14px;font-weight:600}
 .player-card audio{width:100%;margin-top:12px;display:block}
+.player-tools{margin-top:10px}
+.repeat-btn{
+  display:inline-flex;align-items:center;gap:6px;min-height:36px;border-radius:999px;
+  padding:6px 14px;font-size:13px;font-weight:500;border:1px solid var(--border);
+  background:var(--surface);color:var(--dim);cursor:pointer;
+}
+.repeat-btn.on{border-color:transparent;background:var(--accent);color:#fff;font-weight:700}
 .ok-text{font-size:12px;color:var(--dim);margin-top:8px;display:block}
 .err-text{font-size:12px;font-weight:500;color:var(--red);margin-top:8px}
 

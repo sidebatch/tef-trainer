@@ -18,7 +18,7 @@ let navStack = [];
 let sharedAudio = null;
 let blobCache = new Map();
 let attemptPlays = {}; // per-item plays in the current attempt (before answering)
-let ui = { sentOpen: {}, optKoOpen: {}, transOpen: false, shadowMode: {}, dictInput: {}, dictResult: {}, drillSel: {}, eoIntroSel: {}, posterReveal: {}, flashFace: {}, idiomOpen: {}, sujetFilter: '전체', wordSub: 'core', coVocabSection: 0, calCursor: null, calSel: null };
+let ui = { sentOpen: {}, optKoOpen: {}, repeat: {}, transOpen: false, shadowMode: {}, dictInput: {}, dictResult: {}, drillSel: {}, eoIntroSel: {}, posterReveal: {}, flashFace: {}, idiomOpen: {}, sujetFilter: '전체', wordSub: 'core', coVocabSection: 0, calCursor: null, calSel: null };
 
 function loadState() {
   try {
@@ -190,9 +190,9 @@ function optionsHtml(item, answered) {
         (ko && ko[idx] ? '<button class="trans-toggle' + (ui.optKoOpen[key] ? ' open' : '') + '" data-optko="' + esc(key) + '">해석 ' + (ui.optKoOpen[key] ? '숨기기' : '보기') + '</button>' : '') +
         '</div>';
     }
-    return '<div><div class="opt-row"><button class="' + cls + '" data-answer="' + item.id + '" data-choice="' + idx + '">' +
+    return '<div><div class="opt-row"><div class="' + cls + '" role="button" tabindex="0" data-answer="' + item.id + '" data-choice="' + idx + '">' +
       '<span class="letter">' + String.fromCharCode(65 + idx) + '.</span>' +
-      '<span class="txt fr">' + esc(opt) + '</span></button>' + side + '</div>' +
+      '<span class="txt fr">' + esc(opt) + '</span></div>' + side + '</div>' +
       (showKo ? '<div class="opt-trans"><b>해석 · </b>' + esc(ko[idx]) + '</div>' : '') +
       '</div>';
   }).join('');
@@ -205,8 +205,8 @@ function sentencesHtml(item, pairs, kind) {
     const key = item.id + ':' + kind + ':' + idx;
     const open = !!ui.sentOpen[key];
     const sentCls = kind === 'ce' ? 'sent-doc' : 'sent-script';
-    return '<div><div class="sent-row"><button class="sent-btn' + (open ? ' open' : '') + '" data-sent="' + esc(key) + '">' +
-      '<span class="fr ' + sentCls + '">' + esc(fr) + '</span></button>' + speakBtn(fr) + '</div>' +
+    return '<div><div class="sent-row"><div class="sent-btn' + (open ? ' open' : '') + '" role="button" tabindex="0" data-sent="' + esc(key) + '">' +
+      '<span class="fr ' + sentCls + '">' + esc(fr) + '</span></div>' + speakBtn(fr) + '</div>' +
       (open ? '<p class="sent-ko"><b>해석 · </b>' + esc(ko) + '</p>' : '') + '</div>';
   }).join('');
   return '<div class="sent-list">' + rows + '</div>';
@@ -443,7 +443,9 @@ function playerHtml(item) {
     '<p class="xs dim" data-play-count="' + esc(item.id) + '">재생 횟수 ' + (state.plays[item.id] || 0) + '회</p>';
   if (scoredLimited && !answered) h += '<p class="xs dim">시험 모드: 1회 재생 — 답을 고르기 전에는 한 번만 들을 수 있어요.</p>';
   if (blocked) h += '<p class="xs dim"><b>시험 모드: 1회 재생</b>을 마쳤어요. 답을 고른 뒤에는 복습으로 다시 들을 수 있어요.</p>';
+  const repOn = !!(ui.repeat && ui.repeat[item.id]);
   h += '</div></div>' +
+    '<div class="player-tools"><button class="repeat-btn' + (repOn ? ' on' : '') + '" data-repeat="' + esc(item.id) + '" aria-pressed="' + (repOn ? 'true' : 'false') + '">🔁 반복 듣기 ' + (repOn ? '켜짐' : '꺼짐') + '</button></div>' +
     '<span data-player-msg="' + esc(item.id) + '" class="ok-text"></span>' +
     '<div data-native-slot="' + esc(item.id) + '"></div></div>';
   return h;
@@ -458,6 +460,60 @@ function warmBlob(item) {
     if (blob) blobCache.set(item.audio, URL.createObjectURL(blob));
   }).catch(() => {}).finally(() => { blobPending.delete(item.audio); });
 }
+function ensureAudio(item, slot, msg) {
+  let audio = slot ? slot.querySelector('audio') : null;
+  if (audio) return audio;
+  if (!slot) return null;
+  audio = document.createElement('audio');
+  audio.controls = true; audio.preload = 'auto';
+  // Start inside the tap gesture: a cached Blob URL when ready, otherwise the
+  // file URL streams. Never await a download before play() — mobile browsers
+  // drop the gesture and the first tap goes silent.
+  audio.src = blobCache.get(item.audio) || item.audio;
+  audio.dataset.itemId = item.id;
+  audio.addEventListener('play', () => {
+    if (audio._repeatStart) { // repeat-mode starts are drilling, not exam plays
+      audio._repeatStart = false;
+      audio.dataset.counted = '1';
+      return;
+    }
+    if (audio.dataset.counted === '1') return; // resuming a pause is not a new play
+    audio.dataset.counted = '1';
+    state.plays[item.id] = (state.plays[item.id] || 0) + 1;
+    attemptPlays[item.id] = (attemptPlays[item.id] || 0) + 1;
+    save();
+    // Update only the counter text. Rebuilding the screen here (render) would
+    // remove this audio element and kill the playback that just started.
+    const cnt = document.querySelector('[data-play-count="' + CSS.escape(item.id) + '"]');
+    if (cnt) cnt.textContent = '재생 횟수 ' + state.plays[item.id] + '회';
+    const ans = isDone(item.id);
+    const lim = item.scored !== false && item.answer != null;
+    if (lim && !ans && attemptPlays[item.id] > 1) { audio.pause(); render(); }
+  });
+  audio.addEventListener('ended', () => {
+    audio.dataset.counted = '';
+    if (ui.repeat && ui.repeat[item.id]) { // loop while repeat listening is on
+      audio._repeatStart = true;
+      try { audio.currentTime = 0; } catch (e) {}
+      const rp = audio.play();
+      if (rp && rp.catch) rp.catch(() => {});
+      return;
+    }
+    const ans = isDone(item.id);
+    const lim = item.scored !== false && item.answer != null;
+    if (lim && !ans) render(); // playback is over: swap in the exam-mode lock UI
+  });
+  audio.addEventListener('error', () => {
+    if (msg) msg.textContent = ' 소리를 불러오지 못했어요.';
+    if (slot && !slot.querySelector('[data-retry]')) {
+      const rb = document.createElement('div');
+      rb.innerHTML = '<button class="btn ghost" data-retry="' + esc(item.id) + '">다시 불러오기</button>';
+      slot.appendChild(rb);
+    }
+  });
+  slot.appendChild(audio);
+  return audio;
+}
 function playItemAudio(item, btn) {
   const msg = document.querySelector('[data-player-msg="' + CSS.escape(item.id) + '"]');
   const slot = document.querySelector('[data-native-slot="' + CSS.escape(item.id) + '"]');
@@ -465,45 +521,39 @@ function playItemAudio(item, btn) {
   const scoredLimited = item.scored !== false && item.answer != null;
   if (scoredLimited && !answered && (attemptPlays[item.id] || 0) >= 1) { if (msg) msg.textContent = '시험 모드: 1회 재생을 이미 썼어요.'; return; }
   warmBlob(item);
-  let audio = slot ? slot.querySelector('audio') : null;
-  if (!audio) {
-    audio = document.createElement('audio');
-    audio.controls = true; audio.preload = 'auto';
-    // Start inside the tap gesture: a cached Blob URL when ready, otherwise the
-    // file URL streams. Never await a download before play() — mobile browsers
-    // drop the gesture and the first tap goes silent.
-    audio.src = blobCache.get(item.audio) || item.audio;
-    audio.dataset.itemId = item.id;
-    audio.addEventListener('play', () => {
-      if (audio.dataset.counted === '1') return; // resuming a pause is not a new play
-      audio.dataset.counted = '1';
-      state.plays[item.id] = (state.plays[item.id] || 0) + 1;
-      attemptPlays[item.id] = (attemptPlays[item.id] || 0) + 1;
-      save();
-      // Update only the counter text. Rebuilding the screen here (render) would
-      // remove this audio element and kill the playback that just started.
-      const cnt = document.querySelector('[data-play-count="' + CSS.escape(item.id) + '"]');
-      if (cnt) cnt.textContent = '재생 횟수 ' + state.plays[item.id] + '회';
-      const ans = isDone(item.id);
-      const lim = item.scored !== false && item.answer != null;
-      if (lim && !ans && attemptPlays[item.id] > 1) { audio.pause(); render(); }
-    });
-    audio.addEventListener('ended', () => {
-      audio.dataset.counted = '';
-      const ans = isDone(item.id);
-      const lim = item.scored !== false && item.answer != null;
-      if (lim && !ans) render(); // playback is over: swap in the exam-mode lock UI
-    });
-    audio.addEventListener('error', () => {
-      if (msg) msg.textContent = ' 소리를 불러오지 못했어요.';
-      if (slot && !slot.querySelector('[data-retry]')) {
-        const rb = document.createElement('div');
-        rb.innerHTML = '<button class="btn ghost" data-retry="' + esc(item.id) + '">다시 불러오기</button>';
-        slot.appendChild(rb);
-      }
-    });
-    if (slot) slot.appendChild(audio);
+  const audio = ensureAudio(item, slot, msg);
+  if (!audio) return;
+  if (msg) msg.textContent = '';
+  const p = audio.play();
+  if (p && p.catch) p.catch(() => { if (msg) msg.textContent = ' 재생이 막혔어요. 아래 재생 바의 ▶를 눌러 주세요.'; });
+}
+function toggleRepeat(item) {
+  ui.repeat = ui.repeat || {};
+  const on = !ui.repeat[item.id];
+  ui.repeat[item.id] = on;
+  // Update the toggle in place — never render() while audio may be playing.
+  document.querySelectorAll('[data-repeat="' + CSS.escape(item.id) + '"]').forEach((b) => {
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    b.textContent = '🔁 반복 듣기 ' + (on ? '켜짐' : '꺼짐');
+  });
+  const slot = document.querySelector('[data-native-slot="' + CSS.escape(item.id) + '"]');
+  const msg = document.querySelector('[data-player-msg="' + CSS.escape(item.id) + '"]');
+  if (!on) {
+    // Turning off after the exam play was used: show the lock UI if nothing is playing.
+    const audio = slot ? slot.querySelector('audio') : null;
+    const ans = isDone(item.id);
+    const lim = item.scored !== false && item.answer != null;
+    if (lim && !ans && (attemptPlays[item.id] || 0) >= 1 && (!audio || audio.paused || audio.ended)) render();
+    return;
   }
+  // Turning on restarts the audio from the beginning right away, inside this tap
+  // (same behaviour as the Muse version's repeat button), then loops on 'ended'.
+  warmBlob(item);
+  const audio = ensureAudio(item, slot, msg);
+  if (!audio) return;
+  audio._repeatStart = true;
+  try { audio.currentTime = 0; } catch (e) {}
   if (msg) msg.textContent = '';
   const p = audio.play();
   if (p && p.catch) p.catch(() => { if (msg) msg.textContent = ' 재생이 막혔어요. 아래 재생 바의 ▶를 눌러 주세요.'; });
@@ -879,7 +929,7 @@ document.addEventListener('pointerdown', (ev) => {
   if (b) { const item = findItem(b.dataset.play); if (item) warmBlob(item); }
 });
 document.addEventListener('click', (ev) => {
-  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-optko],[data-sent],[data-addword],[data-play],[data-retry],[data-dict-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday]');
+  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-optko],[data-sent],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday]');
   // bottom nav + back handled separately below
   if (ev.target.closest('.nav-btn')) { setTab(ev.target.closest('.nav-btn').dataset.tab); return; }
   if (ev.target.closest('#backBtn')) { back(); return; }
@@ -903,6 +953,7 @@ document.addEventListener('click', (ev) => {
   if (t.dataset.sent) { ui.sentOpen[t.dataset.sent] = !ui.sentOpen[t.dataset.sent]; render(); return; }
   if (t.dataset.addword) { addMyWord(t.dataset.addword, t.dataset.addwordkr || ''); render(); return; }
   if (t.dataset.play) { const item = findItem(t.dataset.play); if (item) playItemAudio(item, t); return; }
+  if (t.dataset.repeat) { const item = findItem(t.dataset.repeat); if (item) toggleRepeat(item); return; }
   if (t.dataset.retry) { const item = findItem(t.dataset.retry); if (item) { blobCache.delete(item.audio); render(); const b = document.querySelector('[data-play="' + CSS.escape(item.id) + '"]'); if (b) playItemAudio(item, b); } return; }
   if (t.dataset.dictCheck) {
     const key = t.dataset.dictCheck;

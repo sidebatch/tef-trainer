@@ -237,5 +237,18 @@ try {
   ok(appJs.includes('dataset.counted'), 'player: pause/resume does not consume the exam play');
 }
 
+// ---------- repeat listening + text selection (2026-10-13) ----------
+{
+  ok(appJs.includes('data-repeat="'), 'repeat: toggle button rendered in the player');
+  ok(appJs.includes('function toggleRepeat'), 'repeat: toggle handler exists');
+  ok(appJs.includes('ui.repeat'), 'repeat: loop state wired into the ended handler');
+  ok(appJs.includes('_repeatStart'), 'repeat: repeat starts do not consume the exam play');
+  ok(css.includes('user-select:text'), 'selection: study text is selectable (copy to look up)');
+  const optSlice = appJs.slice(appJs.indexOf('function optionsHtml'), appJs.indexOf('function sentencesHtml'));
+  ok(!optSlice.includes("<button class=\"' + cls"), 'selection: options are divs, not buttons (long-press select works)');
+  ok(!appJs.includes('<button class="sent-btn'), 'selection: passage sentences are divs, not buttons');
+  ok(appJs.includes('role="button"'), 'selection: tappable text rows keep button semantics');
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 if (failures.length) { console.log('FAILURES:'); for (const f of failures) console.log('  ✗ ' + f); process.exit(1); }
