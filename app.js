@@ -368,7 +368,7 @@ function playerHtml(item) {
   const scoredLimited = item.scored !== false && item.answer != null;
   const plays = attemptPlays[item.id] || 0;
   const blocked = scoredLimited && !answered && plays >= 1;
-  let h = '<div class="player-box"><div class="row spread"><b>🎧 듣기</b><span class="muted small">재생 횟수 ' + (state.plays[item.id] || 0) + '회</span></div>';
+  let h = '<div class="player-box"><div class="row spread"><b>🎧 듣기</b><span class="muted small" data-play-count="' + esc(item.id) + '">재생 횟수 ' + (state.plays[item.id] || 0) + '회</span></div>';
   if (scoredLimited && !answered) h += '<p class="small" style="margin:6px 0 0">시험 모드: 1회 재생 — 답을 고르기 전에는 한 번만 들을 수 있어요.</p>';
   if (blocked) h += '<p class="small" style="margin:6px 0 0"><b>시험 모드: 1회 재생</b>을 마쳤어요. 답을 고른 뒤에는 복습으로 다시 들을 수 있어요.</p>';
   h += '<button class="btn" data-play="' + esc(item.id) + '"' + (blocked ? ' disabled' : '') + '>▶ 재생</button>' +
@@ -376,46 +376,65 @@ function playerHtml(item) {
     '<div data-native-slot="' + esc(item.id) + '"></div></div>';
   return h;
 }
-async function playItemAudio(item, btn) {
+const blobPending = new Set();
+function warmBlob(item) {
+  // Pre-download the listening file so later plays can start instantly.
+  // Playback itself never waits for this: playItemAudio streams the file URL.
+  if (!item || !item.audio || blobCache.has(item.audio) || blobPending.has(item.audio)) return;
+  blobPending.add(item.audio);
+  fetch(item.audio).then((res) => (res.ok ? res.blob() : null)).then((blob) => {
+    if (blob) blobCache.set(item.audio, URL.createObjectURL(blob));
+  }).catch(() => {}).finally(() => { blobPending.delete(item.audio); });
+}
+function playItemAudio(item, btn) {
   const msg = document.querySelector('[data-player-msg="' + CSS.escape(item.id) + '"]');
   const slot = document.querySelector('[data-native-slot="' + CSS.escape(item.id) + '"]');
   const answered = isDone(item.id);
   const scoredLimited = item.scored !== false && item.answer != null;
   if (scoredLimited && !answered && (attemptPlays[item.id] || 0) >= 1) { if (msg) msg.textContent = '시험 모드: 1회 재생을 이미 썼어요.'; return; }
-  try {
-    let url = blobCache.get(item.audio);
-    if (!url) {
-      if (msg) msg.textContent = ' 불러오는 중…';
-      const res = await fetch(item.audio);
-      if (!res.ok) throw new Error('fetch failed');
-      const blob = await res.blob();
-      url = URL.createObjectURL(blob);
-      blobCache.set(item.audio, url);
-    }
-    let audio = slot ? slot.querySelector('audio') : null;
-    if (!audio) {
-      audio = document.createElement('audio');
-      audio.controls = true; audio.preload = 'auto'; audio.src = url;
-      audio.dataset.itemId = item.id;
-      audio.addEventListener('play', () => {
-        state.plays[item.id] = (state.plays[item.id] || 0) + 1;
-        attemptPlays[item.id] = (attemptPlays[item.id] || 0) + 1;
-        save();
-        const ans = isDone(item.id);
-        const lim = item.scored !== false && item.answer != null;
-        if (lim && !ans && attemptPlays[item.id] > 1) { audio.pause(); }
-        if (lim && !ans) render();
-      });
-      if (slot) slot.appendChild(audio);
-    } else if (audio.src !== url) audio.src = url;
-    if (msg) msg.textContent = '';
-    await audio.play();
-  } catch (e) {
-    if (slot && !slot.querySelector('[data-retry]')) {
-      slot.innerHTML = '<button class="btn ghost" data-retry="' + esc(item.id) + '">다시 불러오기</button>';
-    }
-    if (msg) msg.textContent = ' 소리를 불러오지 못했어요.';
+  warmBlob(item);
+  let audio = slot ? slot.querySelector('audio') : null;
+  if (!audio) {
+    audio = document.createElement('audio');
+    audio.controls = true; audio.preload = 'auto';
+    // Start inside the tap gesture: a cached Blob URL when ready, otherwise the
+    // file URL streams. Never await a download before play() — mobile browsers
+    // drop the gesture and the first tap goes silent.
+    audio.src = blobCache.get(item.audio) || item.audio;
+    audio.dataset.itemId = item.id;
+    audio.addEventListener('play', () => {
+      if (audio.dataset.counted === '1') return; // resuming a pause is not a new play
+      audio.dataset.counted = '1';
+      state.plays[item.id] = (state.plays[item.id] || 0) + 1;
+      attemptPlays[item.id] = (attemptPlays[item.id] || 0) + 1;
+      save();
+      // Update only the counter text. Rebuilding the screen here (render) would
+      // remove this audio element and kill the playback that just started.
+      const cnt = document.querySelector('[data-play-count="' + CSS.escape(item.id) + '"]');
+      if (cnt) cnt.textContent = '재생 횟수 ' + state.plays[item.id] + '회';
+      const ans = isDone(item.id);
+      const lim = item.scored !== false && item.answer != null;
+      if (lim && !ans && attemptPlays[item.id] > 1) { audio.pause(); render(); }
+    });
+    audio.addEventListener('ended', () => {
+      audio.dataset.counted = '';
+      const ans = isDone(item.id);
+      const lim = item.scored !== false && item.answer != null;
+      if (lim && !ans) render(); // playback is over: swap in the exam-mode lock UI
+    });
+    audio.addEventListener('error', () => {
+      if (msg) msg.textContent = ' 소리를 불러오지 못했어요.';
+      if (slot && !slot.querySelector('[data-retry]')) {
+        const rb = document.createElement('div');
+        rb.innerHTML = '<button class="btn ghost" data-retry="' + esc(item.id) + '">다시 불러오기</button>';
+        slot.appendChild(rb);
+      }
+    });
+    if (slot) slot.appendChild(audio);
   }
+  if (msg) msg.textContent = '';
+  const p = audio.play();
+  if (p && p.catch) p.catch(() => { if (msg) msg.textContent = ' 재생이 막혔어요. 아래 재생 바의 ▶를 눌러 주세요.'; });
 }
 function transcriptPairs(item) {
   if (item.stt && item.sentences && item.sentences.length) return item.sentences;
@@ -771,6 +790,10 @@ function openItem(id, mod, nopush) {
   if (mod === '읽기') go('ce', 'ceItem', item, !nopush);
   else go('co', 'coItem', item, !nopush);
 }
+document.addEventListener('pointerdown', (ev) => {
+  const b = ev.target.closest('[data-play]');
+  if (b) { const item = findItem(b.dataset.play); if (item) warmBlob(item); }
+});
 document.addEventListener('click', (ev) => {
   const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-optko],[data-sent],[data-addword],[data-play],[data-retry],[data-dict-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday]');
   // bottom nav + back handled separately below
@@ -796,7 +819,7 @@ document.addEventListener('click', (ev) => {
   if (t.dataset.sent) { ui.sentOpen[t.dataset.sent] = !ui.sentOpen[t.dataset.sent]; render(); return; }
   if (t.dataset.addword) { addMyWord(t.dataset.addword, t.dataset.addwordkr || ''); render(); return; }
   if (t.dataset.play) { const item = findItem(t.dataset.play); if (item) playItemAudio(item, t); return; }
-  if (t.dataset.retry) { const item = findItem(t.dataset.retry); if (item) { blobCache.delete(item.audio); render(); setTimeout(() => { const b = document.querySelector('[data-play="' + CSS.escape(item.id) + '"]'); if (b) playItemAudio(item, b); }, 30); } return; }
+  if (t.dataset.retry) { const item = findItem(t.dataset.retry); if (item) { blobCache.delete(item.audio); render(); const b = document.querySelector('[data-play="' + CSS.escape(item.id) + '"]'); if (b) playItemAudio(item, b); } return; }
   if (t.dataset.dictCheck) {
     const key = t.dataset.dictCheck;
     const input = document.querySelector('[data-dict-input="' + CSS.escape(key) + '"]');

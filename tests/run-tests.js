@@ -223,5 +223,19 @@ try {
   ok(order.score < 1, 'dictation: word order matters');
 })();
 
+// ---------- listening player regression guards (first-tap silence, 2026-10-13) ----------
+{
+  const start = appJs.indexOf('function playItemAudio');
+  const end = appJs.indexOf('function transcriptPairs');
+  const body = appJs.slice(start, end);
+  ok(start >= 0 && end > start, 'player: playItemAudio extractable');
+  ok(!body.includes('await fetch') && !body.includes('await audio.play'), 'player: play() is never awaited after a download (first tap must speak)');
+  ok(!body.includes('if (lim && !ans) render();\n      });'), 'player: play handler does not rebuild the screen mid-playback');
+  ok(appJs.includes("addEventListener('ended'"), 'player: exam-mode lock swaps in only after playback ends');
+  ok(appJs.includes('function warmBlob'), 'player: background pre-download exists');
+  ok(appJs.includes("addEventListener('pointerdown'"), 'player: pre-download starts on pointerdown');
+  ok(appJs.includes('dataset.counted'), 'player: pause/resume does not consume the exam play');
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 if (failures.length) { console.log('FAILURES:'); for (const f of failures) console.log('  ✗ ' + f); process.exit(1); }
