@@ -138,8 +138,9 @@ for (const rel of ['icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touc
 }
 const sw = fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
 ok(sw.includes('fetch'), 'sw has fetch handler');
-ok(indexHtml.includes('app.js?v=5') && indexHtml.includes('styles.css?v=5'), 'shell assets are cache-busted (?v=5) so phones pick up fixes');
-ok(sw.includes("tef-trainer-v5"), 'sw cache bumped to tef-trainer-v5');
+ok(indexHtml.includes('app.js?v=6') && indexHtml.includes('styles.css?v=6'), 'shell assets are cache-busted (?v=6) so phones pick up fixes');
+ok(sw.includes("tef-trainer-v6"), 'sw cache bumped to tef-trainer-v6');
+ok(appJs.includes('isCollapsed'), 'click handler ignores clicks that end a text selection (selection survives mouse-up)');
 ok(!/addAll\(\[[^\]]*assets\/(co|tts)/.test(sw), 'sw does not precache audio');
 
 // ---------- audio encoding: CO files (full check) ----------

@@ -1,8 +1,8 @@
 /* TEF Trainer service worker — NETWORK-FIRST for everything.
    Audio (assets/co, assets/tts) is never precached and never runtime-cached here;
    the app fetches listening audio as Blobs itself. */
-const CACHE = 'tef-trainer-v5';
-const SHELL = ['./', 'index.html', 'styles.css?v=5', 'app.js?v=5', 'manifest.webmanifest'];
+const CACHE = 'tef-trainer-v6';
+const SHELL = ['./', 'index.html', 'styles.css?v=6', 'app.js?v=6', 'manifest.webmanifest'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(

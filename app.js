@@ -267,7 +267,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 5)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 6)</p>';
   h += '</div>';
   return h;
 }
@@ -929,6 +929,11 @@ document.addEventListener('pointerdown', (ev) => {
   if (b) { const item = findItem(b.dataset.play); if (item) warmBlob(item); }
 });
 document.addEventListener('click', (ev) => {
+  // A drag that ends in a text selection is not a tap: acting on it would
+  // rebuild the screen (render) and wipe the selection — and on an answer
+  // row it would even record an answer the learner never meant to pick.
+  const sel = window.getSelection ? window.getSelection() : null;
+  if (sel && !sel.isCollapsed && sel.toString().trim() !== '') return;
   const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-optko],[data-sent],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday]');
   // bottom nav + back handled separately below
   if (ev.target.closest('.nav-btn')) { setTab(ev.target.closest('.nav-btn').dataset.tab); return; }
