@@ -1,0 +1,227 @@
+#!/usr/bin/env node
+/* Sanity tests for TEF Trainer static site. Run: node tests/run-tests.js */
+const fs = require('fs');
+const path = require('path');
+const { execFileSync, spawnSync } = require('child_process');
+
+const ROOT = path.join(__dirname, '..');
+let pass = 0, fail = 0;
+const failures = [];
+function ok(cond, name, extra = '') {
+  if (cond) { pass++; }
+  else { fail++; failures.push(name + (extra ? ' — ' + extra : '')); }
+}
+function loadData(name) {
+  return JSON.parse(fs.readFileSync(path.join(ROOT, 'data', name), 'utf8'));
+}
+const norm = s => (s || '').replace(/\s+/g, ' ').trim();
+
+// ---------- content counts ----------
+const ce = loadData('ce.json'), co = loadData('co.json'), ee = loadData('ee.json'),
+      eo = loadData('eo.json'), refs = loadData('refs.json'),
+      optKo = loadData('option_ko.json'), sentKo = loadData('sent_ko.json'),
+      ttsMap = loadData('tts.json');
+
+ok(ce.items.length === 184, 'CE items = 184', String(ce.items.length));
+ok(ce.strategies.length === 8, 'CE strategies = 8');
+ok(co.items.length === 139, 'CO items = 139', String(co.items.length));
+const scored = co.items.filter(i => i.scored), unscored = co.items.filter(i => !i.scored);
+ok(scored.length === 132, 'CO scored = 132', String(scored.length));
+ok(unscored.length === 7, 'CO unscored = 7', String(unscored.length));
+ok(unscored.every(i => i.set.includes('CO-A 세트 2')), 'unscored are all CO-A 세트 2');
+ok(co.items.filter(i => i.stt).length === 16, 'STT mock-B items = 16');
+const covocabCount = co.vocab.reduce((a, s) => a + s.words.length, 0);
+ok(covocabCount === 184, 'CO vocab = 184', String(covocabCount));
+ok(ee.prep.length === 10, 'EE drills = 10');
+ok(eo.posters.length === 40, 'EO posters = 40');
+ok(refs.idioms.length === 305, 'idioms = 305');
+ok(refs.sujet.length === 137, 'sujet = 137');
+ok(refs.sujet.filter(s => s.type === 'EE').length === 109, 'sujet EE = 109');
+ok(refs.sujet.filter(s => s.type === 'EO').length === 28, 'sujet EO = 28');
+ok(refs.vocabCore.length === 24, 'vocab core = 24');
+
+// ---------- asset references exist ----------
+let missingAssets = [];
+function checkAsset(p) { if (p && !fs.existsSync(path.join(ROOT, p))) missingAssets.push(p); }
+for (const it of co.items) { checkAsset(it.audio); checkAsset(it.image); }
+for (const p of eo.posters) checkAsset(p.image);
+ok(missingAssets.length === 0, 'all referenced audio/image assets exist', missingAssets.slice(0, 5).join(', '));
+const coAudioFiles = new Set();
+for (const it of co.items) if (it.audio) coAudioFiles.add(it.audio);
+ok(coAudioFiles.size === 97, 'distinct CO audio files = 97', String(coAudioFiles.size));
+
+// ---------- answer validity ----------
+let badAnswers = [];
+for (const it of [...ce.items, ...co.items]) {
+  if (it.scored === false) { if (it.answer !== null) badAnswers.push(it.id + ':unscored-with-answer'); continue; }
+  if (!Number.isInteger(it.answer) || it.answer < 0 || it.answer >= it.options.length) badAnswers.push(it.id);
+}
+ok(badAnswers.length === 0, 'every scored item has a valid answer index', badAnswers.slice(0, 5).join(', '));
+
+// ---------- sentence pairs ----------
+let sentProblems = [];
+for (const it of ce.items) {
+  const pairs = sentKo[it.id];
+  if (!pairs || !pairs.length) { sentProblems.push(it.id + ':no-pairs'); continue; }
+  const txt = norm(it.doc);
+  for (const [fr] of pairs) if (!txt.includes(norm(fr).slice(0, 25))) { sentProblems.push(it.id + ':misaligned'); break; }
+}
+for (const it of scored) {
+  if (it.stt) {
+    if (!it.sentences || !it.sentences.length) sentProblems.push(it.id + ':stt-no-sentences');
+    continue;
+  }
+  const pairs = sentKo[it.id];
+  if (!pairs || !pairs.length) { sentProblems.push(it.id + ':no-pairs'); continue; }
+  const txt = norm(it.transcript);
+  for (const [fr] of pairs) if (!txt.includes(norm(fr).slice(0, 25))) { sentProblems.push(it.id + ':misaligned'); break; }
+}
+ok(sentProblems.length === 0, 'every transcript item has aligned sentence pairs', sentProblems.slice(0, 5).join(', '));
+
+// ---------- option translations ----------
+let optProblems = [];
+for (const it of [...ce.items, ...scored]) {
+  if (it.options.some(o => o.includes('Dessin'))) continue;
+  const e = optKo[it.id];
+  if (!e) optProblems.push(it.id + ':missing');
+  else if (e.length !== it.options.length) optProblems.push(it.id + ':length');
+}
+ok(optProblems.length === 0, 'option_ko covers all text-option items', optProblems.slice(0, 5).join(', '));
+
+// ---------- TTS wiring ----------
+const ttsEntries = Object.keys(ttsMap).length;
+ok(ttsEntries >= 2600 && ttsEntries <= 3100, 'TTS manifest entries ≈ 2,750', String(ttsEntries));
+let ttsMissing = [];
+for (const [t, f] of Object.entries(ttsMap)) {
+  if (!fs.existsSync(path.join(ROOT, 'assets/tts', f))) ttsMissing.push(f);
+}
+ok(ttsMissing.length === 0, 'every TTS file in manifest exists', ttsMissing.slice(0, 5).join(', '));
+const ttsDirCount = fs.readdirSync(path.join(ROOT, 'assets/tts')).filter(f => f.endsWith('.mp3')).length;
+ok(ttsDirCount === ttsEntries, 'assets/tts file count matches manifest', `${ttsDirCount} vs ${ttsEntries}`);
+// every mock-B (dictation) sentence resolves to a TTS file (exact or normalized)
+const ttsNorm = {};
+for (const k of Object.keys(ttsMap)) ttsNorm[norm(k)] = true;
+let dictMiss = [];
+for (const it of co.items.filter(i => i.stt)) for (const s of it.sentences) {
+  if (!(s.fr in ttsMap) && !ttsNorm[norm(s.fr)]) dictMiss.push(it.id);
+}
+ok(dictMiss.length === 0, 'all mock-B dictation sentences have TTS audio', dictMiss.slice(0, 5).join(', '));
+
+// ---------- UI rules ----------
+const appJs = fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8');
+const indexHtml = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+const css = fs.readFileSync(path.join(ROOT, 'styles.css'), 'utf8');
+for (const [name, src] of [['app.js', appJs], ['index.html', indexHtml], ['styles.css', css]]) {
+  ok(!src.includes('앎'), `${name} contains no '앎'`);
+  ok(!src.includes('모름'), `${name} contains no '모름'`);
+}
+for (const label of ['아직 낯설어요', '헷갈려요', '이제 익숙해요']) {
+  ok(appJs.includes(label), `word-state label present: ${label}`);
+}
+ok(appJs.includes('tef-trainer-v1'), 'localStorage key tef-trainer-v1 used');
+ok(appJs.includes('맞았어요') && appJs.includes('여기서 갈렸어요'), 'grading feedback wording present');
+ok(appJs.includes('근거 자료 없음'), 'unscored badge wording present');
+ok(appJs.includes('다시 불러오기'), 'audio reload affordance present');
+// set-list UX: per-item status badges, just-solved marker, next-item marker, auto-scroll
+for (const s of ['방금 푼 문항', '다음 문항', '>맞음<', '>틀림<', '>안 풂<', 'scrollIntoView', 'data-rowitem', 'lastItem']) {
+  ok(appJs.includes(s), 'set-list UX marker present: ' + s);
+}
+ok(css.includes('.set-row.just-done') && css.includes('.set-row.next-up'), 'set-list highlight styles present');
+ok(indexHtml.includes('manifest.webmanifest'), 'index links manifest');
+ok(indexHtml.includes('serviceWorker'), 'index registers service worker');
+
+// ---------- PWA ----------
+const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'manifest.webmanifest'), 'utf8'));
+ok(!!manifest.name && !!manifest.icons && manifest.icons.length >= 3, 'webmanifest has name + icons');
+for (const rel of ['icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png']) {
+  ok(fs.existsSync(path.join(ROOT, rel)), 'icon exists: ' + rel);
+}
+const sw = fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
+ok(sw.includes('fetch'), 'sw has fetch handler');
+ok(!/addAll\(\[[^\]]*assets\/(co|tts)/.test(sw), 'sw does not precache audio');
+
+// ---------- audio encoding: CO files (full check) ----------
+function probe(file) {
+  const out = execFileSync('ffprobe', ['-v', 'quiet', '-print_format', 'json',
+    '-show_streams', '-show_format', file], { encoding: 'utf8' });
+  return JSON.parse(out);
+}
+let encProblems = [];
+for (const rel of coAudioFiles) {
+  const abs = path.join(ROOT, rel);
+  const head = fs.readFileSync(abs).subarray(0, 3);
+  if (head[0] !== 0xff || (head[1] & 0xe0) !== 0xe0) { encProblems.push(rel + ':not-mpeg-start'); continue; }
+  if (head.toString('latin1').startsWith('ID3')) { encProblems.push(rel + ':id3'); continue; }
+  const p = probe(abs);
+  const st = p.streams[0];
+  if (st.codec_name !== 'mp3') encProblems.push(rel + ':codec=' + st.codec_name);
+  else if (st.sample_rate !== '44100') encProblems.push(rel + ':sr=' + st.sample_rate);
+  else if (st.channels !== 2) encProblems.push(rel + ':ch=' + st.channels);
+  else if (Math.abs(parseInt(p.format.bit_rate) / 1000 - 128) > 8) encProblems.push(rel + ':br=' + p.format.bit_rate);
+}
+ok(encProblems.length === 0, 'all 97 CO MP3s are standard MP3 (CBR128/44.1k/stereo/no ID3)', encProblems.slice(0, 5).join(', '));
+
+// ---------- audio loudness: TTS sample ----------
+function loudness(abs) {
+  const r = spawnSync('ffmpeg', ['-i', abs, '-af',
+    'loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json', '-f', 'null', '-'],
+    { encoding: 'utf8' });
+  const m = (r.stderr || '').match(/"input_i"\s*:\s*"(-?[\d.]+)"/);
+  return m ? parseFloat(m[1]) : null;
+}
+try {
+  const all = Object.values(ttsMap);
+  const sample = [];
+  for (let i = 0; i < all.length; i += Math.floor(all.length / 12)) sample.push(all[i]);
+  let loudBad = [];
+  for (const f of sample.slice(0, 12)) {
+    const v = loudness(path.join(ROOT, 'assets/tts', f));
+    if (v === null || v < -19.5 || v > -12.5) loudBad.push(`${f}:${v}`);
+  }
+  ok(loudBad.length === 0, 'TTS sample loudness ≈ -16 LUFS', loudBad.join(', '));
+} catch (e) {
+  ok(false, 'TTS loudness sampling ran', String(e).slice(0, 120));
+}
+
+// ---------- dictation grading: punctuation must not matter ----------
+(function dictationTests() {
+  const src = appJs;
+  const grab = (name) => {
+    const m = src.match(new RegExp('function ' + name + '\\b[\\s\\S]*?\\n}'));
+    return m ? m[0] : '';
+  };
+  const code = ['normWs', 'tokenize', 'normWord', 'normTokens', 'wordDiff'].map(grab).join('\n');
+  ok(code.includes('function wordDiff'), 'dictation helpers extractable from app.js');
+  let wordDiff;
+  try {
+    wordDiff = new Function(code + '\nreturn wordDiff;')();
+  } catch (e) {
+    ok(false, 'dictation helpers evaluate', String(e).slice(0, 100));
+    return;
+  }
+  const full = (ref, input) => {
+    const d = wordDiff(ref, input);
+    return d.score === 1 && !d.out.some(o => o.type !== 'ok');
+  };
+  ok(full('Merci de votre compréhension.', 'Merci de votre compréhension'),
+    'dictation: trailing period ignored = full marks');
+  ok(full('Nous vous remercions de votre compréhension et vous prions de bien vouloir consulter les horaires.',
+          'Nous vous remercions de votre compréhension, et vous prions de bien vouloir consulter les horaires'),
+    'dictation: comma difference ignored = full marks');
+  ok(full('Faites vite avant la fin des soldes !', 'Faites vite avant la fin des soldes'),
+    'dictation: spaced French exclamation ignored = full marks');
+  ok(full('« Travailleurs qualifiés ? » Dans quelle province immigrer ?',
+          'Travailleurs qualifiés Dans quelle province immigrer'),
+    'dictation: guillemets + spaced question marks ignored = full marks');
+  ok(full('Bonjour, Madame; merci… à bientôt!', 'bonjour madame merci à bientôt'),
+    'dictation: mixed punctuation ; … ! ignored, case ignored = full marks');
+  const accent = wordDiff("L'élève est arrivé.", 'Leleve est arrive');
+  ok(accent.score < 1, 'dictation: accents still matter (élève ≠ eleve)');
+  const wrong = wordDiff('Le train partira voie 5.', 'Le train partira voie 9');
+  ok(wrong.score < 1 && wrong.out.some(o => o.type === 'miss'), 'dictation: wrong word still caught');
+  const order = wordDiff('les enfants ne doivent pas approcher les animaux', 'les animaux ne doivent pas approcher les enfants');
+  ok(order.score < 1, 'dictation: word order matters');
+})();
+
+console.log(`\n${pass} passed, ${fail} failed`);
+if (failures.length) { console.log('FAILURES:'); for (const f of failures) console.log('  ✗ ' + f); process.exit(1); }
