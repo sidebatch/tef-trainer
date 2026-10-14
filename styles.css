@@ -162,7 +162,6 @@ img.doc-img,img.poster{max-width:100%;border-radius:12px;border:1px solid var(--
   background:var(--accent-text);color:var(--accent-strong);
   font-size:16px;font-weight:700;box-shadow:0 2px 10px rgb(0 0 0 / .22);
 }
-@media (prefers-color-scheme: dark){.hero .cta{color:#14161a}}
 
 /* ---------- list rows (세트 · 바로가기 · 문항) ---------- */
 .listrow,.set-row{
