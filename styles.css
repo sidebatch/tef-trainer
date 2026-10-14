@@ -288,7 +288,8 @@ summary{cursor:pointer;font-weight:600;padding:6px 0}
   display:flex;align-items:center;gap:8px;flex-wrap:wrap;
   padding:9px 4px;border-bottom:1px dashed var(--border);
 }
-.wordrow .frw{font-family:Georgia,"Times New Roman",serif;font-size:17px;font-weight:600}
+.wordrow .frw{font-family:Georgia,"Times New Roman",serif;font-size:17px;font-weight:600;min-width:0;overflow-wrap:break-word}
+.wordrow .krw{flex:1 1 140px;min-width:110px;word-break:keep-all}
 .word-chips{display:flex;flex-wrap:wrap;gap:8px}
 .list-row{padding:12px 6px;border-bottom:1px solid var(--border)}
 
@@ -358,7 +359,7 @@ textarea[data-dict-input],textarea[data-retype]{
 .grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
 @media (max-width:420px){.grid5{grid-template-columns:repeat(3,1fr)}}
 
-/* CE review: chunk-aligned translation (직독직해) + blank-word typing */
+/* CE review: chunk-aligned translation (직독직해) + sentence typing */
 .chunk-wrap{margin-top:6px}
 .chunk-sent{margin:0 0 12px;line-height:1.5}
 .chunk-unit{display:inline-block;vertical-align:top;margin:0 8px 8px 0;max-width:100%}

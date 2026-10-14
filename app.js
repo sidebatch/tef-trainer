@@ -19,7 +19,7 @@ let navStack = [];
 let sharedAudio = null;
 let blobCache = new Map();
 let attemptPlays = {}; // per-item plays in the current attempt (before answering)
-let ui = { sentOpen: {}, optKoOpen: {}, repeat: {}, transOpen: false, shadowMode: {}, dictInput: {}, dictResult: {}, blankInput: {}, blankResult: {}, drillSel: {}, eoIntroSel: {}, posterReveal: {}, flashFace: {}, idiomOpen: {}, sujetFilter: '전체', wordSub: 'core', coVocabSection: 0, calCursor: null, calSel: null };
+let ui = { sentOpen: {}, optKoOpen: {}, repeat: {}, transOpen: false, shadowMode: {}, dictInput: {}, dictResult: {}, sentInput: {}, sentResult: {}, drillSel: {}, eoIntroSel: {}, posterReveal: {}, flashFace: {}, idiomOpen: {}, sujetFilter: '전체', wordSub: 'core', coVocabSection: 0, calCursor: null, calSel: null };
 
 function loadState() {
   try {
@@ -168,7 +168,7 @@ function wordRows(words, keyPrefix) {
     const fr = w[0], kr = w[1];
     const inMine = state.myWords.some((m) => m.fr === fr);
     return '<div class="wordrow"><span class="frw">' + esc(fr) + '</span>' + speakBtn(fr) +
-      '<span class="muted" style="flex:1">' + esc(kr) + '</span>' +
+      '<span class="muted krw">' + esc(kr) + '</span>' +
       '<button class="btn ghost small" data-addword="' + esc(fr) + '" data-addwordkr="' + esc(kr) + '">' + (inMine ? '내 단어에 있음 ✓' : '내 단어에 추가') + '</button></div>';
   }).join('');
 }
@@ -416,16 +416,18 @@ function viewCeItem(item) {
     h += '<details><summary>문서 전체 해석</summary><p>' + esc(item.trans || '') + '</p></details>';
     h += chunksHtml(item);
     if (item.words && item.words.length) h += '<div><h4 class="sub-title">이 문항의 단어</h4>' + wordRows(item.words) + '</div>';
-    h += blankTypingHtml(item);
+    h += sentTypeHtml(item);
     h += navItemHtml('읽기', item);
   }
   h += '</div>';
   return h;
 }
-/* ----- CE review extras: chunk-aligned translation (직독직해) + blank-word typing -----
+/* ----- CE review extras: chunk-aligned translation (직독직해) + sentence typing -----
    Both render ONLY in the answered/review state (called from viewCeItem's answered block).
    Chunk data: data/chunks.json, keyed by item id → sentences → [frChunk, koChunk] pairs.
-   Items without chunk data simply skip the section. */
+   Items without chunk data simply skip both sections. Sentence typing shows the
+   Korean meaning (from sent_ko) and has the user type the whole French sentence;
+   cloze sentences are typed with the correct answer word filled in. */
 function chunksHtml(item) {
   const sents = (DATA.chunks || {})[item.id];
   if (!sents || !sents.length) return '';
@@ -461,34 +463,88 @@ function blankHint(item) {
   const letters = ans.replace(/^l'/i, '');
   return { type: '첫 글자', text: letters.slice(0, 2) + '… (' + letters.length + '글자)' };
 }
-function judgeBlank(item, input) {
-  // Same spirit as the CO dictation check: an exact tier, then a forgiving tier.
-  const ans = item.options[item.answer] || '';
-  const t = String(input || '').trim().replace(/\s+/g, ' ');
-  if (!t) return null;
-  if (t === ans) return { level: 'ok', ans };
-  const loose = (s) => stripFrAccents(s).replace(/[.,;:!?…'"'’‘“”«»()-]/g, ' ').replace(/[\s-]+/g, ' ').trim();
-  if (loose(t) === loose(ans)) return { level: 'almost', ans };
-  return { level: 'no', ans };
+/* ----- sentence typing: loose word diff (accents/case/punctuation-insensitive) -----
+   Same LCS alignment shape as the CO dictation wordDiff, but the comparison
+   tokens also strip accents, so a missing accent never marks a word wrong here
+   (the learner is practising recall of the sentence, not spelling drills). */
+function looseNormWord(w) {
+  return stripFrAccents(w).replace(/[.,;:!?…·«»"'’‘“”\-—()]/g, '');
 }
-function blankTypingHtml(item) {
-  if (!item.doc || !item.doc.includes('______')) return '';
-  const key = item.id + ':blank';
-  const pairs = (DATA.sentKo || {})[item.id] || [];
-  const cloze = (pairs.map((p) => p[0]).find((s) => s.includes('______')) || item.doc).replace(/\s*\n\s*/g, ' ');
-  const hint = blankHint(item);
-  const res = ui.blankResult[key];
-  let h = '<div class="card"><h4 class="sub-title">빈칸 타이핑</h4>' +
-    '<p class="fr16" style="line-height:1.7;margin:6px 0">' + esc(cloze) + '</p>' +
-    '<p class="small muted" style="margin:4px 0 10px">힌트 — ' + esc(hint.type) + ': ' + esc(hint.text) + '</p>' +
-    '<div class="row" style="gap:8px"><input type="text" data-blank-input="' + esc(key) + '" placeholder="빈칸에 들어갈 단어를 써 보세요" value="' + esc(ui.blankInput[key] || '') + '" autocomplete="off" autocapitalize="off" spellcheck="false">' +
-    '<button class="btn small" data-blank-check="' + esc(key) + '">확인</button></div>';
-  if (res) {
-    if (res.level === 'ok') h += '<p class="banner ok" style="margin-top:10px">정답이에요 ✓</p>';
-    else if (res.level === 'almost') h += '<p class="note-box" style="margin-top:10px">거의 맞음 — 바른 철자는 <b>' + esc(res.ans) + '</b>예요.</p>';
-    else h += '<p class="banner no" style="margin-top:10px">틀림 — 정답은 <b>' + esc(res.ans) + '</b>예요. 다시 써 보세요.</p>';
+function looseNormTokens(s) {
+  return tokenize(s)
+    .map((w) => ({ orig: w, norm: looseNormWord(w) }))
+    .filter((p) => p.norm.length > 0);
+}
+function wordDiffLoose(target, attempt) {
+  const Tp = looseNormTokens(target), Ap = looseNormTokens(attempt);
+  const T = Tp.map((p) => p.orig), A = Ap.map((p) => p.orig);
+  const t = Tp.map((p) => p.norm), a = Ap.map((p) => p.norm);
+  const n = t.length, m = a.length;
+  const dp = Array.from({ length: n + 1 }, () => new Array(m + 1).fill(0));
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--) dp[i][j] = t[i] === a[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+  const out = []; let i = 0, j = 0;
+  while (i < n && j < m) {
+    if (t[i] === a[j]) { out.push({ type: 'ok', w: T[i] }); i++; j++; }
+    else if (dp[i + 1][j] >= dp[i][j + 1]) { out.push({ type: 'miss', w: T[i] }); i++; }
+    else { out.push({ type: 'extra', w: A[j] }); j++; }
   }
-  return h + '</div>';
+  while (i < n) { out.push({ type: 'miss', w: T[i] }); i++; }
+  while (j < m) { out.push({ type: 'extra', w: A[j] }); j++; }
+  const correct = out.filter((o) => o.type === 'ok').length;
+  return { out, score: n ? correct / n : 0 };
+}
+function judgeSentence(target, input) {
+  const t = String(input || '').trim();
+  if (!t) return null;
+  const diff = wordDiffLoose(target, t);
+  const diffCount = diff.out.filter((o) => o.type !== 'ok').length;
+  let level = 'no';
+  if (diffCount === 0) level = 'ok';
+  else if (diff.score >= 0.7) level = 'almost';
+  return { level, diffCount, diff };
+}
+/* Per-sentence typing targets for a CE item: French target + Korean prompt.
+   Cloze sentences (with ______) are typed with the answer word filled in, and
+   the Korean prompt — which leaves the blank untranslated — gets the answer
+   word's meaning appended in parentheses. The French answer never appears in
+   the prompt. */
+function sentenceTargets(item) {
+  const pairs = (DATA.sentKo || {})[item.id] || (item.doc ? [[item.doc, item.trans || '']] : []);
+  const ans = item.options ? (item.options[item.answer] || '') : '';
+  return pairs.map((p) => {
+    let fr = normWs(p[0]);
+    let ko = p[1] || '';
+    let cloze = false;
+    if (fr.includes('______')) {
+      cloze = true;
+      fr = fr.replace(/______/g, ans);
+      const hint = blankHint(item);
+      ko += hint.type === '뜻' ? ' (빈칸 뜻: ' + hint.text + ')' : ' (빈칸 힌트: ' + hint.text + ')';
+    }
+    return { fr, ko, cloze };
+  });
+}
+function sentTypeHtml(item) {
+  if (!(DATA.chunks || {})[item.id]) return '';
+  const targets = sentenceTargets(item);
+  if (!targets.length) return '';
+  let h = '<details><summary>문장 타이핑</summary>';
+  targets.forEach((t, idx) => {
+    const key = item.id + ':stype:' + idx;
+    const res = ui.sentResult[key];
+    h += '<div class="dict-box" style="margin:12px 0"><div class="row"><b>문장 ' + (idx + 1) + '</b></div>' +
+      '<p class="small" style="line-height:1.7;margin:6px 0 8px">' + esc(t.ko) + '</p>' +
+      '<textarea rows="2" data-stype-input="' + esc(key) + '" placeholder="프랑스어로 써 보세요">' + esc(ui.sentInput[key] || '') + '</textarea>' +
+      '<button class="btn small" data-stype-check="' + esc(key) + '" data-target="' + esc(t.fr) + '">확인</button>';
+    if (res) {
+      h += '<p class="fr16" style="margin-top:8px">' + renderDiff(res.diff) + '</p>';
+      if (res.level === 'ok') h += '<p class="banner ok" style="margin-top:8px">전부 맞음 ✓</p>';
+      else if (res.level === 'almost') h += '<p class="note-box" style="margin-top:8px">거의 맞음 — ' + res.diffCount + '개 단어 차이가 있어요. 표시된 부분을 고쳐 보세요.</p>';
+      else h += '<p class="banner no" style="margin-top:8px">다시 보기 — 표시된 단어를 확인하고 한 번 더 써 보세요.</p>';
+    }
+    h += '</div>';
+  });
+  return h + '</details>';
 }
 function feedbackHtml(item, a) {
   if (!a) return '';
@@ -943,7 +999,7 @@ function myWordsView() {
   if (!state.myWords.length) return '<div class="card"><p class="muted">아직 저장한 단어가 없어요. 문항을 풀고 “내 단어에 추가”를 눌러 보세요. 낯선 단어를 표시하면 여기에 함께 모여요.</p></div>';
   let h = '<div class="card">';
   state.myWords.forEach((w) => {
-    h += '<div class="wordrow"><span class="frw">' + esc(w.fr) + '</span>' + speakBtn(w.fr) + '<span class="muted" style="flex:1">' + esc(w.kr || '') + '</span></div>' + stateBtns(w.fr);
+    h += '<div class="wordrow"><span class="frw">' + esc(w.fr) + '</span>' + speakBtn(w.fr) + '<span class="muted krw">' + esc(w.kr || '') + '</span></div>' + stateBtns(w.fr);
   });
   h += '</div>';
   // also surface words marked with the first state anywhere
@@ -1028,7 +1084,7 @@ document.addEventListener('click', (ev) => {
   // row it would even record an answer the learner never meant to pick.
   const sel = window.getSelection ? window.getSelection() : null;
   if (sel && !sel.isCollapsed && sel.toString().trim() !== '') return;
-  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-optko],[data-sent],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-blank-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday]');
+  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-optko],[data-sent],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-stype-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday]');
   // bottom nav + back handled separately below
   if (ev.target.closest('.nav-btn')) { setTab(ev.target.closest('.nav-btn').dataset.tab); return; }
   if (ev.target.closest('#backBtn')) { back(); return; }
@@ -1061,13 +1117,11 @@ document.addEventListener('click', (ev) => {
     ui.dictResult[key] = wordDiff(t.dataset.target, ui.dictInput[key]);
     render(); return;
   }
-  if (t.dataset.blankCheck) {
-    const key = t.dataset.blankCheck;
-    const item = findItem(key.split(':')[0]);
-    if (!item) return;
-    const input = document.querySelector('[data-blank-input="' + CSS.escape(key) + '"]');
-    ui.blankInput[key] = input ? input.value : '';
-    ui.blankResult[key] = judgeBlank(item, ui.blankInput[key]);
+  if (t.dataset.stypeCheck) {
+    const key = t.dataset.stypeCheck;
+    const input = document.querySelector('[data-stype-input="' + CSS.escape(key) + '"]');
+    ui.sentInput[key] = input ? input.value : '';
+    ui.sentResult[key] = judgeSentence(t.dataset.target, ui.sentInput[key]);
     render(); return;
   }
   if (t.dataset.shadow) { const [key, mode] = t.dataset.shadow.split('|'); ui.shadowMode[key] = mode; render(); return; }

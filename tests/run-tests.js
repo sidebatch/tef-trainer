@@ -138,8 +138,8 @@ for (const rel of ['icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touc
 }
 const sw = fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
 ok(sw.includes('fetch'), 'sw has fetch handler');
-ok(indexHtml.includes('app.js?v=10') && indexHtml.includes('styles.css?v=10'), 'shell assets are cache-busted (?v=10) so phones pick up fixes');
-ok(sw.includes("tef-trainer-v10"), 'sw cache bumped to tef-trainer-v10');
+ok(indexHtml.includes('app.js?v=11') && indexHtml.includes('styles.css?v=11'), 'shell assets are cache-busted (?v=11) so phones pick up fixes');
+ok(sw.includes("tef-trainer-v11"), 'sw cache bumped to tef-trainer-v11');
 ok(appJs.includes('isCollapsed'), 'click handler ignores clicks that end a text selection (selection survives mouse-up)');
 ok(!/addAll\(\[[^\]]*assets\/(co|tts)/.test(sw), 'sw does not precache audio');
 
@@ -172,45 +172,87 @@ for (const it of cecItems) {
 ok(chunkProblems.length === 0, 'chunks: non-empty pairs, joins reproduce sent_ko sentences, one ______ chunk per cloze sentence',
   chunkProblems.slice(0, 5).join(', '));
 
-// ---------- CE-C pilot: blank-word typing ----------
+// ---------- CE-C pilot: sentence typing (replaces blank-word typing) ----------
 ok(appJs.includes('문장 뜯어보기 — 직독직해'), 'chunk section title present');
-ok(appJs.includes('빈칸 타이핑'), 'blank typing block present');
-ok(appJs.includes('data-blank-check'), 'blank typing check handler wired');
+ok(appJs.includes('문장 타이핑'), 'sentence typing section present');
+ok(appJs.includes('data-stype-check'), 'sentence typing check handler wired');
+ok(!appJs.includes('빈칸 타이핑') && !appJs.includes('data-blank-check') && !appJs.includes('judgeBlank'),
+  'blank-word typing fully removed (card, handler, judge)');
 ok(appJs.includes("chunks: 'data/chunks.json'"), 'chunks.json loaded at boot');
-(function blankTests() {
+(function sentenceTypingTests() {
   const grab = (name) => {
     const m = appJs.match(new RegExp('function ' + name + '\\b[\\s\\S]*?\\n}'));
     return m ? m[0] : '';
   };
-  const code = ['stripFrAccents', 'frLemma', 'blankHint', 'judgeBlank'].map(grab).join('\n');
-  ok(code.includes('function judgeBlank'), 'blank helpers extractable from app.js');
-  let blankHint, judgeBlank;
+  const names = ['normWs', 'tokenize', 'stripFrAccents', 'frLemma', 'blankHint',
+    'looseNormWord', 'looseNormTokens', 'wordDiffLoose', 'judgeSentence', 'sentenceTargets'];
+  const code = names.map(grab).join('\n');
+  ok(code.includes('function judgeSentence') && code.includes('function sentenceTargets'),
+    'sentence typing helpers extractable from app.js');
+  let blankHint, judgeSentence, sentenceTargets;
   try {
-    ({ blankHint, judgeBlank } = new Function(code + '\nreturn { blankHint, judgeBlank };')());
+    ({ blankHint, judgeSentence, sentenceTargets } = new Function('DATA', code +
+      '\nreturn { blankHint, judgeSentence, sentenceTargets };')({ sentKo }));
   } catch (e) {
-    ok(false, 'blank helpers evaluate', String(e).slice(0, 100));
+    ok(false, 'sentence typing helpers evaluate', String(e).slice(0, 120));
     return;
   }
   const byId = id => ce.items.find(i => i.id === id);
+  // hint derivation is still used for the cloze-sentence Korean prompt
   let meaningHints = 0, leaks = [];
   for (const it of cecItems) {
     const h = blankHint(it);
     if (h.type === '뜻') meaningHints++;
     if (!h.text || h.text === it.options[it.answer]) leaks.push(it.id);
   }
-  ok(meaningHints >= 38, 'blank hint: Korean meaning derived for most CE-C items', String(meaningHints) + '/43');
-  ok(leaks.length === 0, 'blank hint never prints the full answer word', leaks.join(','));
-  const mc06 = byId('MC-06');
-  ok(blankHint(mc06).text === '감염된', 'blank hint: contaminées → 감염된');
-  ok(judgeBlank(mc06, 'contaminées').level === 'ok', 'blank judge: exact = 정답');
-  ok(judgeBlank(mc06, '  contaminées ').level === 'ok', 'blank judge: trim-only difference = 정답');
-  ok(judgeBlank(mc06, 'Contaminées').level === 'almost', 'blank judge: case difference = 거의 맞음');
-  ok(judgeBlank(mc06, 'contaminees').level === 'almost', 'blank judge: missing accents = 거의 맞음');
-  ok(judgeBlank(mc06, 'contaminé').level === 'no', 'blank judge: different word form = 틀림');
-  ok(judgeBlank(mc06, '') === null, 'blank judge: empty input = no verdict');
-  const mc08 = byId('MC-08');
-  ok(judgeBlank(mc08, 'savoir faire').level === 'almost', 'blank judge: hyphen typed as space = 거의 맞음');
+  ok(meaningHints >= 38, 'cloze prompt hint: Korean meaning derived for most CE-C items', String(meaningHints) + '/43');
+  ok(leaks.length === 0, 'cloze prompt hint never prints the full answer word', leaks.join(','));
+  ok(blankHint(byId('MC-06')).text === '감염된', 'cloze prompt hint: contaminées → 감염된');
+  // target construction: every CE-C item yields one target per sent_ko sentence,
+  // no target still contains a blank, and the cloze target is the filled sentence
+  let targetProblems = [];
+  for (const it of cecItems) {
+    const targets = sentenceTargets(it);
+    if (targets.length !== sentKo[it.id].length) { targetProblems.push(it.id + ':count'); continue; }
+    const ans = it.options[it.answer];
+    targets.forEach((t, si) => {
+      if (t.fr.includes('______')) targetProblems.push(it.id + ':unfilled:S' + si);
+      if (sentKo[it.id][si][0].includes('______')) {
+        if (!t.cloze) targetProblems.push(it.id + ':not-cloze:S' + si);
+        if (!t.fr.includes(ans)) targetProblems.push(it.id + ':answer-not-filled:S' + si);
+        if (t.ko.includes(ans)) targetProblems.push(it.id + ':answer-leaks-in-prompt:S' + si);
+        if (!t.ko.includes('빈칸')) targetProblems.push(it.id + ':no-hint:S' + si);
+      }
+    });
+  }
+  ok(targetProblems.length === 0, 'sentence targets: cloze filled with answer word, prompt never leaks it',
+    targetProblems.slice(0, 5).join(', '));
+  const mc06targets = sentenceTargets(byId('MC-06'));
+  const mc06cloze = mc06targets.find(t => t.cloze);
+  ok(!!mc06cloze && mc06cloze.fr === 'En France, 50 000 personnes sont contaminées chaque année.',
+    'MC-06 cloze target = filled sentence', mc06cloze ? mc06cloze.fr : 'none');
+  ok(!!mc06cloze && mc06cloze.ko.endsWith('(빈칸 뜻: 감염된)'),
+    'MC-06 cloze prompt appends the meaning hint', mc06cloze ? mc06cloze.ko : 'none');
+  // judging: loose normalization (accents/case/punctuation do not matter)
+  const ref = 'En France, 50 000 personnes sont contaminées chaque année.';
+  ok(judgeSentence(ref, ref).level === 'ok', 'sentence judge: exact = 전부 맞음');
+  ok(judgeSentence(ref, 'en france 50 000 personnes sont contaminees chaque annee').level === 'ok',
+    'sentence judge: accents + case + punctuation ignored = 전부 맞음');
+  const oneOff = judgeSentence(ref, 'En France, 50 000 personnes sont infectées chaque année.');
+  ok(oneOff.level === 'almost' && oneOff.diffCount === 2,
+    'sentence judge: one wrong word = 거의 맞음 (2개 단어 차이)', oneOff ? oneOff.level + '/' + oneOff.diffCount : 'null');
+  ok(oneOff.diff.out.some(o => o.type === 'miss' && o.w === 'contaminées') &&
+     oneOff.diff.out.some(o => o.type === 'extra' && o.w === 'infectées'),
+    'sentence judge: diff marks the target word as miss and the typed word as extra');
+  ok(judgeSentence(ref, 'Je ne sais pas du tout.').level === 'no', 'sentence judge: mostly wrong = 다시 보기');
+  ok(judgeSentence(ref, '') === null && judgeSentence(ref, '   ') === null, 'sentence judge: empty input = no verdict');
 })();
+
+// ---------- word gloss layout: no one-character vertical column ----------
+ok(appJs.includes('class="muted krw"'), 'word gloss uses the .krw span (wordRows + my words)');
+ok(!appJs.includes('<span class="muted" style="flex:1">'), 'no bare flex:1 gloss span remains');
+ok(css.includes('.wordrow .krw') && css.includes('min-width:110px') && css.includes('flex:1 1 140px') &&
+   css.includes('word-break:keep-all'), 'gloss CSS: min-width + wrap-forcing basis + keep-all');
 
 // ---------- audio encoding: CO files (full check) ----------
 function probe(file) {
