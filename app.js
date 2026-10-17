@@ -291,7 +291,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 9)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 13)</p>';
   h += '</div>';
   return h;
 }
@@ -524,6 +524,14 @@ function sentenceTargets(item) {
     return { fr, ko, cloze };
   });
 }
+function sentResultHtml(res) {
+  if (!res) return '';
+  let h = '<p class="fr16" style="margin-top:8px">' + renderDiff(res.diff) + '</p>';
+  if (res.level === 'ok') h += '<p class="banner ok" style="margin-top:8px">전부 맞음 ✓</p>';
+  else if (res.level === 'almost') h += '<p class="note-box" style="margin-top:8px">거의 맞음 — ' + res.diffCount + '개 단어 차이가 있어요. 표시된 부분을 고쳐 보세요.</p>';
+  else h += '<p class="banner no" style="margin-top:8px">다시 보기 — 표시된 단어를 확인하고 한 번 더 써 보세요.</p>';
+  return h;
+}
 function sentTypeHtml(item) {
   if (!(DATA.chunks || {})[item.id]) return '';
   const targets = sentenceTargets(item);
@@ -535,13 +543,8 @@ function sentTypeHtml(item) {
     h += '<div class="dict-box" style="margin:12px 0"><div class="row"><b>문장 ' + (idx + 1) + '</b></div>' +
       '<p class="small" style="line-height:1.7;margin:6px 0 8px">' + esc(t.ko) + '</p>' +
       '<textarea rows="2" data-stype-input="' + esc(key) + '" placeholder="프랑스어로 써 보세요">' + esc(ui.sentInput[key] || '') + '</textarea>' +
-      '<button class="btn small" data-stype-check="' + esc(key) + '" data-target="' + esc(t.fr) + '">확인</button>';
-    if (res) {
-      h += '<p class="fr16" style="margin-top:8px">' + renderDiff(res.diff) + '</p>';
-      if (res.level === 'ok') h += '<p class="banner ok" style="margin-top:8px">전부 맞음 ✓</p>';
-      else if (res.level === 'almost') h += '<p class="note-box" style="margin-top:8px">거의 맞음 — ' + res.diffCount + '개 단어 차이가 있어요. 표시된 부분을 고쳐 보세요.</p>';
-      else h += '<p class="banner no" style="margin-top:8px">다시 보기 — 표시된 단어를 확인하고 한 번 더 써 보세요.</p>';
-    }
+      '<button class="btn small" data-stype-check="' + esc(key) + '" data-target="' + esc(t.fr) + '">확인</button>' +
+      '<div data-stype-result="' + esc(key) + '">' + sentResultHtml(res) + '</div>';
     h += '</div>';
   });
   return h + '</details>';
@@ -1122,7 +1125,11 @@ document.addEventListener('click', (ev) => {
     const input = document.querySelector('[data-stype-input="' + CSS.escape(key) + '"]');
     ui.sentInput[key] = input ? input.value : '';
     ui.sentResult[key] = judgeSentence(t.dataset.target, ui.sentInput[key]);
-    render(); return;
+    // Update in place: a full render() would collapse the 문장 타이핑 <details>
+    // and jump the page back to the top while the user is mid-practice.
+    const out = document.querySelector('[data-stype-result="' + CSS.escape(key) + '"]');
+    if (out) out.innerHTML = sentResultHtml(ui.sentResult[key]);
+    return;
   }
   if (t.dataset.shadow) { const [key, mode] = t.dataset.shadow.split('|'); ui.shadowMode[key] = mode; render(); return; }
   if (t.dataset.drill) { go('expr', 'eeDrill', Number(t.dataset.drill)); return; }

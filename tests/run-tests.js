@@ -138,9 +138,10 @@ for (const rel of ['icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touc
 }
 const sw = fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
 ok(sw.includes('fetch'), 'sw has fetch handler');
-ok(indexHtml.includes('app.js?v=12') && indexHtml.includes('styles.css?v=12'), 'shell assets are cache-busted (?v=12) so phones pick up fixes');
-ok(sw.includes("tef-trainer-v12"), 'sw cache bumped to tef-trainer-v12');
+ok(indexHtml.includes('app.js?v=13') && indexHtml.includes('styles.css?v=13'), 'shell assets are cache-busted (?v=13) so phones pick up fixes');
+ok(sw.includes("tef-trainer-v13"), 'sw cache bumped to tef-trainer-v13');
 ok(appJs.includes('isCollapsed'), 'click handler ignores clicks that end a text selection (selection survives mouse-up)');
+ok(appJs.includes('data-stype-result') && appJs.includes('Update in place'), 'sentence-typing check updates in place (details stays open, no scroll jump)');
 ok(!/addAll\(\[[^\]]*assets\/(co|tts)/.test(sw), 'sw does not precache audio');
 
 // ---------- CE-C pilot: chunk-aligned translation (직독직해) ----------
