@@ -140,8 +140,9 @@ function firstUnfinishedInSet(mod, set) {
 }
 
 /* ---------- navigation ---------- */
+function pushHist() { try { history.pushState({ tef: 1 }, ''); } catch (e) {} }
 function go(tab, view, param, pushStack) {
-  if (pushStack !== false) navStack.push({ tab: route.tab, view: route.view, param: route.param });
+  if (pushStack !== false) { navStack.push({ tab: route.tab, view: route.view, param: route.param }); pushHist(); }
   route = { tab, view, param: param || null };
   state.last = { tab, view, param: route.param }; save();
   render();
@@ -152,6 +153,11 @@ function back() {
   if (prev) { route = prev; render(); window.scrollTo(0, 0); }
   else go(route.tab, route.tab === 'home' ? 'home' : route.tab + 'Home', null, false);
 }
+/* 폰의 뒤로가기 버튼/제스처: 앱 안에서 한 단계씩 돌아가고, 첫 화면에서만 앱을 나가게 한다 */
+window.addEventListener('popstate', () => {
+  if (navStack.length) back();
+  else history.back();
+});
 function setTab(tab) {
   navStack = [];
   const views = { home: 'home', ce: 'ceList', co: 'coHome', expr: 'exprHome', words: 'wordsHome' };
@@ -1090,7 +1096,7 @@ document.addEventListener('click', (ev) => {
   const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-optko],[data-sent],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-stype-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday]');
   // bottom nav + back handled separately below
   if (ev.target.closest('.nav-btn')) { setTab(ev.target.closest('.nav-btn').dataset.tab); return; }
-  if (ev.target.closest('#backBtn')) { back(); return; }
+  if (ev.target.closest('#backBtn')) { if (navStack.length) history.back(); else back(); return; }
   if (!t) {
     const st = ev.target.closest('[data-shadow-text]');
     if (st) { const key = st.dataset.shadowText; if ((ui.shadowMode[key] || '') === 'hide') { ui.shadowMode[key] = 'full'; render(); } }
@@ -1220,6 +1226,8 @@ async function boot() {
     return [k, await r.json()];
   }));
   DATA = Object.fromEntries(entries);
+  try { history.replaceState({ tef: 1 }, ''); } catch (e) {}
+  pushHist();
   render();
 }
 boot().catch((e) => { appEl().innerHTML = '<div class="card"><p>자료를 불러오지 못했어요: ' + esc(e.message) + '</p><button class="btn" onclick="location.reload()">다시 불러오기</button></div>'; });
