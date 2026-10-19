@@ -22,7 +22,7 @@ const ce = loadData('ce.json'), co = loadData('co.json'), ee = loadData('ee.json
       optKo = loadData('option_ko.json'), sentKo = loadData('sent_ko.json'),
       ttsMap = loadData('tts.json');
 
-ok(ce.items.length === 186, 'CE items = 186', String(ce.items.length));
+ok(ce.items.length === 187, 'CE items = 187', String(ce.items.length));
 ok(ce.strategies.length === 8, 'CE strategies = 8');
 ok(co.items.length === 163, 'CO items = 163', String(co.items.length));
 const scored = co.items.filter(i => i.scored), unscored = co.items.filter(i => !i.scored);
@@ -138,8 +138,8 @@ for (const rel of ['icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touc
 }
 const sw = fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
 ok(sw.includes('fetch'), 'sw has fetch handler');
-ok(indexHtml.includes('app.js?v=14') && indexHtml.includes('styles.css?v=14'), 'shell assets are cache-busted (?v=14) so phones pick up fixes');
-ok(sw.includes("tef-trainer-v14"), 'sw cache bumped to tef-trainer-v14');
+ok(indexHtml.includes('app.js?v=15') && indexHtml.includes('styles.css?v=15'), 'shell assets are cache-busted (?v=14) so phones pick up fixes');
+ok(sw.includes("tef-trainer-v15"), 'sw cache bumped to tef-trainer-v15');
 ok(appJs.includes('isCollapsed'), 'click handler ignores clicks that end a text selection (selection survives mouse-up)');
 ok(appJs.includes('data-stype-result') && appJs.includes('Update in place'), 'sentence-typing check updates in place (details stays open, no scroll jump)');
 ok(!/addAll\(\[[^\]]*assets\/(co|tts)/.test(sw), 'sw does not precache audio');

@@ -6321,6 +6321,41 @@
    "source": "모의고사CE-B-C(1)(2).pdf"
   },
   {
+   "id": "MB12-12",
+   "set": "CE-B 모의고사 (1)(2)",
+   "doc": "Pour continuer à défendre l'environnement, votre ______ nous est indispensable : sachez que les manières d'agir sont multiples !",
+   "stem": "Indiquez le mot ou le groupe de mots manquant.",
+   "options": [
+    "service",
+    "sécurité",
+    "support",
+    "soutien"
+   ],
+   "answer": 3,
+   "uncertain": false,
+   "expl": "운동·캠페인에서 필요한 것은 '지지·후원(soutien)'이에요. 영어 support와 대응하는 프랑스어는 soutien입니다. (이 문항은 이 시험 6번과 같은 문장이에요 — 원본 자료에 두 번 들어 있습니다.)",
+   "trans": "환경을 계속 지키려면 여러분의 지지가 필수적입니다. 행동 방법은 다양하다는 것을 알아 주세요!",
+   "words": [
+    [
+     "défendre",
+     "지키다, 옹호하다"
+    ],
+    [
+     "un soutien",
+     "지지, 후원"
+    ],
+    [
+     "indispensable",
+     "필수적인"
+    ],
+    [
+     "continuer à",
+     "계속 ~하다"
+    ]
+   ],
+   "source": "모의고사CE-B-C(1)(2).pdf"
+  },
+  {
    "id": "MB34-01",
    "set": "CE-B 모의고사 (3)(4)",
    "doc": "Elle porte une paire de ______ pour se protéger les mains.",
