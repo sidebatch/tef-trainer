@@ -189,7 +189,7 @@ function wordRows(words, keyPrefix) {
     const inMine = state.myWords.some((m) => m.fr === fr);
     return '<div class="wordrow"><span class="frw">' + esc(fr) + '</span>' + speakBtn(fr) +
       '<span class="muted krw">' + esc(kr) + '</span>' +
-      '<button class="btn ghost small" data-addword="' + esc(fr) + '" data-addwordkr="' + esc(kr) + '">' + (inMine ? '내 단어에 있음 ✓' : '내 단어에 추가') + '</button></div>';
+      (inMine ? '<span class="chip-added">추가됨 ✓</span>' : '<button class="chip-add" data-addword="' + esc(fr) + '" data-addwordkr="' + esc(kr) + '">+ 추가</button>') + '</div>';
   }).join('');
 }
 function optionsHtml(item, answered) {
@@ -319,7 +319,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 25)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 26)</p>';
   h += '</div>';
   return h;
 }
@@ -399,21 +399,18 @@ function viewSetItems(mod, set) {
   h += '<div class="stack-sm">';
   items.forEach((it) => {
     const a = state.answers[it.id];
-    let badge;
-    if (!a) badge = '<span class="badge todo">안 풂</span>';
-    else if (a.correct === true) badge = '<span class="badge ok">맞음</span>';
-    else if (a.correct === false) badge = '<span class="badge bad">틀림</span>';
-    else badge = '<span class="badge mid">선택함</span>';
-    if (it.id === lastId) badge += '<span class="badge last">방금 푼 문항</span>';
-    if (it.id === nextId) badge += '<span class="badge next">다음 문항</span>';
-    if (it.uncertain) badge += '<span class="badge warn">확인 필요</span>';
-    const doneRow = !!a;
+    // one signal per fact: the dot carries the result, the row outline carries
+    // just-solved / next-up, and a badge remains only for the uncertain caveat.
+    let dotCls = '', dotChar = '·';
+    if (a && a.correct === true) { dotCls = ' done'; dotChar = '✓'; }
+    else if (a && a.correct === false) { dotCls = ' bad'; dotChar = '✗'; }
+    else if (a) { dotCls = ' mid'; dotChar = '✓'; }
+    const badge = it.uncertain ? '<span class="badges"><span class="badge warn">확인 필요</span></span>' : '';
     const cls = 'set-row' + (it.id === lastId ? ' just-done' : '') + (it.id === nextId ? ' next-up' : '');
     h += '<button class="' + cls + '" data-rowitem="' + esc(it.id) + '" data-openitem="' + esc(it.id) + '" data-mod="' + esc(mod) + '">' +
-      '<span class="dot' + (doneRow ? ' done' : '') + '">' + (doneRow ? '✓' : '·') + '</span>' +
+      '<span class="dot' + dotCls + '">' + dotChar + '</span>' +
       '<span class="main"><span class="t fr">' + esc(it.stem || '대화를 듣고 알맞은 그림 고르기') + '</span>' +
-      '<span class="s">' + esc(it.id) + '</span></span>' +
-      '<span class="badges">' + badge + '</span></button>';
+      '<span class="s">' + esc(it.id) + '</span></span>' + badge + '</button>';
   });
   h += '</div></div>';
   return h;
@@ -1010,7 +1007,7 @@ function coVocabView() {
   return h;
 }
 function myWordsView() {
-  if (!state.myWords.length) return '<div class="card"><p class="muted">아직 저장한 단어가 없어요. 문항을 풀고 “내 단어에 추가”를 눌러 보세요. 낯선 단어를 표시하면 여기에 함께 모여요.</p></div>';
+  if (!state.myWords.length) return '<div class="card"><p class="muted">아직 저장한 단어가 없어요. 문항을 풀고 단어 옆의 “+ 추가”를 눌러 보세요. 낯선 단어를 표시하면 여기에 함께 모여요.</p></div>';
   let h = '<div class="card">';
   state.myWords.forEach((w) => {
     h += '<div class="wordrow"><span class="frw">' + esc(w.fr) + '</span>' + speakBtn(w.fr) + '<span class="muted krw">' + esc(w.kr || '') + '</span></div>' + stateBtns(w.fr);
