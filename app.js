@@ -19,7 +19,7 @@ let navStack = [];
 let sharedAudio = null;
 let blobCache = new Map();
 let attemptPlays = {}; // per-item plays in the current attempt (before answering)
-let ui = { sentOpen: {}, optKoOpen: {}, repeat: {}, transOpen: false, shadowMode: {}, dictInput: {}, dictResult: {}, sentInput: {}, sentResult: {}, drillSel: {}, eoIntroSel: {}, posterReveal: {}, flashFace: {}, idiomOpen: {}, sujetFilter: '전체', wordSub: 'core', coVocabSection: 0, calCursor: null, calSel: null };
+let ui = { sentOpen: {}, optKoOpen: {}, dcOpen: {}, repeat: {}, transOpen: false, shadowMode: {}, dictInput: {}, dictResult: {}, sentInput: {}, sentResult: {}, drillSel: {}, eoIntroSel: {}, posterReveal: {}, flashFace: {}, idiomOpen: {}, sujetFilter: '전체', wordSub: 'core', coVocabSection: 0, calCursor: null, calSel: null };
 
 function loadState() {
   try {
@@ -225,9 +225,17 @@ function sentencesHtml(item, pairs, kind) {
     const key = item.id + ':' + kind + ':' + idx;
     const open = !!ui.sentOpen[key];
     const sentCls = kind === 'ce' ? 'sent-doc' : 'sent-script';
+    const sentChunks = ((DATA.chunks || {})[item.id] || [])[idx];
+    const dcKey = item.id + ':dc:' + idx;
+    const dcOpen = !!ui.dcOpen[dcKey];
+    let koHtml = '';
+    if (open) {
+      koHtml = '<p class="sent-ko"' + (sentChunks ? ' data-dchunk="' + esc(dcKey) + '" role="button"' : '') + '><b>해석 · </b>' + esc(ko) +
+        (sentChunks ? ' <span class="dc-hint">' + (dcOpen ? '직독직해 숨기기 ▴' : '눌러서 직독직해 ▾') + '</span>' : '') + '</p>' +
+        (sentChunks && dcOpen ? '<div class="chunk-wrap dc-wrap"><p class="chunk-sent">' + sentChunks.map((pair) => '<span class="chunk-unit"><span class="chunk-fr">' + esc(pair[0]) + '</span><span class="chunk-ko">' + esc(pair[1]) + '</span></span>').join('') + '</p></div>' : '');
+    }
     return '<div><div class="sent-row"><div class="sent-btn' + (open ? ' open' : '') + '" role="button" tabindex="0" data-sent="' + esc(key) + '">' +
-      '<span class="fr ' + sentCls + '">' + esc(fr) + '</span></div>' + speakBtn(fr) + '</div>' +
-      (open ? '<p class="sent-ko"><b>해석 · </b>' + esc(ko) + '</p>' : '') + '</div>';
+      '<span class="fr ' + sentCls + '">' + esc(fr) + '</span></div>' + speakBtn(fr) + '</div>' + koHtml + '</div>';
   }).join('');
   return '<div class="sent-list">' + rows + '</div>';
 }
@@ -310,7 +318,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 19)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 20)</p>';
   h += '</div>';
   return h;
 }
@@ -1106,7 +1114,7 @@ document.addEventListener('click', (ev) => {
   // row it would even record an answer the learner never meant to pick.
   const sel = window.getSelection ? window.getSelection() : null;
   if (sel && !sel.isCollapsed && sel.toString().trim() !== '') return;
-  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-optko],[data-sent],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-stype-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday]');
+  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-optko],[data-sent],[data-dchunk],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-stype-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday]');
   // bottom nav + back handled separately below
   if (ev.target.closest('.nav-btn')) { setTab(ev.target.closest('.nav-btn').dataset.tab); return; }
   if (ev.target.closest('#backBtn')) { if (navStack.length) history.back(); else back(); return; }
@@ -1128,6 +1136,7 @@ document.addEventListener('click', (ev) => {
   }
   if (t.dataset.optko) { ui.optKoOpen[t.dataset.optko] = !ui.optKoOpen[t.dataset.optko]; render(); return; }
   if (t.dataset.sent) { ui.sentOpen[t.dataset.sent] = !ui.sentOpen[t.dataset.sent]; render(); return; }
+  if (t.dataset.dchunk) { ui.dcOpen[t.dataset.dchunk] = !ui.dcOpen[t.dataset.dchunk]; render(); return; }
   if (t.dataset.addword) { addMyWord(t.dataset.addword, t.dataset.addwordkr || ''); render(); return; }
   if (t.dataset.play) { const item = findItem(t.dataset.play); if (item) playItemAudio(item, t); return; }
   if (t.dataset.repeat) { const item = findItem(t.dataset.repeat); if (item) toggleRepeat(item); return; }
