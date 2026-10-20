@@ -147,7 +147,7 @@ ok(appJs.includes("addEventListener('popstate'") && appJs.includes('history.push
 ok(indexHtml.includes('controllerchange') && indexHtml.includes('reg.update()'), 'service worker auto-update: checks on resume and reloads when a new version takes over (v17)');
 ok(appJs.includes('speechSynthesis.speaking || speechSynthesis.pending') && appJs.includes('setTimeout') && !appJs.includes("new Audio('assets"), 'pronunciation: no cancel+speak in same tick (one-tap-late synth bug), shared audio element reused (v18)');
 ok(appJs.includes('(버전 23)') && indexHtml.includes('app.js?v=23') && sw.includes("tef-trainer-v23"), 'version markers in sync: home label, shell query, SW cache all say 20');
-ok(readme.includes('현재 버전 22') && readme.includes('](https://sidebatch.github.io/tef-trainer/)') && readme.includes('](https://muse.ai/s/tef-2-xzxs5xxpkqxwxrin)'), 'README shows current version and both app links as clickable links');
+ok(readme.includes('현재 버전 23') && readme.includes('](https://sidebatch.github.io/tef-trainer/)') && readme.includes('](https://muse.ai/s/tef-2-xzxs5xxpkqxwxrin)'), 'README shows current version and both app links as clickable links');
 ok(appJs.includes("replace(/_+/g, '…')"), 'device-voice fallback turns blanks into a pause instead of spelling them out (v21)');
 ok((appJs.match(/chunk-why/g) || []).length >= 2 && css.includes('.chunk-why'), 'both chunk views render the why-note line under a chunk (v22)');
 ok(!/addAll\(\[[^\]]*assets\/(co|tts)/.test(sw), 'sw does not precache audio');
