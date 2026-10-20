@@ -139,14 +139,14 @@ for (const rel of ['icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touc
 const sw = fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
 const readme = fs.readFileSync(path.join(ROOT, 'README.md'), 'utf8');
 ok(sw.includes('fetch'), 'sw has fetch handler');
-ok(indexHtml.includes('app.js?v=22') && indexHtml.includes('styles.css?v=22'), 'shell assets are cache-busted (?v=14) so phones pick up fixes');
-ok(sw.includes("tef-trainer-v22"), 'sw cache bumped to tef-trainer-v22');
+ok(indexHtml.includes('app.js?v=23') && indexHtml.includes('styles.css?v=23'), 'shell assets are cache-busted (?v=14) so phones pick up fixes');
+ok(sw.includes("tef-trainer-v23"), 'sw cache bumped to tef-trainer-v23');
 ok(appJs.includes('isCollapsed'), 'click handler ignores clicks that end a text selection (selection survives mouse-up)');
 ok(appJs.includes('data-stype-result') && appJs.includes('Update in place'), 'sentence-typing check updates in place (details stays open, no scroll jump)');
 ok(appJs.includes("addEventListener('popstate'") && appJs.includes('history.pushState') && appJs.includes('history.back()'), 'system back button walks in-app history instead of closing the app (v16)');
 ok(indexHtml.includes('controllerchange') && indexHtml.includes('reg.update()'), 'service worker auto-update: checks on resume and reloads when a new version takes over (v17)');
 ok(appJs.includes('speechSynthesis.speaking || speechSynthesis.pending') && appJs.includes('setTimeout') && !appJs.includes("new Audio('assets"), 'pronunciation: no cancel+speak in same tick (one-tap-late synth bug), shared audio element reused (v18)');
-ok(appJs.includes('(버전 22)') && indexHtml.includes('app.js?v=22') && sw.includes("tef-trainer-v22"), 'version markers in sync: home label, shell query, SW cache all say 20');
+ok(appJs.includes('(버전 23)') && indexHtml.includes('app.js?v=23') && sw.includes("tef-trainer-v23"), 'version markers in sync: home label, shell query, SW cache all say 20');
 ok(readme.includes('현재 버전 22') && readme.includes('](https://sidebatch.github.io/tef-trainer/)') && readme.includes('](https://muse.ai/s/tef-2-xzxs5xxpkqxwxrin)'), 'README shows current version and both app links as clickable links');
 ok(appJs.includes("replace(/_+/g, '…')"), 'device-voice fallback turns blanks into a pause instead of spelling them out (v21)');
 ok((appJs.match(/chunk-why/g) || []).length >= 2 && css.includes('.chunk-why'), 'both chunk views render the why-note line under a chunk (v22)');
@@ -179,9 +179,11 @@ for (const it of ce.items) {
   if (chunkBlanks !== docBlanks) chunkProblems.push(it.id + ':blank-count');
 }
 const whyNotes = Object.values(chunks).flatMap(s => s.flatMap(p => p)).filter(p => p.length > 2);
-ok(whyNotes.length === 76 && whyNotes.every(p => typeof p[2] === 'string' && p[2].length > 0), 'why-notes on 76 chunks explain glosses that do not add up (v22)');
+ok(whyNotes.length === 82 && whyNotes.every(p => typeof p[2] === 'string' && p[2].length > 0), 'why-notes on 82 chunks explain glosses that do not add up (v22)');
 const mc07why = chunks['MC-07'] && chunks['MC-07'][1] && chunks['MC-07'][1][2];
 ok(!!mc07why && mc07why.length > 2 && mc07why[2].includes('mobilier는'), 'MC-07 mobilier urbain carries its why-note (v22)');
+const mc09why = chunks['MC-09'] && chunks['MC-09'][0] && chunks['MC-09'][0][0];
+ok(!!mc09why && mc09why.length > 2 && mc09why[2].includes('prime는'), 'MC-09 prime de réparation carries its why-note (v23)');
 ok(chunkProblems.length === 0, 'chunks: non-empty pairs, joins reproduce sent_ko sentences, one ______ chunk per cloze sentence',
   chunkProblems.slice(0, 5).join(', '));
 
