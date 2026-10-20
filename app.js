@@ -233,7 +233,7 @@ function sentencesHtml(item, pairs, kind) {
     if (open) {
       koHtml = '<p class="sent-ko"' + (sentChunks ? ' data-dchunk="' + esc(dcKey) + '" role="button"' : '') + '><b>해석 · </b>' + esc(ko) +
         (sentChunks ? ' <span class="dc-hint">' + (dcOpen ? '직독직해 숨기기 ▴' : '눌러서 직독직해 ▾') + '</span>' : '') + '</p>' +
-        (sentChunks && dcOpen ? '<div class="chunk-wrap dc-wrap"><p class="chunk-sent">' + sentChunks.map((pair) => '<span class="chunk-unit"><span class="chunk-fr">' + esc(pair[0]) + '</span><span class="chunk-ko">' + esc(pair[1]) + '</span></span>').join('') + '</p></div>' : '');
+        (sentChunks && dcOpen ? '<div class="chunk-wrap dc-wrap"><p class="chunk-sent">' + sentChunks.map((pair) => '<span class="chunk-unit"><span class="chunk-fr">' + esc(pair[0]) + '</span><span class="chunk-ko">' + esc(pair[1]) + '</span>' + (pair[2] ? '<span class="chunk-why">왜 · ' + esc(pair[2]) + '</span>' : '') + '</span>').join('') + '</p></div>' : '');
     }
     return '<div><div class="sent-row"><div class="sent-btn' + (open ? ' open' : '') + '" role="button" tabindex="0" data-sent="' + esc(key) + '">' +
       '<span class="fr ' + sentCls + '">' + esc(fr) + '</span></div>' + speakBtn(fr) + '</div>' + koHtml + '</div>';
@@ -319,7 +319,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 21)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 22)</p>';
   h += '</div>';
   return h;
 }
@@ -463,7 +463,7 @@ function chunksHtml(item) {
   sents.forEach((sent) => {
     h += '<p class="chunk-sent">';
     sent.forEach((pair) => {
-      h += '<span class="chunk-unit"><span class="chunk-fr">' + esc(pair[0]) + '</span><span class="chunk-ko">' + esc(pair[1]) + '</span></span>';
+      h += '<span class="chunk-unit"><span class="chunk-fr">' + esc(pair[0]) + '</span><span class="chunk-ko">' + esc(pair[1]) + '</span>' + (pair[2] ? '<span class="chunk-why">왜 · ' + esc(pair[2]) + '</span>' : '') + '</span>';
     });
     h += '</p>';
   });
