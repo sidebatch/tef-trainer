@@ -319,7 +319,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 24)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 25)</p>';
   h += '</div>';
   return h;
 }
@@ -439,7 +439,6 @@ function viewCeItem(item) {
   h += optionsHtml(item, answered);
   if (answered) {
     h += feedbackHtml(item, a);
-    h += chunksHtml(item);
     if (item.words && item.words.length) h += '<div><h4 class="sub-title">이 문항의 단어</h4>' + wordRows(item.words) + '</div>';
     h += sentTypeHtml(item);
     h += navItemHtml('읽기', item);
@@ -447,25 +446,12 @@ function viewCeItem(item) {
   h += '</div>';
   return h;
 }
-/* ----- CE review extras: chunk-aligned translation (직독직해) + sentence typing -----
-   Both render ONLY in the answered/review state (called from viewCeItem's answered block).
-   Chunk data: data/chunks.json, keyed by item id → sentences → [frChunk, koChunk] pairs.
-   Items without chunk data simply skip both sections. Sentence typing shows the
-   Korean meaning (from sent_ko) and has the user type the whole French sentence;
-   cloze sentences are typed with the correct answer word filled in. */
-function chunksHtml(item) {
-  const sents = (DATA.chunks || {})[item.id];
-  if (!sents || !sents.length) return '';
-  let h = '<details><summary>문장 뜯어보기 — 직독직해</summary><div class="chunk-wrap">';
-  sents.forEach((sent) => {
-    h += '<p class="chunk-sent">';
-    sent.forEach((pair) => {
-      h += '<span class="chunk-unit"><span class="chunk-fr">' + esc(pair[0]) + '</span><span class="chunk-ko">' + esc(pair[1]) + '</span>' + (pair[2] ? '<span class="chunk-why">왜 · ' + esc(pair[2]) + '</span>' : '') + '</span>';
-    });
-    h += '</p>';
-  });
-  return h + '</div></details>';
-}
+/* ----- CE extras: sentence typing (answered state) -----
+   직독직해 chunks render ONLY inline in the document card (sentencesHtml):
+   tap a sentence → its translation → tap the translation for its chunks.
+   Chunk data: data/chunks.json, keyed by item id → sentences → [frChunk, koChunk, whyNote?] pairs.
+   Sentence typing shows the Korean meaning (from sent_ko) and has the user type
+   the whole French sentence; cloze sentences are typed with the answer filled in. */
 function stripFrAccents(s) {
   return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 }
