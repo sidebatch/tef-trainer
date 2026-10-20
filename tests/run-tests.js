@@ -138,13 +138,14 @@ for (const rel of ['icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touc
 }
 const sw = fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
 ok(sw.includes('fetch'), 'sw has fetch handler');
-ok(indexHtml.includes('app.js?v=18') && indexHtml.includes('styles.css?v=18'), 'shell assets are cache-busted (?v=14) so phones pick up fixes');
-ok(sw.includes("tef-trainer-v18"), 'sw cache bumped to tef-trainer-v18');
+ok(indexHtml.includes('app.js?v=19') && indexHtml.includes('styles.css?v=19'), 'shell assets are cache-busted (?v=14) so phones pick up fixes');
+ok(sw.includes("tef-trainer-v19"), 'sw cache bumped to tef-trainer-v19');
 ok(appJs.includes('isCollapsed'), 'click handler ignores clicks that end a text selection (selection survives mouse-up)');
 ok(appJs.includes('data-stype-result') && appJs.includes('Update in place'), 'sentence-typing check updates in place (details stays open, no scroll jump)');
 ok(appJs.includes("addEventListener('popstate'") && appJs.includes('history.pushState') && appJs.includes('history.back()'), 'system back button walks in-app history instead of closing the app (v16)');
 ok(indexHtml.includes('controllerchange') && indexHtml.includes('reg.update()'), 'service worker auto-update: checks on resume and reloads when a new version takes over (v17)');
 ok(appJs.includes('speechSynthesis.speaking || speechSynthesis.pending') && appJs.includes('setTimeout') && !appJs.includes("new Audio('assets"), 'pronunciation: no cancel+speak in same tick (one-tap-late synth bug), shared audio element reused (v18)');
+ok(appJs.includes('(버전 19)') && indexHtml.includes('app.js?v=19') && sw.includes("tef-trainer-v19"), 'version markers in sync: home label, shell query, SW cache all say 19');
 ok(!/addAll\(\[[^\]]*assets\/(co|tts)/.test(sw), 'sw does not precache audio');
 
 // ---------- CE-C pilot: chunk-aligned translation (직독직해) ----------
