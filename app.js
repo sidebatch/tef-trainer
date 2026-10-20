@@ -52,21 +52,34 @@ function speak(text) {
   if (!file) { // normalized lookup over the whole map
     for (const k of Object.keys(map)) { if (normWs(k) === normWs(text)) { file = map[k]; break; } }
   }
-  stopSpeak();
   if (file) {
-    sharedAudio = new Audio('assets/tts/' + file);
-    sharedAudio.play().catch(() => fallbackVoice(text));
-  } else fallbackVoice(text);
+    try { speechSynthesis.cancel(); } catch (e) {}
+    if (!sharedAudio) { sharedAudio = new Audio(); sharedAudio.preload = 'auto'; }
+    try { sharedAudio.pause(); } catch (e) {}
+    sharedAudio.src = 'assets/tts/' + file;
+    const p = sharedAudio.play();
+    if (p && p.catch) p.catch((err) => { if (err && err.name !== 'AbortError') fallbackVoice(text); });
+  } else {
+    if (sharedAudio) { try { sharedAudio.pause(); } catch (e) {} }
+    fallbackVoice(text);
+  }
 }
+/* Android Chrome drops or delays an utterance that is spoken in the same tick
+   right after cancel() — the previous text then plays one tap late. When the
+   synth is busy, cancel first and speak after a short flush delay; when idle,
+   speak immediately without cancelling. */
 function fallbackVoice(text) {
   try {
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'fr-FR'; u.rate = 0.92;
-    speechSynthesis.cancel(); speechSynthesis.speak(u);
+    if (speechSynthesis.speaking || speechSynthesis.pending) {
+      speechSynthesis.cancel();
+      setTimeout(() => { try { speechSynthesis.speak(u); } catch (e) {} }, 90);
+    } else speechSynthesis.speak(u);
   } catch (e) {}
 }
 function stopSpeak() {
-  if (sharedAudio) { try { sharedAudio.pause(); } catch (e) {} sharedAudio = null; }
+  if (sharedAudio) { try { sharedAudio.pause(); } catch (e) {} }
   try { speechSynthesis.cancel(); } catch (e) {}
 }
 function speakBtn(text, label) {
