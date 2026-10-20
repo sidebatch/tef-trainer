@@ -70,6 +70,7 @@ function speak(text) {
    speak immediately without cancelling. */
 function fallbackVoice(text) {
   try {
+    text = String(text).replace(/_+/g, '…'); // blanks are read as a pause, never spelled out
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'fr-FR'; u.rate = 0.92;
     if (speechSynthesis.speaking || speechSynthesis.pending) {
@@ -318,7 +319,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 20)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 21)</p>';
   h += '</div>';
   return h;
 }
