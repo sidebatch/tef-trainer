@@ -319,7 +319,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 23)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 24)</p>';
   h += '</div>';
   return h;
 }
@@ -365,8 +365,7 @@ function setRowHtml(mod, set) {
     '<span class="chev" aria-hidden="true">›</span></button>';
 }
 function viewCeList() {
-  let h = '<div class="stack"><div><h2 class="page-title">읽기 — CE ' + DATA.ce.items.length + '문항</h2>' +
-    '<p class="lead">바로 지문을 읽고 답을 고르는 흐름이에요. 낯선 단어는 읽으면서, 또는 답을 확인한 뒤에 눌러 두면 단어 탭에 모입니다. 시간 제한은 없어요.</p></div>';
+  let h = '<div class="stack"><div><h2 class="page-title">읽기 — CE ' + DATA.ce.items.length + '문항</h2></div>';
   h += '<section><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">연습 세트</h3><div class="stack-sm">';
   CE_PRACTICE.forEach((s) => { h += setRowHtml('읽기', s); });
   h += '</div></section><section><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">모의고사</h3><div class="stack-sm">';
@@ -392,7 +391,6 @@ function viewSetItems(mod, set) {
     if (lastItem) {
       h += '<section class="resume-banner" aria-label="방금 푼 문항 안내"><p class="rb-title">방금 푼 문항이에요</p>' +
         '<p class="fr rb-item">' + esc(lastItem.id) + ' · ' + esc(lastItem.stem || '대화를 듣고 알맞은 그림 고르기') + '</p>' +
-        '<p class="rb-sub">목록에서 이 문항을 강조해 뒀고, 화면을 그 위치로 바로 옮겨 뒀어요.</p>' +
         '<div class="rb-btns"><button class="btn ghost small" data-openitem="' + esc(lastItem.id) + '" data-mod="' + esc(mod) + '">그 문항 다시 보기</button>' +
         (nextItem ? '<button class="btn small" data-openitem="' + esc(nextItem.id) + '" data-mod="' + esc(mod) + '">다음 문항 이어서 풀기 (' + esc(nextItem.id) + ') ›</button>' : '') +
         '</div></section>';
@@ -436,12 +434,11 @@ function viewCeItem(item) {
   const pairs = (DATA.sentKo || {})[item.id] || (item.doc ? [[item.doc, item.trans || '']] : []);
   let h = '<div class="stack-md">' + studyHeadHtml(item);
   if (item.image) h += '<div class="card img-card"><img class="doc-img" src="' + esc(item.image) + '" alt=""></div>';
-  h += '<div class="card card-pad-lg"><p class="xs dim" style="margin-bottom:8px">문장을 누르면 그 문장의 해석이 펼쳐져요.</p>' + sentencesHtml(item, pairs, 'ce') + '</div>';
+  h += '<div class="card card-pad-lg">' + sentencesHtml(item, pairs, 'ce') + '</div>';
   if (item.stem) h += '<div class="stem"><span style="flex:1;min-width:0" class="fr">' + esc(item.stem) + '</span>' + speakBtn(item.stem) + '</div>';
   h += optionsHtml(item, answered);
   if (answered) {
     h += feedbackHtml(item, a);
-    h += '<details><summary>문서 전체 해석</summary><p>' + esc(item.trans || '') + '</p></details>';
     h += chunksHtml(item);
     if (item.words && item.words.length) h += '<div><h4 class="sub-title">이 문항의 단어</h4>' + wordRows(item.words) + '</div>';
     h += sentTypeHtml(item);
