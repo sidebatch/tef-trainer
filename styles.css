@@ -54,6 +54,10 @@ a{color:var(--accent)}
 .container{max-width:672px;margin:0 auto;padding:12px 16px 112px}
 @media (min-width:640px){.container{padding-left:20px;padding-right:20px}}
 .loading-msg{padding:40px 0;text-align:center;font-size:14px;color:var(--dim)}
+.pin-card{border:1.5px solid var(--accent);border-radius:var(--radius);padding:18px;background:var(--accent-tint)}
+.pin-card h2{font-size:21px;font-weight:700;line-height:1.35;margin:6px 0 0;letter-spacing:-0.01em}
+.pin-card .desc{color:var(--dim);font-size:14px;margin-top:6px}
+.pin-card .cta{background:var(--accent);color:var(--accent-text);border:none;border-radius:999px;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer}
 nav.bottom{
   position:fixed;left:0;right:0;bottom:0;z-index:40;
   border-top:1px solid var(--border);background:var(--surface);

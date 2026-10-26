@@ -29,7 +29,7 @@ function loadState() {
   return defaultState();
 }
 function defaultState() {
-  return { answers: {}, plays: {}, wordStates: {}, myWords: [], activity: {}, drill: {}, posterDone: {}, eoCheck: {}, last: null, lastItem: null };
+  return { answers: {}, plays: {}, wordStates: {}, myWords: [], activity: {}, drill: {}, posterDone: {}, eoCheck: {}, last: null, lastItem: null, pin: null };
 }
 function save() { try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) {} }
 function todayKey(d) { d = d || new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
@@ -265,6 +265,19 @@ function viewHome() {
   const now = new Date();
   const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
   let h = '<div class="stack">';
+  if (state.pin && (state.pin.mod === '읽기' || state.pin.mod === '듣기')) {
+    const pinItems = state.pin.mod === '읽기' ? ceBySet(state.pin.set) : coBySet(state.pin.set);
+    if (pinItems.length) {
+      const p = setProgress(pinItems);
+      const complete = p.total > 0 && p.done >= p.total;
+      h += '<section class="pin-card" aria-label="오늘 할 공부">' +
+        '<p class="kicker" style="font-weight:600">오늘 할 공부</p>' +
+        '<h2>' + esc(state.pin.mod) + ' · ' + esc(state.pin.set) + '</h2>' +
+        '<p class="desc">' + p.done + '/' + p.total + ' 문항 완료' + (complete ? ' — 다 풀었어요.' : '') + '</p>' +
+        '<div class="row" style="gap:8px;margin-top:12px;flex-wrap:wrap"><button class="cta" data-goset="' + esc(state.pin.mod) + '|' + esc(state.pin.set) + '">' + (complete ? '세트 다시 보기' : '이어서 풀기') + '</button>' +
+        '<button class="btn ghost" data-unpin="1">고정 해제</button></div></section>';
+    }
+  }
   let hero = '<section class="hero">' +
     '<p class="kicker">' + (now.getMonth() + 1) + '월 ' + now.getDate() + '일 (' + dayNames[now.getDay()] + '요일)</p>' +
     '<p class="kicker" style="margin-top:20px;font-weight:600;letter-spacing:.02em;">이어서 공부하기</p>';
@@ -319,7 +332,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 26)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 27)</p>';
   h += '</div>';
   return h;
 }
@@ -384,7 +397,10 @@ function viewSetItems(mod, set) {
   const startIdx = lastId ? items.findIndex((i) => i.id === lastId) : -1;
   for (let k = startIdx + 1; k < items.length; k++) { if (!finished(items[k])) { nextId = items[k].id; break; } }
   if (!nextId && startIdx === -1) { const f = items.find((i) => !finished(i)); if (f) nextId = f.id; }
-  let h = '<div class="stack"><div><h2 class="page-title">' + esc(set) + '</h2></div>';
+  let h = '<div class="stack"><div><h2 class="page-title">' + esc(set) + '</h2>' +
+    ((state.pin && state.pin.mod === mod && state.pin.set === set)
+      ? '<button class="btn ghost small" style="margin-top:8px" data-unpin="1">오늘 할 공부에서 빼기</button>'
+      : '<button class="btn ghost small" style="margin-top:8px" data-pinset="' + esc(mod) + '|' + esc(set) + '">오늘 할 공부로 고정</button>') + '</div>';
   if (lastId) {
     const lastItem = items.find((i) => i.id === lastId);
     const nextItem = nextId ? items.find((i) => i.id === nextId) : null;
@@ -1095,7 +1111,7 @@ document.addEventListener('click', (ev) => {
   // row it would even record an answer the learner never meant to pick.
   const sel = window.getSelection ? window.getSelection() : null;
   if (sel && !sel.isCollapsed && sel.toString().trim() !== '') return;
-  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-optko],[data-sent],[data-dchunk],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-stype-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday]');
+  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-pinset],[data-unpin],[data-optko],[data-sent],[data-dchunk],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-stype-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday]');
   // bottom nav + back handled separately below
   if (ev.target.closest('.nav-btn')) { setTab(ev.target.closest('.nav-btn').dataset.tab); return; }
   if (ev.target.closest('#backBtn')) { if (navStack.length) history.back(); else back(); return; }
@@ -1107,6 +1123,8 @@ document.addEventListener('click', (ev) => {
   if (t.dataset.speak != null && t.hasAttribute('data-speak')) { speak(t.dataset.speak); return; }
   if (t.dataset.go) { const [tab, view] = t.dataset.go.split('|'); go(tab, view, null); return; }
   if (t.dataset.goset) { const [mod, set] = t.dataset.goset.split('|'); const items = mod === '읽기' ? ceBySet(set) : coBySet(set); const it = items.find((i) => !isDone(i.id)); if (it) openItem(it.id, mod); else go(mod === '읽기' ? 'ce' : 'co', 'setItems', { mod, set }); return; }
+  if (t.dataset.pinset) { const [mod, set] = t.dataset.pinset.split('|'); state.pin = { mod, set }; save(); render(); return; }
+  if (t.dataset.unpin) { state.pin = null; save(); render(); return; }
   if (t.dataset.setlist) { const [mod, set] = t.dataset.setlist.split('|'); go(mod === '읽기' ? 'ce' : 'co', 'setItems', { mod, set }, !t.dataset.nopush); return; }
   if (t.dataset.openitem) { openItem(t.dataset.openitem, t.dataset.mod, !!t.dataset.nopush); return; }
   if (t.dataset.answer) {
@@ -1229,6 +1247,14 @@ async function boot() {
     return [k, await r.json()];
   }));
   DATA = Object.fromEntries(entries);
+  try {
+    if (location.hash.startsWith('#pin=')) {
+      const [mod, set] = decodeURIComponent(location.hash.slice(5)).split('|');
+      const items = mod === '읽기' ? ceBySet(set) : coBySet(set);
+      if ((mod === '읽기' || mod === '듣기') && items.length) { state.pin = { mod, set }; save(); }
+      history.replaceState({ tef: 1 }, '', location.pathname + location.search);
+    }
+  } catch (e) {}
   try { history.replaceState({ tef: 1 }, ''); } catch (e) {}
   pushHist();
   render();
