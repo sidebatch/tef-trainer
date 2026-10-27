@@ -210,7 +210,7 @@ function optionsHtml(item, answered) {
       '<div class="' + cls + '" role="button" tabindex="0" data-answer="' + item.id + '" data-choice="' + idx + '">' +
       '<span class="letter">' + String.fromCharCode(65 + idx) + '.</span>' +
       '<span class="txt fr">' + esc(opt) + '</span></div></div>' +
-      (hasKo ? '<div class="opt-under"><button class="trans-toggle' + (ui.optKoOpen[key] ? ' open' : '') + '" data-optko="' + esc(key) + '">해석 ' + (ui.optKoOpen[key] ? '숨기기' : '보기') + '</button></div>' : '') +
+      (hasKo && !showKo ? '<div class="opt-under"><button class="trans-toggle" data-optko="' + esc(key) + '">해석 보기</button></div>' : '') +
       (showKo ? '<div class="opt-trans opt-under" data-optko="' + esc(key) + '" role="button" title="누르면 해석이 닫혀요"><b>해석 · </b>' + esc(ko[idx]) + '</div>' : '') +
       '</div>';
   }).join('');
@@ -329,7 +329,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 28)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 29)</p>';
   h += '</div>';
   return h;
 }
