@@ -145,15 +145,15 @@ for (const rel of ['icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touc
 const sw = fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
 const readme = fs.readFileSync(path.join(ROOT, 'README.md'), 'utf8');
 ok(sw.includes('fetch'), 'sw has fetch handler');
-ok(indexHtml.includes('app.js?v=32') && indexHtml.includes('styles.css?v=32'), 'shell assets are cache-busted (?v=32) so phones pick up fixes');
-ok(sw.includes("tef-trainer-v32"), 'sw cache bumped to tef-trainer-v32');
+ok(indexHtml.includes('app.js?v=33') && indexHtml.includes('styles.css?v=33'), 'shell assets are cache-busted (?v=33) so phones pick up fixes');
+ok(sw.includes("tef-trainer-v33"), 'sw cache bumped to tef-trainer-v33');
 ok(appJs.includes('isCollapsed'), 'click handler ignores clicks that end a text selection (selection survives mouse-up)');
 ok(appJs.includes('data-stype-result') && appJs.includes('Update in place'), 'sentence-typing check updates in place (details stays open, no scroll jump)');
 ok(appJs.includes("addEventListener('popstate'") && appJs.includes('history.pushState') && appJs.includes('history.back()'), 'system back button walks in-app history instead of closing the app (v16)');
 ok(indexHtml.includes('controllerchange') && indexHtml.includes('reg.update()'), 'service worker auto-update: checks on resume and reloads when a new version takes over (v17)');
 ok(appJs.includes('speechSynthesis.speaking || speechSynthesis.pending') && appJs.includes('setTimeout') && !appJs.includes("new Audio('assets"), 'pronunciation: no cancel+speak in same tick (one-tap-late synth bug), shared audio element reused (v18)');
-ok(appJs.includes('(버전 32)') && indexHtml.includes('app.js?v=32') && sw.includes("tef-trainer-v32"), 'version markers in sync: home label, shell query, SW cache all say 20');
-ok(readme.includes('현재 버전 32') && readme.includes('](https://sidebatch.github.io/tef-trainer/)') && readme.includes('](https://muse.ai/s/tef-2-xzxs5xxpkqxwxrin)'), 'README shows current version and both app links as clickable links');
+ok(appJs.includes('(버전 33)') && indexHtml.includes('app.js?v=33') && sw.includes("tef-trainer-v33"), 'version markers in sync: home label, shell query, SW cache all say 20');
+ok(readme.includes('현재 버전 33') && readme.includes('](https://sidebatch.github.io/tef-trainer/)') && readme.includes('](https://muse.ai/s/tef-2-xzxs5xxpkqxwxrin)'), 'README shows current version and both app links as clickable links');
 ok(appJs.includes(':stype') && appJs.includes(':task') && appJs.includes('eo:cat'), 'QA: 문장 타이핑·EE 원문·EO 카테고리 details도 열림 상태를 유지한다');
 ok(appJs.includes('ui.sentInput[ta.dataset.stypeInput]'), 'QA: 문장 타이핑 입력이 입력 즉시 저장돼 render에도 지워지지 않는다');
 ok(appJs.includes('function go(tab, view, param, pushStack) {\n  stopSpeak();') && appJs.includes('function back() {\n  stopSpeak();'), 'QA: 화면을 이동하면 TTS·딕테이션 반복이 정지한다');
@@ -205,6 +205,29 @@ ok(appJs.includes('data-stype-check'), 'sentence typing check handler wired');
 ok(!appJs.includes('빈칸 타이핑') && !appJs.includes('data-blank-check') && !appJs.includes('judgeBlank'),
   'blank-word typing fully removed (card, handler, judge)');
 ok(appJs.includes("chunks: 'data/chunks.json'"), 'chunks.json loaded at boot');
+
+// ---------- reading materials B1 (v33) ----------
+const reading = loadData('reading.json');
+ok(!!reading && Array.isArray(reading.articles) && reading.articles.length === 5, 'reading: 5 articles loaded');
+const rdProblems = [];
+(reading.articles || []).forEach((a) => {
+  if (!a.title || !a.source) rdProblems.push(a.id + ':title/source');
+  if (!Array.isArray(a.paras) || !a.paras.length) rdProblems.push(a.id + ':paras');
+  (a.paras || []).forEach((p) => {
+    if (p.h != null) { if (!p.h) rdProblems.push(a.id + ':empty heading'); }
+    else if (!Array.isArray(p.sents) || !p.sents.length || p.sents.some((x) => !x || !String(x).trim())) rdProblems.push(a.id + ':bad sents');
+  });
+  if (!Array.isArray(a.vocab) || a.vocab.length < 40) rdProblems.push(a.id + ':vocab<40');
+  (a.vocab || []).forEach((v) => { if (!v.fr || !v.ko) rdProblems.push(a.id + ':vocab entry ' + v.fr); });
+});
+ok(rdProblems.length === 0, 'reading: headings/sentences non-empty, vocab entries complete', rdProblems.slice(0, 5).join(', '));
+const rdSentTotal = (reading.articles || []).reduce((n, a) => n + a.paras.reduce((m, p) => m + (p.sents ? p.sents.length : 0), 0), 0);
+ok(rdSentTotal >= 130, 'reading: at least 130 sentences across articles', String(rdSentTotal));
+ok(appJs.includes("reading: 'data/reading.json'"), 'reading.json loaded at boot');
+ok(appJs.includes('function viewReading') && appJs.includes("route.view === 'reading'"), 'reading view wired into router');
+ok(appJs.includes('data-reading') && appJs.includes('data-readdone'), 'reading navigation and done toggle wired');
+ok(appJs.includes('readingDone'), 'reading done state persisted');
+ok(appJs.includes("go('ce', 'reading', t.dataset.reading)"), 'reading route param stays a string so article index 0 survives go() (param || null)');
 (function sentenceTypingTests() {
   const grab = (name) => {
     const m = appJs.match(new RegExp('function ' + name + '\\b[\\s\\S]*?\\n}'));

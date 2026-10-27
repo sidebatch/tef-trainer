@@ -29,7 +29,7 @@ function loadState() {
   return defaultState();
 }
 function defaultState() {
-  return { answers: {}, plays: {}, wordStates: {}, myWords: [], activity: {}, drill: {}, posterDone: {}, eoCheck: {}, last: null, lastItem: null, pin: null };
+  return { answers: {}, plays: {}, wordStates: {}, myWords: [], activity: {}, drill: {}, posterDone: {}, eoCheck: {}, last: null, lastItem: null, pin: null, readingDone: {} };
 }
 function save() { try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) {} }
 function todayKey(d) { d = d || new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
@@ -373,7 +373,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 32)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 33)</p>';
   h += '</div>';
   return h;
 }
@@ -418,8 +418,20 @@ function setRowHtml(mod, set) {
     '<span class="s">' + p.done + '/' + p.total + ' 문항</span></span>' +
     '<span class="chev" aria-hidden="true">›</span></button>';
 }
+function readingRowHtml(a, i) {
+  const ns = a.paras.reduce((n, p) => n + (p.sents ? p.sents.length : 0), 0);
+  const done = !!(state.readingDone && state.readingDone[a.id]);
+  return '<button class="listrow" data-reading="' + i + '">' +
+    '<span class="dot' + (done ? ' done' : '') + '">' + (done ? '✓' : '·') + '</span>' +
+    '<span class="main"><span class="t fr">' + a.no + '. ' + esc(a.title) + '</span>' +
+    '<span class="s">' + esc(a.source) + ' · 문장 ' + ns + '개 · 단어 ' + a.vocab.length + '개</span></span>' +
+    '<span class="chev" aria-hidden="true">›</span></button>';
+}
 function viewCeList() {
   let h = '<div class="stack"><div><h2 class="page-title">읽기 — CE ' + DATA.ce.items.length + '문항</h2></div>';
+  h += '<section><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">리딩 자료 B1 — 과외 기사</h3><p class="muted" style="margin:0 0 8px">문장마다 듣기 버튼이 있고, 단어장은 내 단어에 담을 수 있어요.</p><div class="stack-sm">';
+  (DATA.reading ? DATA.reading.articles : []).forEach((a, i) => { h += readingRowHtml(a, i); });
+  h += '</div></section>';
   h += '<section><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">연습 세트</h3><div class="stack-sm">';
   CE_PRACTICE.forEach((s) => { h += setRowHtml('읽기', s); });
   h += '</div></section><section><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">모의고사</h3><div class="stack-sm">';
@@ -470,6 +482,34 @@ function viewSetItems(mod, set) {
       '<span class="s">' + esc(it.id) + '</span></span>' + badge + '</button>';
   });
   h += '</div></div>';
+  return h;
+}
+function viewReading(idx) {
+  idx = Number(idx);
+  const a = DATA.reading.articles[idx];
+  if (!a) return '<div class="card"><p>자료를 찾을 수 없어요.</p></div>';
+  const ns = a.paras.reduce((n, p) => n + (p.sents ? p.sents.length : 0), 0);
+  const done = !!(state.readingDone && state.readingDone[a.id]);
+  let h = '<div class="stack"><div><h2 class="page-title">' + a.no + '. ' + esc(a.title) + '</h2>' +
+    '<p class="muted">' + esc(a.source) + ' · 문장 ' + ns + '개 · 단어 ' + a.vocab.length + '개</p>' +
+    (done
+      ? '<button class="btn ghost small" style="margin-top:8px" data-readdone="' + a.id + '">읽음 ✓ — 다시 누르면 취소</button>'
+      : '<button class="btn small" style="margin-top:8px" data-readdone="' + a.id + '">다 읽었어요</button>') + '</div>';
+  h += '<div class="card"><h3>본문</h3>';
+  a.paras.forEach((p) => {
+    if (p.h) h += '<h4 style="font-size:15.5px;margin:14px 0 6px">' + esc(p.h) + '</h4>';
+    else h += '<div style="margin:0 0 12px">' + p.sents.map((st) => speakableLine(st)).join('') + '</div>';
+  });
+  h += '</div>';
+  h += '<div class="card"><h3>단어장 — ' + a.vocab.length + '개</h3>' +
+    wordRows(a.vocab.map((v) => [v.fr, v.ko + (v.note ? ' · ' + v.note : '')]), 'rd') + '</div>';
+  const prev = DATA.reading.articles[idx - 1], next = DATA.reading.articles[idx + 1];
+  if (prev || next) {
+    h += '<div class="row" style="gap:8px">' +
+      (prev ? '<button class="btn ghost" style="flex:1" data-reading="' + (idx - 1) + '">‹ 이전 기사</button>' : '<span style="flex:1"></span>') +
+      (next ? '<button class="btn ghost" style="flex:1" data-reading="' + (idx + 1) + '">다음 기사 ›</button>' : '<span style="flex:1"></span>') + '</div>';
+  }
+  h += '</div>';
   return h;
 }
 function viewCeStrategies() {
@@ -1116,6 +1156,7 @@ function render() {
     else if (route.view === 'calendar') html = viewCalendar();
     else if (route.view === 'ceList') html = viewCeList();
     else if (route.view === 'ceStrategies') html = viewCeStrategies();
+    else if (route.view === 'reading') html = viewReading(route.param);
     else if (route.view === 'setItems') html = viewSetItems(route.param.mod, route.param.set);
     else if (route.view === 'ceItem') html = viewCeItem(route.param);
     else if (route.view === 'coHome') html = viewCoHome();
@@ -1160,7 +1201,7 @@ document.addEventListener('click', (ev) => {
   // row it would even record an answer the learner never meant to pick.
   const sel = window.getSelection ? window.getSelection() : null;
   if (sel && !sel.isCollapsed && sel.toString().trim() !== '') return;
-  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-pinset],[data-unpin],[data-optko],[data-sent],[data-dchunk],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-dict-play],[data-dict-slow],[data-dict-repeat],[data-stype-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday]');
+  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-pinset],[data-unpin],[data-optko],[data-sent],[data-dchunk],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-dict-play],[data-dict-slow],[data-dict-repeat],[data-stype-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday],[data-reading],[data-readdone]');
   // bottom nav + back handled separately below
   if (ev.target.closest('.nav-btn')) { setTab(ev.target.closest('.nav-btn').dataset.tab); return; }
   if (ev.target.closest('#backBtn')) { if (navStack.length) history.back(); else back(); return; }
@@ -1175,6 +1216,8 @@ document.addEventListener('click', (ev) => {
   if (t.dataset.pinset) { const [mod, set] = t.dataset.pinset.split('|'); state.pin = { mod, set }; save(); render(); return; }
   if (t.dataset.unpin) { state.pin = null; save(); render(); return; }
   if (t.dataset.setlist) { const [mod, set] = t.dataset.setlist.split('|'); go(mod === '읽기' ? 'ce' : 'co', 'setItems', { mod, set }, !t.dataset.nopush); return; }
+  if (t.dataset.reading) { go('ce', 'reading', t.dataset.reading); return; }
+  if (t.dataset.readdone) { state.readingDone = state.readingDone || {}; state.readingDone[t.dataset.readdone] = !state.readingDone[t.dataset.readdone]; save(); render(); return; }
   if (t.dataset.openitem) { openItem(t.dataset.openitem, t.dataset.mod, !!t.dataset.nopush); return; }
   if (t.dataset.answer) {
     const item = findItem(t.dataset.answer);
@@ -1301,7 +1344,7 @@ function findWordKr(fr) {
 
 /* ================= boot ================= */
 async function boot() {
-  const files = { ce: 'data/ce.json', co: 'data/co.json', ee: 'data/ee.json', eo: 'data/eo.json', refs: 'data/refs.json', optionKo: 'data/option_ko.json', sentKo: 'data/sent_ko.json', chunks: 'data/chunks.json', tts: 'data/tts.json' };
+  const files = { ce: 'data/ce.json', co: 'data/co.json', ee: 'data/ee.json', eo: 'data/eo.json', refs: 'data/refs.json', optionKo: 'data/option_ko.json', sentKo: 'data/sent_ko.json', chunks: 'data/chunks.json', tts: 'data/tts.json', reading: 'data/reading.json' };
   const entries = await Promise.all(Object.entries(files).map(async ([k, path]) => {
     const r = await fetch(path);
     if (!r.ok) throw new Error(path + ' ' + r.status);

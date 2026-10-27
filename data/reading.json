@@ -1,0 +1,2290 @@
+{
+ "articles": [
+  {
+   "id": "RD-1",
+   "no": 1,
+   "title": "Le taux de chômage est demeuré à 6,4 % en juillet au Canada",
+   "source": "Radio-Canada",
+   "paras": [
+    {
+     "sents": [
+      "Le chômage a peu varié au Canada en juillet, pour un troisième mois consécutif, souligne Statistique Canada, qui publiait ce matin les données du mois dernier sur l'emploi au pays.",
+      "Au Canada, le taux de chômage est demeuré inchangé à 6,4 %."
+     ]
+    },
+    {
+     "sents": [
+      "Le mois dernier, la création d'emplois au Canada s'est soldée par une perte nette de 2800 emplois.",
+      "Les principaux secteurs touchés ont été le commerce de gros et de détail (-44 000), la finance, les assurances, les services immobiliers, les services de location et de location de bail (-15 000).",
+      "Les secteurs qui ont généré le plus d'emploi au cours de la période ont été les administrations publiques (+20 000), le transport et l'entreposage (+15 000) et les services publics (+6200).",
+      "« En juillet, l'emploi a reculé chez les femmes (-41 000) et chez les hommes (-15 000) âgés de 55 à 64 ans.",
+      "L'emploi a aussi diminué chez les jeunes hommes âgés de 15 à 24 ans (-20 000), tandis qu'il a augmenté chez les hommes âgés de 25 à 54 ans (+48 000) », souligne également Statistique Canada.",
+      "Toujours dans une dynamique de lutte contre l'inflation et la surchauffe de l'économie, la Banque du Canada, qui maintient les taux d'intérêt élevés au pays, contribue à ce ralentissement de l'emploi qui a fait grimper le taux de chômage de 0,9 point de pourcentage au pays depuis un an.",
+      "Le taux d'activité qui représente la proportion de la population de 15 ans et plus qui occupe un emploi ou est à la recherche de travail a diminué de 0,3 point de pourcentage pour s'établir à 65,0 % en juillet, soit 0,6 point de pourcentage de moins qu'il y a un an."
+     ]
+    },
+    {
+     "h": "Période difficile pour les étudiants et les immigrants"
+    },
+    {
+     "sents": [
+      "Les étudiants sont confrontés à un marché de l'emploi particulièrement difficile cet été, selon Statistique Canada.",
+      "En juillet, le taux de chômage des étudiants retournant aux études s'est établi à 17,2 %, son niveau le plus élevé pour un mois de juillet depuis 2009 (à l'exception de juillet 2020), note l'agence fédérale."
+     ]
+    },
+    {
+     "sents": [
+      "Le ralentissement de l'emploi frappe nettement plus fort chez les jeunes et les immigrants récents, souligne Statistique Canada."
+     ]
+    },
+    {
+     "sents": [
+      "Les nouveaux immigrants sont aussi touchés de manière disproportionnée par le ralentissement du marché du travail.",
+      "Au cours de la dernière année, le taux de chômage des immigrants qui sont au Canada depuis moins de cinq ans a bondi de 3,1 % pour atteindre 12,6 %.",
+      "« L'augmentation a été particulièrement notable chez les jeunes immigrants récents – le taux de chômage de ce groupe s'est établi à 22,8 % en juillet, en hausse de 8,6 points de pourcentage par rapport à un an plus tôt, » écrit Statistique Canada."
+     ]
+    },
+    {
+     "h": "Provinces et territoires"
+    },
+    {
+     "sents": [
+      "Au Québec, l'emploi est aussi demeuré pratiquement inchangé et le taux de chômage s'est maintenu à 5,7 %.",
+      "Les taux de chômage sont aussi demeurés stables en Alberta (7,1 %) et dans les Territoires-du-Nord-Ouest (6,5 %).",
+      "Le chômage a cependant progressé en Colombie-Britannique (+0,3), à Terre-Neuve-et-Labrador (+0,4), à l'Île-du-Prince-Édouard (+0,9), en Nouvelle-Écosse (+0,4) ainsi qu'au Nunavut (+0,6).",
+      "L'Ontario (-0,3), le Nouveau-Brunswick (-0,5), la Saskatchewan (-0,1) et le Yukon (-0,1) ont quant à eux bénéficié d'une progression de l'emploi en juillet."
+     ]
+    }
+   ],
+   "vocab": [
+    {
+     "fr": "le taux de chômage",
+     "ko": "실업률",
+     "note": "chômeur : 실업자"
+    },
+    {
+     "fr": "demeurer",
+     "ko": "남다, 머무르다 = rester",
+     "note": ""
+    },
+    {
+     "fr": "Mis à jour",
+     "ko": "최신 정보로 갱신됨, 업데이트됨",
+     "note": ""
+    },
+    {
+     "fr": "les couvreurs",
+     "ko": "지붕 수리공",
+     "note": ""
+    },
+    {
+     "fr": "le couvercle",
+     "ko": "커버, 뚜껑",
+     "note": ""
+    },
+    {
+     "fr": "le toit",
+     "ko": "지붕",
+     "note": ""
+    },
+    {
+     "fr": "peu",
+     "ko": "거의, 거의 ~하지 않다.",
+     "note": ""
+    },
+    {
+     "fr": "consécutif",
+     "ko": "연속적인",
+     "note": ""
+    },
+    {
+     "fr": "souligner",
+     "ko": "강조하다, 하이라이트하다",
+     "note": ""
+    },
+    {
+     "fr": "Statistique Canada",
+     "ko": "캐나다 통계청",
+     "note": ""
+    },
+    {
+     "fr": "les données",
+     "ko": "데이터 (항상 복수형)",
+     "note": ""
+    },
+    {
+     "fr": "inchangé",
+     "ko": "변하지 않은",
+     "note": ""
+    },
+    {
+     "fr": "s'est soldée",
+     "ko": "결과로 ~이 되었다, ~으로 끝났다",
+     "note": ""
+    },
+    {
+     "fr": "une perte",
+     "ko": "손실 (=un déficit, une défaite)",
+     "note": ""
+    },
+    {
+     "fr": "net(te)",
+     "ko": "adj.순수한",
+     "note": "une perte nette (순손실)"
+    },
+    {
+     "fr": "touché",
+     "ko": "영향을 받다 (=affecté, influencé, impacté)",
+     "note": ""
+    },
+    {
+     "fr": "le commerce de gros et de détail",
+     "ko": "도매 및 소매 업계",
+     "note": ""
+    },
+    {
+     "fr": "générer",
+     "ko": "생성하다, 만들다 (=produire, créer, engendrer)",
+     "note": ""
+    },
+    {
+     "fr": "au cours de",
+     "ko": "-동안 (=pendant, durant, tout au long de)",
+     "note": ""
+    },
+    {
+     "fr": "reculer",
+     "ko": "후퇴하다, 뒤로 물러나다",
+     "note": ""
+    },
+    {
+     "fr": "la location de bail",
+     "ko": "임대, 렌트",
+     "note": ""
+    },
+    {
+     "fr": "l'entreposage",
+     "ko": "창고 보관, 물류창고",
+     "note": ""
+    },
+    {
+     "fr": "lutter contre",
+     "ko": "싸우다, 대항하다 (=combattre, s'opposer, résister)",
+     "note": ""
+    },
+    {
+     "fr": "l’inflation",
+     "ko": "인플레이션",
+     "note": ""
+    },
+    {
+     "fr": "maintenir",
+     "ko": "유지하다",
+     "note": ""
+    },
+    {
+     "fr": "la surchauffe",
+     "ko": "과열",
+     "note": ""
+    },
+    {
+     "fr": "les taux d’intérêt",
+     "ko": "이자율",
+     "note": ""
+    },
+    {
+     "fr": "élevé",
+     "ko": "adj.높은",
+     "note": ""
+    },
+    {
+     "fr": "le ralentissement",
+     "ko": "둔화, 느려짐",
+     "note": ""
+    },
+    {
+     "fr": "être à la recherche de",
+     "ko": "을 찾기 위해 노력하다",
+     "note": ""
+    },
+    {
+     "fr": "s’établir",
+     "ko": "정착하다, 설립되다, 자리 잡다",
+     "note": ""
+    },
+    {
+     "fr": "grimper",
+     "ko": "오르다, 상승하다",
+     "note": ""
+    },
+    {
+     "fr": "confronter à",
+     "ko": "-에 직면하다",
+     "note": ""
+    },
+    {
+     "fr": "frapper",
+     "ko": "치다, 때리다",
+     "note": ""
+    },
+    {
+     "fr": "de manière disproportionnée",
+     "ko": "불균형하게, 비례하지 않게",
+     "note": ""
+    },
+    {
+     "fr": "Au cours de la dernière année",
+     "ko": "지난 해 동안, 최근 일 년간",
+     "note": ""
+    },
+    {
+     "fr": "de manière + adj",
+     "ko": "-하게, -한 방식으로",
+     "note": ""
+    },
+    {
+     "fr": "disproportionnée",
+     "ko": "adj 과도한, 무리한",
+     "note": "de manière disproportionnée 무리하게"
+    },
+    {
+     "fr": "bondir",
+     "ko": "뛰다, 급등하다",
+     "note": ""
+    },
+    {
+     "fr": "atteindre",
+     "ko": "도달하다, 달성하다 (=parvenir à, arriver à, réaliser)",
+     "note": ""
+    },
+    {
+     "fr": "en hausse de",
+     "ko": "~만큼 증가하여, ~의 상승으로",
+     "note": ""
+    },
+    {
+     "fr": "peiner",
+     "ko": "고생하다, 어려움을 겪다",
+     "note": ""
+    },
+    {
+     "fr": "ainsi que",
+     "ko": "그리고, -와 같이",
+     "note": ""
+    },
+    {
+     "fr": "la progression",
+     "ko": "진보, 발전",
+     "note": ""
+    },
+    {
+     "fr": "Quant à",
+     "ko": "-에 관해서는 (=concernant, en ce qui concerne, à propos de)",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "id": "RD-2",
+   "no": 2,
+   "title": "Salaires : légère avancée sur les inégalités femmes-hommes dans le monde",
+   "source": "Le Monde",
+   "paras": [
+    {
+     "sents": [
+      "Selon l’Organisation internationale du travail, lorsque en 2005 un homme gagnait un dollar par son travail, une femme ne touchait que 47 cents.",
+      "En 2024, elle reçoit 51,8 cents.",
+      "Mais on est encore très loin de l’égalité salariale, explique la journaliste du « Monde » Anne Rodier dans sa chronique."
+     ]
+    },
+    {
+     "sents": [
+      "Quand il s’agit de réduire les écarts de rémunération entre les femmes et les hommes, les progrès sont tellement rares qu’ils méritent d’être salués.",
+      "Dans l’actualisation de son rapport annuel sur l’emploi et les questions sociales 2024 publiée mercredi 4 septembre, l’Organisation internationale du travail (OIT) a en effet annoncé une légère hausse du ratio global du salaire des femmes par rapport à celui des hommes dans le monde.",
+      "Concrètement, lorsque en 2005 « un homme gagnait un dollar par son travail, une femme ne touchait que 47 cents.",
+      "En 2024, elle en reçoit 51,8.",
+      "Ce qui reflète un modeste progrès », commente l’OIT.",
+      "Mais c’est « insuffisant », soulignent les auteurs du rapport préparé par le département de statistiques de l’OIT sous la direction de Rafael Diez de Medina.",
+      "Et cette amélioration n’est pas uniforme.",
+      "Les avancées sont en effet plus « importantes » en Europe ou en Asie qu’en Afrique, par exemple.",
+      "Les Européennes toucheraient désormais 61,9 cents (quand un Européen reçoit l’équivalent d’un dollar) contre 53,9 cents en 2005, tandis qu’en Afrique, la part versée aux femmes a reculé sur cette même période de 34,9 à 34,7 cents pour un dollar payé aux hommes."
+     ]
+    },
+    {
+     "h": "Travail gratuit à partir du 8 novembre"
+    },
+    {
+     "sents": [
+      "Quelle que soit la région, on est évidemment encore très loin de l’égalité salariale.",
+      "Un autre calcul nous rappelle chaque année à l’automne que le sujet avance extrêmement lentement en France.",
+      "« À partir du 8 novembre à 16 h 48, les femmes travailleront encore gratuitement cette année.",
+      "Et ce jusqu’à fin décembre », affirme Rebecca Amsellem."
+     ]
+    },
+    {
+     "sents": [
+      "Cette docteure en économie, fondatrice de la newsletter féministe « Les glorieuses », traduit chaque année depuis 2016 l’écart salarial publié par l’office de statistiques européen Eurostat en nombre de jours, puis d’heures pour afficher ce que représente le travail gratuit des femmes.",
+      "En 2023, avec un écart de salaire de 15,4 %, rapporté aux 251 jours ouvrés, ce sont ainsi 38,6 jours de travail que les femmes ont offerts malgré elles.",
+      "En 2024, c’est seulement deux jours de moins."
+     ]
+    },
+    {
+     "h": "Ségrégations professionnelles"
+    },
+    {
+     "sents": [
+      "Le calcul des « Glorieuses » a parfois été critiqué car l’écart de 15,4 % est seulement mesuré en équivalent temps plein pour toutes les entreprises de plus de dix salariés, mais pas à postes comparables – le taux descendrait alors à 4 %.",
+      "« C’est certes une moyenne intersectorielle, mais c’est un symbole fort des inégalités salariales », souligne Mme Amsellem.",
+      "De fait, il souligne en creux le rôle des ségrégations professionnelles dans la persistance des inégalités.",
+      "En France, les secteurs très féminisés de la santé et de l’éducation présentent de bons exemples du lien entre faibles revenus des femmes et répartition genrée des professions."
+     ]
+    },
+    {
+     "sents": [
+      "L’économiste Dominique Meurs qui analyse ce phénomène dans son ouvrage Les Entreprises et l’égalité femmes hommes (Presses de Sciences Po, 2023) donne les chiffres de la ségrégation qui s’étend bien au-delà de ces deux secteurs : « Les métiers d’employés de service comme d’aides à domicile, d’agents d’entretien, de vendeurs, sont tenus à 76 % par des femmes, les aides-soignants à 90 %, les enseignants à 66 %.",
+      "Les femmes sont, en revanche, minoritaires parmi les ingénieurs et cadres techniques d’entreprise (23 %), ajoute l’économiste.",
+      "« Revaloriser les salaires des emplois où les femmes sont les plus nombreuses », comme le proposent « Les Glorieuses » paraît donc une piste significative pour améliorer le « modeste progrès » enregistré par l’OIT en cette rentrée."
+     ]
+    }
+   ],
+   "vocab": [
+    {
+     "fr": "Les inégalités",
+     "ko": "불평등",
+     "note": ""
+    },
+    {
+     "fr": "L’Organisation internationale du travail",
+     "ko": "국제노동기구",
+     "note": ""
+    },
+    {
+     "fr": "lorsque S+V",
+     "ko": "~할 때 (Quand 보다 문어체)",
+     "note": "lors de + 명사 (-의 때)"
+    },
+    {
+     "fr": "ne A que B",
+     "ko": "단지 B 만 A 하다.",
+     "note": ""
+    },
+    {
+     "fr": "la rémunération",
+     "ko": "보수, 급여 =le salaire (임금)",
+     "note": ""
+    },
+    {
+     "fr": "salarial",
+     "ko": "adj. 임금의",
+     "note": ""
+    },
+    {
+     "fr": "être encore loin de",
+     "ko": "갈 길이 멀다.",
+     "note": ""
+    },
+    {
+     "fr": "Chronique",
+     "ko": "adj 만성적인/ n.f 기사, 시평",
+     "note": ""
+    },
+    {
+     "fr": "les abonnés",
+     "ko": "구독자들",
+     "note": "l’abonnement : 구독"
+    },
+    {
+     "fr": "Carnet de bureau",
+     "ko": "사무일지",
+     "note": ""
+    },
+    {
+     "fr": "il s’agit de",
+     "ko": "~에 관한 것이다",
+     "note": ""
+    },
+    {
+     "fr": "les écarts",
+     "ko": "격차",
+     "note": ""
+    },
+    {
+     "fr": "tellement A que B",
+     "ko": "너무 A 해서 B 하다.",
+     "note": ""
+    },
+    {
+     "fr": "mériter de",
+     "ko": "자격이 있다, ~할 만하다",
+     "note": ""
+    },
+    {
+     "fr": "être salué",
+     "ko": "환영 받다. 칭찬받다",
+     "note": ""
+    },
+    {
+     "fr": "l’actualisation",
+     "ko": "갱신, 업데이트 (mise à nouveau)",
+     "note": ""
+    },
+    {
+     "fr": "une légère hausse",
+     "ko": "약간의 상승",
+     "note": "hausser <-> baisser n.f la baisse (하락)"
+    },
+    {
+     "fr": "le ratio",
+     "ko": "비율",
+     "note": ""
+    },
+    {
+     "fr": "par rapport à",
+     "ko": "~에 비하여, ~에 관하여",
+     "note": ""
+    },
+    {
+     "fr": "concrètement",
+     "ko": "구체적으로 = en particulier, particulièrement",
+     "note": ""
+    },
+    {
+     "fr": "modeste",
+     "ko": "소박한, 검소한",
+     "note": ""
+    },
+    {
+     "fr": "insuffisant",
+     "ko": "불충분한",
+     "note": ""
+    },
+    {
+     "fr": "souligner",
+     "ko": "강조하다 =mettre en avant, mettre l’accent",
+     "note": ""
+    },
+    {
+     "fr": "uniforme",
+     "ko": "adj.일률적인, 통일된 n.m 유니폼, 제복",
+     "note": ""
+    },
+    {
+     "fr": "plus A que B : B",
+     "ko": "보다 더 A 하다 (<-> moins A que B)",
+     "note": ""
+    },
+    {
+     "fr": "désormais",
+     "ko": "이제부터, 앞으로",
+     "note": ""
+    },
+    {
+     "fr": "équivalent",
+     "ko": "상응하는 것, 동등한 것",
+     "note": ""
+    },
+    {
+     "fr": "tandis que",
+     "ko": "~하는 반면에, ~하는 동안",
+     "note": ""
+    },
+    {
+     "fr": "verser",
+     "ko": "지불하다, 기부하다 =payer, régler",
+     "note": ""
+    },
+    {
+     "fr": "reculer",
+     "ko": "후퇴하다, 물러서다",
+     "note": ""
+    },
+    {
+     "fr": "Quelle que soit",
+     "ko": "어떤 것이든, 어떤 경우든",
+     "note": ""
+    },
+    {
+     "fr": "calcul",
+     "ko": "계산, 산출,",
+     "note": ""
+    },
+    {
+     "fr": "afficher",
+     "ko": "표시하다, 보여주다",
+     "note": ""
+    },
+    {
+     "fr": "à partir de",
+     "ko": "-부터 =dès",
+     "note": ""
+    },
+    {
+     "fr": "gratuit (e)",
+     "ko": "adj 무료의",
+     "note": "la gratuite : n.f 무료/ gratuitement : adv."
+    },
+    {
+     "fr": "représente",
+     "ko": "대표하다, 나타내다 / adj représentatif : 대표하는",
+     "note": ""
+    },
+    {
+     "fr": "fondateur (-trice)",
+     "ko": "창립자, 건립자",
+     "note": ""
+    },
+    {
+     "fr": "les jours ouvrés",
+     "ko": "근무일, 영업일",
+     "note": "jours fériés (공휴일)"
+    },
+    {
+     "fr": "malgré",
+     "ko": "~에도 불구하고",
+     "note": ""
+    },
+    {
+     "fr": "seulement",
+     "ko": "오직, 단지",
+     "note": ""
+    },
+    {
+     "fr": "la ségrégation",
+     "ko": "분리, 격리, 분리 현상, 차별",
+     "note": ""
+    },
+    {
+     "fr": "critiquer",
+     "ko": "비평하다",
+     "note": ""
+    },
+    {
+     "fr": "mesurer",
+     "ko": "측정하다, 평가하다",
+     "note": "une mesure : 조치, 대책"
+    },
+    {
+     "fr": "temps plein",
+     "ko": "전일제, 풀타임",
+     "note": "temps partiel 파트타임"
+    },
+    {
+     "fr": "le poste",
+     "ko": "직책",
+     "note": "la poste : 우체국"
+    },
+    {
+     "fr": "De fait",
+     "ko": "사실상, 실질적으로",
+     "note": ""
+    },
+    {
+     "fr": "souligner en creux",
+     "ko": "-을 두드러지게 강조하다",
+     "note": ""
+    },
+    {
+     "fr": "la persistance",
+     "ko": "지속, 존속",
+     "note": ""
+    },
+    {
+     "fr": "le lien",
+     "ko": "연결, 관계, 링크",
+     "note": ""
+    },
+    {
+     "fr": "faibles revenus",
+     "ko": "낮은 수입, 저소득",
+     "note": ""
+    },
+    {
+     "fr": "la répartition genrée",
+     "ko": "성별에 따른 분포, 성별 배분",
+     "note": "le genre : 장르, 종류, 성별"
+    },
+    {
+     "fr": "le lien entre A et B : A",
+     "ko": "와 B 의 관계 /연관성",
+     "note": ""
+    },
+    {
+     "fr": "l’ouvrage",
+     "ko": "책 = œuvre, livre",
+     "note": ""
+    },
+    {
+     "fr": "les chiffres",
+     "ko": "수치들, 통계 자료",
+     "note": ""
+    },
+    {
+     "fr": "s’étendre",
+     "ko": "확장하다, 퍼지다",
+     "note": ""
+    },
+    {
+     "fr": "au-delà de",
+     "ko": "~ 이상, 너머로",
+     "note": ""
+    },
+    {
+     "fr": "être tenus à",
+     "ko": "~에 따라 유지하다, 강요받다",
+     "note": ""
+    },
+    {
+     "fr": "les soignants",
+     "ko": "의료 종사자들, 간호사 및 의료진",
+     "note": ""
+    },
+    {
+     "fr": "les enseignants",
+     "ko": "교사들",
+     "note": ""
+    },
+    {
+     "fr": "en revanche",
+     "ko": "반면에",
+     "note": ""
+    },
+    {
+     "fr": "les ingénieurs",
+     "ko": "엔지니어들",
+     "note": ""
+    },
+    {
+     "fr": "les cadres",
+     "ko": "임원, 관리자",
+     "note": ""
+    },
+    {
+     "fr": "Revaloriser",
+     "ko": "재평가하거나 가치를 높이다",
+     "note": ""
+    },
+    {
+     "fr": "une piste",
+     "ko": "발자취, 전용도로, 실마리, 방안",
+     "note": ""
+    },
+    {
+     "fr": "significative",
+     "ko": "의미 있는, 상당한",
+     "note": ""
+    },
+    {
+     "fr": "modeste",
+     "ko": "겸손한, 적은, 미미한",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "id": "RD-3",
+   "no": 3,
+   "title": "Tourisme estival à Montréal : plus de touristes, mais pas plus d’argent",
+   "source": "Radio-Canada",
+   "paras": [
+    {
+     "sents": [
+      "Le nombre de visiteurs pour les mois de mai, juin et juillet a connu une augmentation de 4,8 % par rapport à la même période en 2023."
+     ]
+    },
+    {
+     "sents": [
+      "Le nombre de touristes dans la métropole a augmenté de 4,8 % par rapport à l'année dernière, selon le bilan de mi-saison estivale de l'organisme Tourisme Montréal.",
+      "Pour le président-directeur général (PDG) de Tourisme Montréal, Yves Lalumière, le portrait dressé pour les mois de mai, juin et juillet représente « un bon début d'année dans l'ensemble ».",
+      "M. Lalumière se réjouit de l'affluence de visiteurs internationaux puisqu'à eux seuls, ils reflètent une croissance de 4,3 % comparativement à la même période en 2023."
+     ]
+    },
+    {
+     "sents": [
+      "Sans grande surprise, ce sont les quelque 2,5 millions d'Américains qui sont en tête de la liste des voyageurs étrangers.",
+      "Le bilan de Tourisme Montréal fait état d'une augmentation de 7,8 % de la clientèle américaine qui provient majoritairement du nord-est des États-Unis ainsi que de la Californie."
+     ]
+    },
+    {
+     "h": "Des touristes qui dépensent moins"
+    },
+    {
+     "sents": [
+      "Si l'achalandage sur l'île de Montréal s'est accru depuis les trois derniers mois, les dépenses liées aux secteurs touristiques ont quant à elles stagné, selon M. Lalumière.",
+      "L'inflation pourrait expliquer en partie ce phénomène.",
+      "« Bien que le nombre de visiteurs ait augmenté de 4,8 % au cours de la première moitié de la saison estivale, cet accroissement ne se traduit pas de manière significative par une hausse du taux d'occupation dans les hôtels », expose Tourisme Montréal dans un communiqué.",
+      "Les voyageurs se tournent vers d'autres solutions pour se loger, en restant chez des proches ou dans des espaces collaboratifs.",
+      "Le bilan démontre en effet que les touristes ontariens, québécois et français « préfèrent séjourner chez des proches »."
+     ]
+    },
+    {
+     "h": "Des événements attrayants"
+    },
+    {
+     "sents": [
+      "Plusieurs organismes du milieu culturel craignaient que la réputation de Montréal ne soit entachée, notamment après l'annulation du Festival Juste pour rire.",
+      "Cependant, les données semblent indiquer le contraire, alors que de nombreux touristes sondés par Tourisme Montréal ont affirmé qu'ils « aiment beaucoup la personnalité de Montréal, la gastronomie et oui la \"festivalisation\" et la culture », indique Yves Lalumière.",
+      "Le festival Osheaga en est le meilleur exemple avec un record de 147 000 festivaliers cette année, ou encore la Coupe Rogers qui s'est tenue au Stade IGA avec ses 68 554 amateurs de tennis, malgré les intempéries des derniers jours."
+     ]
+    },
+    {
+     "h": "Quelques bémols"
+    },
+    {
+     "sents": [
+      "Même si Tourisme Montréal dresse un bilan somme toute « positif », il reste quand même « place à l'amélioration », selon le PDG de l'organisme.",
+      "Les entraves routières font notamment partie des points à améliorer pour accroître l'appréciation de la ville par les touristes."
+     ]
+    },
+    {
+     "sents": [
+      "« On a dénoncé un peu le nombre de chantiers qu'il y avait l'été, il y a de l'amélioration à faire de ce côté-là. » — Yves Lalumière, PDG de Tourisme Montréal"
+     ]
+    },
+    {
+     "sents": [
+      "Cependant, ce serait plutôt les conditions météo qui désavantageraient le plus l'attractivité touristique de la région, d'après M. Lalumière.",
+      "« La météo c'est toujours un peu problématique [...] ça fait peur un peu au marché de proximité.",
+      "Si tu t'en vas dans Charlevoix et il annonce des orages violents pour le week-end, tu vas peut-être te dire, au prix qu'est mon hôtel je vais peut-être laisser faire.",
+      "Donc ça tend à être un facteur négatif pour nous », ajoute Yves Lalumière."
+     ]
+    }
+   ],
+   "vocab": [
+    {
+     "fr": "le Tourisme",
+     "ko": "관광",
+     "note": "les touristes : 관광객/ touristique : adj. 관광의"
+    },
+    {
+     "fr": "estival",
+     "ko": "여름의",
+     "note": ""
+    },
+    {
+     "fr": "l'argent",
+     "ko": "돈",
+     "note": ""
+    },
+    {
+     "fr": "le nombre de visiteurs",
+     "ko": "관광객의 수",
+     "note": "de nombreux visiteurs : 많은 관광객"
+    },
+    {
+     "fr": "une augmentation",
+     "ko": "증가 <-> une baisse : 하락, 감소",
+     "note": ""
+    },
+    {
+     "fr": "par rapport à",
+     "ko": "~에 비해",
+     "note": ""
+    },
+    {
+     "fr": "la métropole",
+     "ko": "대도시",
+     "note": ""
+    },
+    {
+     "fr": "selon",
+     "ko": "~에 따르면= d’après, en ce qui concerne",
+     "note": ""
+    },
+    {
+     "fr": "le bilan",
+     "ko": "평가, 결산",
+     "note": ""
+    },
+    {
+     "fr": "la mi-saison",
+     "ko": "중간 시즌",
+     "note": ""
+    },
+    {
+     "fr": "le président-directeur général (PDG)",
+     "ko": "CEO",
+     "note": ""
+    },
+    {
+     "fr": "le portrait",
+     "ko": "초상, 묘사",
+     "note": ""
+    },
+    {
+     "fr": "dresser",
+     "ko": "세우다, 준비하다, 작성하다",
+     "note": ""
+    },
+    {
+     "fr": "dans l'ensemble",
+     "ko": "전반적으로",
+     "note": ""
+    },
+    {
+     "fr": "se réjouir",
+     "ko": "기뻐하다",
+     "note": ""
+    },
+    {
+     "fr": "l'affluence",
+     "ko": "몰림, 인파, 과잉",
+     "note": "affluer : 운집하다, 흘러들다"
+    },
+    {
+     "fr": "une croissance",
+     "ko": "성장",
+     "note": ""
+    },
+    {
+     "fr": "comparativement",
+     "ko": "비교적으로 =relativement",
+     "note": ""
+    },
+    {
+     "fr": "être en tête",
+     "ko": "앞서다, 선두에 있다",
+     "note": ""
+    },
+    {
+     "fr": "un étranger (ère)",
+     "ko": "외국인",
+     "note": "étrange : adj 이상한 / à l’étranger : 해외에, 외국에"
+    },
+    {
+     "fr": "faire état de",
+     "ko": "-을 고려하다, -을 인용하다, 보고하다",
+     "note": ""
+    },
+    {
+     "fr": "la clientèle",
+     "ko": "고객 (집합적 의미)",
+     "note": "des clients : 손님, 고객"
+    },
+    {
+     "fr": "provenir",
+     "ko": "유래하다",
+     "note": ""
+    },
+    {
+     "fr": "majoritairement",
+     "ko": "주로",
+     "note": ""
+    },
+    {
+     "fr": "ainsi que",
+     "ko": "또한",
+     "note": ""
+    },
+    {
+     "fr": "dépenser",
+     "ko": "지출하다 <->économiser : 절약하다",
+     "note": ""
+    },
+    {
+     "fr": "Si",
+     "ko": "만약(가정), -일지라도(양보)",
+     "note": "이 기사에서는 양보절로 해석해야함"
+    },
+    {
+     "fr": "l'achalandage",
+     "ko": "손님끌기, 손님 늘리기",
+     "note": ""
+    },
+    {
+     "fr": "une île",
+     "ko": "섬",
+     "note": ""
+    },
+    {
+     "fr": "s'est accru",
+     "ko": "증가했다 (s’accroitre)",
+     "note": ""
+    },
+    {
+     "fr": "lié à",
+     "ko": "관련하여 =associé à",
+     "note": ""
+    },
+    {
+     "fr": "quant à",
+     "ko": "~에 대해 = en ce qui concerne, à propos de",
+     "note": ""
+    },
+    {
+     "fr": "stagner",
+     "ko": "정체하다",
+     "note": ""
+    },
+    {
+     "fr": "Bien que",
+     "ko": "비록 ~이지만",
+     "note": ""
+    },
+    {
+     "fr": "l’accroissement",
+     "ko": "증가",
+     "note": ""
+    },
+    {
+     "fr": "se traduit par",
+     "ko": "~로 나타나다",
+     "note": ""
+    },
+    {
+     "fr": "de manière significative",
+     "ko": "상당히",
+     "note": "de manière +adj : -하게, -하는 방식으로"
+    },
+    {
+     "fr": "une hausse",
+     "ko": "증가 <-> une baisse : 하락, 감소",
+     "note": ""
+    },
+    {
+     "fr": "l’occupation",
+     "ko": "점유율 un taux d’occupation : 점유율",
+     "note": ""
+    },
+    {
+     "fr": "un communiqué",
+     "ko": "보도자료",
+     "note": ""
+    },
+    {
+     "fr": "se tournent vers",
+     "ko": "향하고 있다",
+     "note": ""
+    },
+    {
+     "fr": "se loger",
+     "ko": "숙소를 구하다, 거주하다",
+     "note": ""
+    },
+    {
+     "fr": "des proches",
+     "ko": "친한 가족 및 친구",
+     "note": ""
+    },
+    {
+     "fr": "des espaces",
+     "ko": "공간",
+     "note": "l'espace : 우주 * une espèce : 종류, 종/ les espèces : 현금 (복수로)"
+    },
+    {
+     "fr": "collaboratif",
+     "ko": "협업하는",
+     "note": "coopératif : 협력적인"
+    },
+    {
+     "fr": "démontrer",
+     "ko": "증명하다, 입증하다",
+     "note": "montrer : 보여주다"
+    },
+    {
+     "fr": "attrayant",
+     "ko": "매력적인",
+     "note": ""
+    },
+    {
+     "fr": "Plusieurs : (",
+     "ko": "복수형) 복수의, 몇몇의",
+     "note": ""
+    },
+    {
+     "fr": "le milieu culturel",
+     "ko": "문화 업계",
+     "note": "au milieu de :-중에, -가운데에서, -에서"
+    },
+    {
+     "fr": "craindre",
+     "ko": "무서워하다, 우려하다",
+     "note": "주어 +craindre : ne 허사 + 접속법 (부정의 의미가 없다) ex) Je crains qu’il ne soit malade (나는 그가 아플까봐 두렵다"
+    },
+    {
+     "fr": "entacher",
+     "ko": "더럽히다",
+     "note": "une tache : 더러워진 자국, 오염/ une tâche : 일, 테스크"
+    },
+    {
+     "fr": "rire",
+     "ko": "웃다",
+     "note": "Festival Juste pour rire : 페스티벌 이름"
+    },
+    {
+     "fr": "Cependant",
+     "ko": "그러나= toutefois, néanmoins",
+     "note": ""
+    },
+    {
+     "fr": "les données",
+     "ko": "데이터 (항상 복수)",
+     "note": ""
+    },
+    {
+     "fr": "sembler",
+     "ko": "보이다",
+     "note": ""
+    },
+    {
+     "fr": "indiquer",
+     "ko": "나타내다, 가르키다",
+     "note": ""
+    },
+    {
+     "fr": "le contraire",
+     "ko": "반대의",
+     "note": ""
+    },
+    {
+     "fr": "affirmer",
+     "ko": "단언하다, 확언하다, 주장하다",
+     "note": ""
+    },
+    {
+     "fr": "alors que",
+     "ko": "~인 반면에",
+     "note": ""
+    },
+    {
+     "fr": "être sondé",
+     "ko": "조사되다 = interrogé",
+     "note": ""
+    },
+    {
+     "fr": "la personnalité",
+     "ko": "개성, 특성",
+     "note": ""
+    },
+    {
+     "fr": "la gastronomie",
+     "ko": "미식",
+     "note": ""
+    },
+    {
+     "fr": "le meilleur",
+     "ko": "최고의",
+     "note": ""
+    },
+    {
+     "fr": "s'est tenue",
+     "ko": "열렸다 se tenir : 열리다, 개최하다",
+     "note": ""
+    },
+    {
+     "fr": "malgré",
+     "ko": "~에도 불구하고",
+     "note": ""
+    },
+    {
+     "fr": "les intempéries",
+     "ko": "악천후",
+     "note": ""
+    },
+    {
+     "fr": "des derniers jours",
+     "ko": "최근 며칠간의",
+     "note": "des derniers années : 최근 몇 년간의"
+    },
+    {
+     "fr": "des bémols",
+     "ko": "플랫, 반음, 단점",
+     "note": ""
+    },
+    {
+     "fr": "routière",
+     "ko": "adj.도로의, 도로교통의",
+     "note": ""
+    },
+    {
+     "fr": "faire partie de",
+     "ko": "-의 부분이다. -에 속하다",
+     "note": ""
+    },
+    {
+     "fr": "ce côté-là",
+     "ko": "그 측면에",
+     "note": ""
+    },
+    {
+     "fr": "une somme",
+     "ko": "합, 합계, 금액",
+     "note": ""
+    },
+    {
+     "fr": "quand même",
+     "ko": "어찌됐든",
+     "note": ""
+    },
+    {
+     "fr": "les entraves",
+     "ko": "장애물",
+     "note": ""
+    },
+    {
+     "fr": "routière",
+     "ko": "adj 도로의",
+     "note": ""
+    },
+    {
+     "fr": "l'appréciation",
+     "ko": "인식, 평가, 감상",
+     "note": "apprécier : 평가하다, 좋아하다, 알아주다"
+    },
+    {
+     "fr": "dénoncer",
+     "ko": "비난하다",
+     "note": "dénonciation : 비방, 비난"
+    },
+    {
+     "fr": "les chantiers",
+     "ko": "공사",
+     "note": ""
+    },
+    {
+     "fr": "la météo",
+     "ko": "날씨",
+     "note": ""
+    },
+    {
+     "fr": "désavantager",
+     "ko": "불리하게 만들다",
+     "note": "les désavantage =les inconvénients 단점"
+    },
+    {
+     "fr": "l'attractivité",
+     "ko": "매력",
+     "note": ""
+    },
+    {
+     "fr": "problématique",
+     "ko": "문제",
+     "note": ""
+    },
+    {
+     "fr": "s'en aller",
+     "ko": "가버리다",
+     "note": ""
+    },
+    {
+     "fr": "laisser faire",
+     "ko": "내버려두다, 포기하다",
+     "note": ""
+    },
+    {
+     "fr": "des orages",
+     "ko": "폭풍",
+     "note": ""
+    },
+    {
+     "fr": "Ça tend à",
+     "ko": "-의 경향이 있다",
+     "note": "avoir tendance à qc/inf : -하는 경향이 있다"
+    }
+   ]
+  },
+  {
+   "id": "RD-4",
+   "no": 4,
+   "title": "TikTok a violé la vie privée d’environ 1,5 million d’enfants canadiens, selon une enquête",
+   "source": "Radio-Canada",
+   "paras": [
+    {
+     "sents": [
+      "Le commissaire à la protection de la vie privée du Canada, Philippe Dufresne, et ses homologues provinciaux du Québec, de la Colombie-Britannique et de l’Alberta ont participé à cet examen."
+     ]
+    },
+    {
+     "sents": [
+      "TikTok a récolté, en trois ans, les informations personnelles de quelque 1,5 million de comptes canadiens d’enfants de moins de 13 ans, avant de les bannir, faute de mesures efficaces pour vérifier l’âge des gens qui accèdent à sa plateforme."
+     ]
+    },
+    {
+     "sents": [
+      "C’est l’une des choses que l’on apprend dans un rapport sur TikTok rendu public mardi par les autorités de protection des renseignements personnels au Canada."
+     ]
+    },
+    {
+     "sents": [
+      "« L’entreprise recueille des renseignements sensibles concernant de nombreux enfants et utilise ces renseignements à des fins de ciblage publicitaire et de recommandation de contenu. » — Philippe Dufresne, commissaire à la protection de la vie privée"
+     ]
+    },
+    {
+     "sents": [
+      "« Le fait qu’un compte ait été supprimé de la plateforme ne signifie pas que l’utilisateur n’est pas par la suite retourné sur la plateforme en utilisant des identifiants différents [comme une adresse courriel] », précise-t-on dans le rapport."
+     ]
+    },
+    {
+     "sents": [
+      "Les mesures mises en place pour détecter l’âge des utilisateurs qui se créent un compte sur la plateforme sont si inefficaces que de nombreux autres enfants n’ayant pas l’âge requis continuent d’y accéder sans que TikTok s’en aperçoive, estiment les commissaires à la vie privée du Canada, du Québec, de la Colombie-Britannique et de l’Alberta, qui ont participé à cet examen."
+     ]
+    },
+    {
+     "sents": [
+      "Parmi les informations sensibles récoltées par l’application de vidéo sur des enfants, sans le consentement d’un parent, on compte des données biométriques, telles que l’analyse faciale et vocale.",
+      "L’application y a recours afin d’éviter que des personnes de moins de 18 ans lancent une diffusion en direct, nommée TikTok Live."
+     ]
+    },
+    {
+     "sents": [
+      "Or, ces « outils d’analyse sophistiqués » n’étaient pas utilisés par la plateforme « pour empêcher les utilisateurs n’ayant pas l’âge minimum requis [d’y accéder] », note-t-on dans le rapport."
+     ]
+    },
+    {
+     "sents": [
+      "Au-delà des données personnelles, consulter TikTok – une application figurant parmi les plus populaires auprès des jeunes au pays – comporte son lot de risques pour la santé des enfants, plus susceptibles d’y voir des contenus « inappropriés pour leur âge », souligne la commissaire à l’information et à la protection de la vie privée de l’Alberta, Diane McLeod."
+     ]
+    },
+    {
+     "sents": [
+      "« [Les enfants] sont plus susceptibles de recevoir des publicités ciblées qui banalisent les jeux d’argent, augmentent les risques de vol d’identité, nuisent à leur développement sain, favorisent une image négative du corps ou une sexualisation précoce, ou encore renforcent les stéréotypes de genre. » — Diane McLeod, commissaire à l’information et à la protection de la vie privée de l’Alberta"
+     ]
+    },
+    {
+     "sents": [
+      "L’enquête a aussi permis de révéler que TikTok n’en « faisait pas assez » pour expliquer à ses utilisateurs – majeurs comme mineurs – ses pratiques en matière de données.",
+      "Les lois canadiennes exigent, entre autres, que les internautes puissent consentir de manière éclairée à la collecte et à l’utilisation de leurs données."
+     ]
+    },
+    {
+     "sents": [
+      "« Nous avons été choqués de constater à quel point les profils d’utilisateurs étaient élaborés, et comment ces informations étaient utilisées en combinaison avec la géolocalisation, pour créer des informations précises sur le lieu où se trouve l’utilisateur et quelles sont ses capacités financières », détaille le commissaire à l’information et à la protection de la vie privée de la Colombie-Britannique, Michael Harvey."
+     ]
+    },
+    {
+     "sents": [
+      "« C’est d’autant plus sensible lorsqu’on parle d’enfants.",
+      "Nous ne pensons pas que les adultes soient bien informés de comment c’est utilisé », ajoute-t-il."
+     ]
+    },
+    {
+     "h": "« TikTok s’est engagée à collaborer »"
+    },
+    {
+     "sents": [
+      "TikTok devra notamment adopter des mesures plus efficaces pour empêcher les internautes de moins de 13 ans (14 ans au Québec) de créer des comptes sur la plateforme, et veiller à ce que ses communications sur la protection de la vie privée soient claires, offertes en français et favorisent un consentement éclairé."
+     ]
+    },
+    {
+     "sents": [
+      "La plateforme devra également préciser que les données des « utilisateurs canadiens peuvent être transférées en Chine et que le gouvernement chinois peut y accéder »."
+     ]
+    },
+    {
+     "sents": [
+      "Le commissaire Philippe Dufresne a souligné à plusieurs reprises mardi que TikTok s’est engagée à appliquer les recommandations, bien que la plateforme « n’était généralement pas d’accord avec [ses] conclusions », lit-on dans le rapport."
+     ]
+    },
+    {
+     "sents": [
+      "« Nous apprécions la conclusion de cette enquête après avoir collaboré de manière ouverte et constructive avec les commissaires à la protection de la vie privée, et nous saluons leur accord sur plusieurs de nos propositions visant à renforcer davantage notre plateforme pour les Canadiens », affirme TikTok Canada dans une déclaration.",
+      "« Bien que nous ne soyons pas d’accord avec certaines des conclusions, nous restons déterminés à maintenir des pratiques rigoureuses en matière de transparence et de protection de la vie privée. »"
+     ]
+    },
+    {
+     "sents": [
+      "D’après le rapport, TikTok a déjà intégré des améliorations et s’est engagée à mettre en œuvre de nouvelles méthodes de détection de l’âge reposant sur des « indices visuels », telles l’analyse faciale du contenu publié, et l’analyse des comportements sur la plateforme.",
+      "La plateforme compte également ajouter un outil de traitement du langage naturel qui analysera le texte publié par les utilisateurs dans les commentaires ou la biographie, par exemple."
+     ]
+    },
+    {
+     "sents": [
+      "Ces modèles comporteraient toutefois des failles, d’après ce qu’a reconnu TikTok, puisque les utilisateurs qui ne publient pas de vidéo ou de commentaires forment respectivement 73,5 % et 59,2 % des utilisateurs, révèle le rapport."
+     ]
+    },
+    {
+     "sents": [
+      "La plateforme s’engage ainsi à ajouter un troisième modèle de détection, cette fois pour les « utilisateurs passifs », qui « utiliserait un certain nombre de sources de données » – non précisées publiquement, mais présentées aux commissariats – et « évaluerait les comptes en fonction des types de comportements d’autres utilisateurs dont le compte a précédemment été déterminé comme étant détenu par une personne n’ayant pas l’âge minimum requis »."
+     ]
+    },
+    {
+     "sents": [
+      "« Il y a beaucoup d’incohérences pour moi. [...] Ce n’est pas complet comme solution », réplique Laurence Grondin-Robillard, professeure associée à l’École des médias de l’Université du Québec à Montréal (UQAM)."
+     ]
+    },
+    {
+     "sents": [
+      "« Tout ça, ce sont quand même des données que nous allons partager [avec] TikTok. [...] On tolère que TikTok continue encore de récolter des données sur les mineurs ou encore les plus jeunes qui ne devraient pas être sur la plateforme. » — Laurence Grondin-Robillard, professeure associée à l’École des médias de l’UQAM"
+     ]
+    },
+    {
+     "sents": [
+      "Relancé à cet effet, un porte-parole du commissariat à la vie privée du Canada a répondu par courriel que l’utilisation des données biométriques par TikTok « n’est pas conçue [à des] fins de reconnaissance faciale ou d’identification des utilisateurs », mais bien « pour déduire des renseignements potentiellement sensibles sur les utilisateurs, tels que leur âge et leur genre »."
+     ]
+    },
+    {
+     "sents": [
+      "Le rapport recommande donc à TikTok « d’améliorer ses communications en matière de confidentialité afin de favoriser un consentement éclairé à la collecte et à l’utilisation des données biométriques, ce que TikTok a accepté de faire », insiste-t-il."
+     ]
+    },
+    {
+     "sents": [
+      "Selon Paul Laurier, ex-enquêteur à la Sûreté du Québec (SQ), croire que TikTok se conformera est de la « pensée magique »."
+     ]
+    },
+    {
+     "sents": [
+      "Même si TikTok se conformait, peu de gens s’attardent à lire les quelque « 200 lignes de contrat d’engagement sur les licences ».",
+      "« Qui les lit correctement et qui, à la fin de la lecture, va dire : \"Non je n’y vais pas\"? », demande-t-il."
+     ]
+    },
+    {
+     "sents": [
+      "« Je ne crois pas que ce soit le premier de leurs soucis.",
+      "Le Canada est assez petit pour forcer une compagnie comme ByteDance à se conformer. » — Paul Laurier, ex-enquêteur à la SQ"
+     ]
+    },
+    {
+     "sents": [
+      "« Ces géants-là font de l’argent avec les données personnelles.",
+      "C’est gratuit et on est le produit », ajoute-t-il."
+     ]
+    },
+    {
+     "sents": [
+      "Bien que Laurence Grondin-Robillard accueille favorablement le rapport, elle remarque que plusieurs éléments brillent par leur absence, notamment les jeux mobiles de ByteDance, la maison-mère de TikTok, offerts sur les magasins d’applications App Store et Google Play Store, et sa filiale d’intelligence artificielle."
+     ]
+    },
+    {
+     "sents": [
+      "« C’est une belle initiative.",
+      "C’est mieux que rien, mais ce n’est pas complet comme solution », indique-t-elle."
+     ]
+    },
+    {
+     "sents": [
+      "TikTok devra suivre un calendrier serré pour mettre en place les recommandations.",
+      "Le commissaire à la vie privée, Philippe Dufresne, n’exclut pas d’avoir recours à des procédures judiciaires afin que la plateforme se conforme, mais il « ne souhaite pas se rendre là »."
+     ]
+    }
+   ],
+   "vocab": [
+    {
+     "fr": "les réseaux sociaux",
+     "ko": "소셜 네트워크= les plateformes sociales",
+     "note": ""
+    },
+    {
+     "fr": "violer",
+     "ko": "위반하다 <-> respecter",
+     "note": ""
+    },
+    {
+     "fr": "Selon",
+     "ko": "=d’après, quant à",
+     "note": ""
+    },
+    {
+     "fr": "une enquête",
+     "ko": "조사, 수사",
+     "note": ""
+    },
+    {
+     "fr": "Le commissaire",
+     "ko": "위원장 / 수석",
+     "note": ""
+    },
+    {
+     "fr": "les homologues",
+     "ko": "동료들 / 유사기관",
+     "note": ""
+    },
+    {
+     "fr": "récolter",
+     "ko": "수집하다 =collecter, rassembler",
+     "note": ""
+    },
+    {
+     "fr": "des comptes",
+     "ko": "계정들",
+     "note": ""
+    },
+    {
+     "fr": "bannir",
+     "ko": "금지하다 / 차단하다 =interdire <-> autoriser : 승인하다",
+     "note": ""
+    },
+    {
+     "fr": "faute de",
+     "ko": "~이 없어서, ~을 구하지 못해, ~의 부족으로",
+     "note": "la faute : 과실 / 잘못"
+    },
+    {
+     "fr": "des renseignements",
+     "ko": "정보 / 자료 =des informations",
+     "note": ""
+    },
+    {
+     "fr": "accéder à",
+     "ko": "-에 접근하다",
+     "note": ""
+    },
+    {
+     "fr": "un rapport sur",
+     "ko": "-대한 보고서",
+     "note": ""
+    },
+    {
+     "fr": "rendu",
+     "ko": "제출된, 반환된, 이루어진",
+     "note": ""
+    },
+    {
+     "fr": "les autorités",
+     "ko": "당국, 권위기관, 행정 기관",
+     "note": ""
+    },
+    {
+     "fr": "recueillir",
+     "ko": "모으다 / 수집하다 = récolter",
+     "note": ""
+    },
+    {
+     "fr": "à des fins de",
+     "ko": "목적상 / 위해서",
+     "note": ""
+    },
+    {
+     "fr": "ciblage",
+     "ko": "타겟팅",
+     "note": ""
+    },
+    {
+     "fr": "publicitaire",
+     "ko": "광고의, 광고에 관한, 광고주(회사의)",
+     "note": "une publicité 광고"
+    },
+    {
+     "fr": "un contenu",
+     "ko": "내용, 컨텐츠",
+     "note": ""
+    },
+    {
+     "fr": "supprimer",
+     "ko": "삭제하다",
+     "note": ""
+    },
+    {
+     "fr": "par la suite",
+     "ko": "그 후에",
+     "note": ""
+    },
+    {
+     "fr": "des identifiants",
+     "ko": "아이디 / 로그인 정보",
+     "note": ""
+    },
+    {
+     "fr": "une adresse courriel",
+     "ko": "이메일 주소",
+     "note": ""
+    },
+    {
+     "fr": "détecter",
+     "ko": "감지하다",
+     "note": ""
+    },
+    {
+     "fr": "les mesures",
+     "ko": "조치, 대책",
+     "note": ""
+    },
+    {
+     "fr": "mettre en place",
+     "ko": "마련하다 =installer, déployer.",
+     "note": ""
+    },
+    {
+     "fr": "continuer de +inf",
+     "ko": "계속해서 -하다.",
+     "note": ""
+    },
+    {
+     "fr": "s’apercevoir",
+     "ko": "알아차리다, 깨닫다 = se rendre compte de",
+     "note": ""
+    },
+    {
+     "fr": "requis",
+     "ko": "요구된 / 필수적인",
+     "note": ""
+    },
+    {
+     "fr": "le consentement",
+     "ko": "동의",
+     "note": ""
+    },
+    {
+     "fr": "avoir recours",
+     "ko": "이용하다 / 의지하다 =utiliser",
+     "note": ""
+    },
+    {
+     "fr": "éviter",
+     "ko": "피하다, 면하다",
+     "note": ""
+    },
+    {
+     "fr": "afin de",
+     "ko": "위해서",
+     "note": ""
+    },
+    {
+     "fr": "en direct",
+     "ko": "생방송으로",
+     "note": ""
+    },
+    {
+     "fr": "Au-delà de",
+     "ko": "너머 / 이상",
+     "note": ""
+    },
+    {
+     "fr": "Or",
+     "ko": "그렇기는 하지만",
+     "note": ""
+    },
+    {
+     "fr": "sophistiqué",
+     "ko": "기교를 부린, 꾸민듯한, 고도의, 정밀한",
+     "note": ""
+    },
+    {
+     "fr": "empêcher de",
+     "ko": "-을 막다, 방지하다",
+     "note": ""
+    },
+    {
+     "fr": "figurant",
+     "ko": "adj. 기재된, 나열된 / n.m 영화 및 공연의 엑스트라 출연자",
+     "note": ""
+    },
+    {
+     "fr": "auprès de",
+     "ko": "-을 대상으로 하는",
+     "note": ""
+    },
+    {
+     "fr": "le lot",
+     "ko": "몫, 지분",
+     "note": ""
+    },
+    {
+     "fr": "banaliser",
+     "ko": "평범하게 만들다 / 일상화하다",
+     "note": "banal: adj.평범한, 일상의, 흔한"
+    },
+    {
+     "fr": "précoce",
+     "ko": "조기 / 일찍",
+     "note": ""
+    },
+    {
+     "fr": "un jeu",
+     "ko": "게임",
+     "note": "les jeux d’argent : 돈이 걸린 게임, 도박"
+    },
+    {
+     "fr": "nuire à",
+     "ko": "-을 해치다, 해롭게 하다",
+     "note": ""
+    },
+    {
+     "fr": "révéler",
+     "ko": "드러내다, 밝히다",
+     "note": ""
+    },
+    {
+     "fr": "en matière de",
+     "ko": "~에 관하여 / ~에 대해",
+     "note": ""
+    },
+    {
+     "fr": "une loi",
+     "ko": "법",
+     "note": "droit : 권리"
+    },
+    {
+     "fr": "exiger",
+     "ko": "요구하다 = réclamer, revendiquer(당연한 권리를 요구하다)",
+     "note": ""
+    },
+    {
+     "fr": "les internautes",
+     "ko": "인터넷 사용자, 네티즌",
+     "note": ""
+    },
+    {
+     "fr": "élaboré",
+     "ko": "공들여 만들어진",
+     "note": ""
+    },
+    {
+     "fr": "d’autant plus",
+     "ko": "더욱더",
+     "note": ""
+    },
+    {
+     "fr": "être choqué",
+     "ko": "충격을 받다",
+     "note": ""
+    },
+    {
+     "fr": "constater",
+     "ko": "확인하다",
+     "note": ""
+    },
+    {
+     "fr": "à quel point",
+     "ko": "얼마나",
+     "note": ""
+    },
+    {
+     "fr": "en combinaison",
+     "ko": "조합하여",
+     "note": ""
+    },
+    {
+     "fr": "d’autant plus",
+     "ko": "더욱 그러한",
+     "note": ""
+    },
+    {
+     "fr": "empêcher de",
+     "ko": "-을 막다 / 방지하다",
+     "note": ""
+    },
+    {
+     "fr": "veiller",
+     "ko": "주시하다 / 살피다",
+     "note": "surveiller : 감독하다, 관리하다/ surveillance :n.f 관리,감독"
+    },
+    {
+     "fr": "éclairé",
+     "ko": "계몽된 / 분별 있는, 양식[교양]있는, 식견을 갖춘",
+     "note": ""
+    },
+    {
+     "fr": "préciser",
+     "ko": "명확히 하다 / 구체적으로 하다",
+     "note": "précis : adj 구체적인, 자세한"
+    },
+    {
+     "fr": "à plusieurs reprises",
+     "ko": "여러차례, 여러번 반복해서",
+     "note": ""
+    },
+    {
+     "fr": "saluer",
+     "ko": "인사하다, 경의를 표하다",
+     "note": ""
+    },
+    {
+     "fr": "rigoureux (se)",
+     "ko": "엄격한 / 철저한",
+     "note": ""
+    },
+    {
+     "fr": "s’engager à",
+     "ko": "-에 대해 약속하다.",
+     "note": ""
+    },
+    {
+     "fr": "mettre en œuvre",
+     "ko": "실행하다 / 실시하다 =effectuer",
+     "note": ""
+    },
+    {
+     "fr": "un indice",
+     "ko": "지표, 지수",
+     "note": ""
+    },
+    {
+     "fr": "des failles",
+     "ko": "취약점 / 결함",
+     "note": ""
+    },
+    {
+     "fr": "respectivement",
+     "ko": "각각, 각기",
+     "note": ""
+    },
+    {
+     "fr": "passif (ve)",
+     "ko": "수동적인 <-> actif (ve)",
+     "note": ""
+    },
+    {
+     "fr": "en fonction de",
+     "ko": "-을 기반으로",
+     "note": ""
+    },
+    {
+     "fr": "étant détenu",
+     "ko": "억류된 상태에서",
+     "note": ""
+    },
+    {
+     "fr": "incohérences",
+     "ko": "불일치 / 모순",
+     "note": ""
+    },
+    {
+     "fr": "tolérer",
+     "ko": "견디다, 용인하다",
+     "note": ""
+    },
+    {
+     "fr": "un porte-parole",
+     "ko": "~의 대변인",
+     "note": ""
+    },
+    {
+     "fr": "s’attarder",
+     "ko": "머무르다 / 오래 머무르다",
+     "note": ""
+    },
+    {
+     "fr": "la maison mère",
+     "ko": "모회사, 본사",
+     "note": "filial :자회사의"
+    },
+    {
+     "fr": "C'est mieux que rien",
+     "ko": "그것도 나쁘진 않다",
+     "note": ""
+    },
+    {
+     "fr": "un calendrier serré pour",
+     "ko": "촉박한 일정으로",
+     "note": ""
+    },
+    {
+     "fr": "se conformer à",
+     "ko": "따르다, 준수하다",
+     "note": ""
+    }
+   ]
+  },
+  {
+   "id": "RD-5",
+   "no": 5,
+   "title": "Un recul pour le vélo serait « terrible », s’inquiète Valérie Plante",
+   "source": "La Presse",
+   "paras": [
+    {
+     "sents": [
+      "À quelques semaines des élections municipales, Valérie Plante décoche une flèche bien sentie à la cheffe d’Ensemble Montréal, Soraya Martinez Ferrada.",
+      "La mairesse sortante soutient qu’un recul de la progression du vélo serait « terrible » pour l’avenir de la métropole."
+     ]
+    },
+    {
+     "sents": [
+      "« Je croise vraiment les doigts pour qu’on avance, qu’on ne s’arrête pas et qu’on ne régresse pas.",
+      "Ce serait terrible », a évoqué Mme Plante jeudi matin, en marge d’une allocution tenue devant le North American Bikeshare & Scootershare Association (NABSA), au centre-ville de Montréal.",
+      "La mairesse s’est ensuite justifiée par le fait que la part modale du transport actif a grimpé de 6 à 11 % dans les 5 dernières années sur l’île.",
+      "« Il y a une élection en ce moment.",
+      "J’espère que nous allons continuer d’avancer, car les chiffres sont là, l’intérêt est là », a-t-elle insisté devant un parterre de leaders en micromobilité et en transports."
+     ]
+    },
+    {
+     "sents": [
+      "« Les Montréalais sont contents des aménagements qu’on a faits.",
+      "Quand on sécurise une piste cyclable avec des trottoirs élargis, ça vient protéger la vie de ceux qui habitent dans la ville, de ceux qui la font vivre.",
+      "Pour moi, c’est extrêmement positif de continuer d’aller de l’avant. » — Valérie Plante, mairesse sortante de Montréal"
+     ]
+    },
+    {
+     "sents": [
+      "Il s’agissait d’une attaque à peine voilée contre Soraya Martinez Ferrada, qui mène dans les sondages et pourrait détrôner Projet Montréal, le parti de la mairesse au pouvoir depuis huit ans.",
+      "Mme Martinez Ferrada a promis de « réaliser un état des lieux du réseau cyclable » afin d’évaluer les enjeux de sécurité."
+     ]
+    },
+    {
+     "sents": [
+      "En août dernier, la candidate à la mairie avait fait valoir que de nombreuses pistes cyclables sont trop dangereuses, déclenchant de l’inquiétude chez les adeptes du vélo.",
+      "Son numéro 2, Claude Pinard, a depuis évoqué une période de 12 à 18 mois sans aucune nouvelle piste cyclable à Montréal.",
+      "Jeudi, en marge d’une conférence de presse, Mme Martinez Ferrada n’a pas indiqué clairement si son équipe démantèlerait des pistes cyclables, advenant qu’elle prenne le pouvoir le 2 novembre.",
+      "« Je vais écouter les citoyens.",
+      "Cette administration a laissé les citoyens derrière.",
+      "Le legs de Valérie Plante, c’est le manque d’écoute », a critiqué l’ancienne ministre libérale."
+     ]
+    },
+    {
+     "sents": [
+      "« Cette administration a fait plusieurs projets sans consulter.",
+      "Il faut qu’on ait des projets qui prennent en considération tous les Montréalais », a-t-elle insisté."
+     ]
+    },
+    {
+     "h": "Une présence discrète, mais…"
+    },
+    {
+     "sents": [
+      "Il s’agissait d’une première sortie publique dans le dernier mois pour Mme Plante, qui se tient loin des caméras durant la campagne."
+     ]
+    },
+    {
+     "sents": [
+      "Plus tôt cette semaine, elle a néanmoins donné un coup de main à l’équipe du maire sortant de Rosemont–La-Petite-Patrie, François Limoges, en faisant du porte-à-porte avec son fils."
+     ]
+    },
+    {
+     "sents": [
+      "Sur les réseaux sociaux, l’élue a annoncé avoir entamé une tournée des organismes et des personnalités l’ayant aidé à « prendre soin des Montréalais » depuis 2017.",
+      "Elle a jusqu’ici rendu visite à la fondation Mères avec pouvoir, la SPCA de Montréal et l’UTILE, qui construit des logements étudiants abordables."
+     ]
+    },
+    {
+     "sents": [
+      "Elle a aussi applaudi une récente publication du magazine britannique The Economist, où on présentait la semaine dernière Montréal comme la capitale nord-américaine du cyclisme.",
+      "Le reportage faisait état des succès du Réseau express vélo (REV) Saint-Denis, parlant toutefois de la place du vélo en ville comme d’une « nouvelle guerre culturelle » en pleine campagne municipale."
+     ]
+    },
+    {
+     "sents": [
+      "Tout cela survient alors que mercredi, un sondage Léger mené pour la Société de développement commercial (SDC) du District Central révélait que 9 entreprises sur 10 s’inquiètent des « effets négatifs » de la piste cyclable nord-sud sur les artères Chabanel, Port-Royal, Meilleur, du Parc et Tolhurst."
+     ]
+    },
+    {
+     "sents": [
+      "« Les résultats du sondage sont sans équivoque.",
+      "Ils reflètent l’inquiétude profonde des entreprises devant des décisions qui bouleversent à la fois leurs opérations quotidiennes et leur compétitivité.",
+      "Le District Central est un pôle industriel et logistique vital pour Montréal, il est impératif que ses besoins spécifiques soient pleinement reconnus dans la planification urbaine », avait dit le président de la SDC, Gabriel Tupula."
+     ]
+    }
+   ],
+   "vocab": [
+    {
+     "fr": "Un recul",
+     "ko": "후퇴",
+     "note": ""
+    },
+    {
+     "fr": "le vélo",
+     "ko": "자전거",
+     "note": "vélo électrique : 전기 자전거"
+    },
+    {
+     "fr": "s’inquiéter",
+     "ko": "걱정하다",
+     "note": "inquiéter : 불안하게 만들다, 걱정하게 하다"
+    },
+    {
+     "fr": "décocher",
+     "ko": "발사하다, 공격하다",
+     "note": "décocher une flèche: 날카롭게 공격하다"
+    },
+    {
+     "fr": "une flèche",
+     "ko": "화살",
+     "note": ""
+    },
+    {
+     "fr": "bien sentie",
+     "ko": "잘 느껴지는",
+     "note": "sentir : 느끼다, 지각하다"
+    },
+    {
+     "fr": "Le maire",
+     "ko": "시장, la mairesse (여성 시장)",
+     "note": "la mairie : 시청 / la municipalité (읍, 면) 시청"
+    },
+    {
+     "fr": "sortant",
+     "ko": "떠나는, 퇴임하는 (sortir)",
+     "note": ""
+    },
+    {
+     "fr": "la cheffe",
+     "ko": "여성 지도자",
+     "note": "le chef : 남성 지도자"
+    },
+    {
+     "fr": "Ensemble Montréal",
+     "ko": "몬트리올 연합",
+     "note": ""
+    },
+    {
+     "fr": "soutenir",
+     "ko": "지지하다, 응원하다",
+     "note": ""
+    },
+    {
+     "fr": "la progression",
+     "ko": "진행",
+     "note": ""
+    },
+    {
+     "fr": "l’avenir",
+     "ko": "미래의 = futur",
+     "note": ""
+    },
+    {
+     "fr": "métropole",
+     "ko": "주요도시, 대도시",
+     "note": ""
+    },
+    {
+     "fr": "croiser les doigts pour",
+     "ko": "~좋은 결과를 기원하다",
+     "note": ""
+    },
+    {
+     "fr": "avancer",
+     "ko": "나아가다 = progresser, développer, faire des progrès",
+     "note": ""
+    },
+    {
+     "fr": "s’arrêter",
+     "ko": "멈추다 = cesser, freiner, suspendre",
+     "note": ""
+    },
+    {
+     "fr": "régresser",
+     "ko": "후퇴하다 = reculer",
+     "note": ""
+    },
+    {
+     "fr": "évoquer",
+     "ko": "언급하다 = mentionner, aborder",
+     "note": ""
+    },
+    {
+     "fr": "en marge de",
+     "ko": "-와 관련하여",
+     "note": ""
+    },
+    {
+     "fr": "l’allocution",
+     "ko": "연설, 발언",
+     "note": "allocution tenue: 행해진 연설"
+    },
+    {
+     "fr": "tenir",
+     "ko": "잡다, 가지다 (to hold)",
+     "note": ""
+    },
+    {
+     "fr": "au centre-ville",
+     "ko": "시내 중심, 도시 중심",
+     "note": ""
+    },
+    {
+     "fr": "justifié",
+     "ko": "정당화된 justifier : 정당화 하다",
+     "note": ""
+    },
+    {
+     "fr": "la part modale",
+     "ko": "모드 비율",
+     "note": ""
+    },
+    {
+     "fr": "grimper",
+     "ko": "상승하다 = monter, s'élever, augmenter",
+     "note": ""
+    },
+    {
+     "fr": "L'île",
+     "ko": "섬",
+     "note": ""
+    },
+    {
+     "fr": "l’intérêt",
+     "ko": "이익, 관심",
+     "note": ""
+    },
+    {
+     "fr": "un parterre",
+     "ko": "자리, 발언대",
+     "note": ""
+    },
+    {
+     "fr": "des aménagements",
+     "ko": "시설 = des installations",
+     "note": ""
+    },
+    {
+     "fr": "sécuriser",
+     "ko": "안전하게 하다",
+     "note": ""
+    },
+    {
+     "fr": "une piste cyclable",
+     "ko": "자전거 도로",
+     "note": ""
+    },
+    {
+     "fr": "les trottoirs",
+     "ko": "보도",
+     "note": ""
+    },
+    {
+     "fr": "élargir",
+     "ko": "넓히다, 확대하다 = étendre, agrandir",
+     "note": ""
+    },
+    {
+     "fr": "protéger",
+     "ko": "보호하다 =défendre, préserver",
+     "note": ""
+    },
+    {
+     "fr": "Il s’agit de",
+     "ko": "~에 관한 것이다",
+     "note": ""
+    },
+    {
+     "fr": "à peine",
+     "ko": "거의 ~하지 않다",
+     "note": ""
+    },
+    {
+     "fr": "voilé",
+     "ko": "숨겨진",
+     "note": "voiler : 숨기다 <-> dévoiler : 베일을 벗기다, 폭로하다"
+    },
+    {
+     "fr": "un sondage",
+     "ko": "여론조사",
+     "note": "une enquête : 설문조사, une recherche : 연구, 조사"
+    },
+    {
+     "fr": "détrôner",
+     "ko": "권좌를 빼앗다",
+     "note": ""
+    },
+    {
+     "fr": "le pouvoir",
+     "ko": "권력",
+     "note": ""
+    },
+    {
+     "fr": "réaliser",
+     "ko": "실현하다 = accomplir, effectuer, mettre en œuvre",
+     "note": ""
+    },
+    {
+     "fr": "un état des lieux",
+     "ko": "현황 보고서",
+     "note": ""
+    },
+    {
+     "fr": "le réseau",
+     "ko": "망, 네트워크",
+     "note": ""
+    },
+    {
+     "fr": "évaluer",
+     "ko": "평가하다",
+     "note": ""
+    },
+    {
+     "fr": "les enjeux",
+     "ko": "문제, 쟁점= les défis, les problèmes",
+     "note": ""
+    },
+    {
+     "fr": "valoir",
+     "ko": "가치가 있다",
+     "note": ""
+    },
+    {
+     "fr": "déclencher",
+     "ko": "촉발하다",
+     "note": "déclencheur : 트리거, 촉발제"
+    },
+    {
+     "fr": "démanteler",
+     "ko": "해체하다",
+     "note": ""
+    },
+    {
+     "fr": "critiquer",
+     "ko": "비평하다",
+     "note": ""
+    },
+    {
+     "fr": "laisser + qn derrière",
+     "ko": "누구를 뒤에 남기다",
+     "note": ""
+    },
+    {
+     "fr": "le legs",
+     "ko": "유산",
+     "note": ""
+    },
+    {
+     "fr": "consulter",
+     "ko": "상담하다, 정보를 찾다",
+     "note": ""
+    },
+    {
+     "fr": "la conférence de presse",
+     "ko": "기자 회견",
+     "note": ""
+    },
+    {
+     "fr": "prendre en considération",
+     "ko": "고려하다= tenir compte de, prendre en compte",
+     "note": ""
+    },
+    {
+     "fr": "discret",
+     "ko": "눈에 띄지 않는, 소극적인= modeste",
+     "note": ""
+    },
+    {
+     "fr": "se tenir",
+     "ko": "서 있다, 유지되다",
+     "note": ""
+    },
+    {
+     "fr": "néanmoins",
+     "ko": "그럼에도 불구하고 = cependant, toutefois",
+     "note": ""
+    },
+    {
+     "fr": "un coup de main",
+     "ko": "도움의 손길=une aide, un soutien",
+     "note": ""
+    },
+    {
+     "fr": "faire du porte-à-porte",
+     "ko": "가정 방문을 하다",
+     "note": ""
+    },
+    {
+     "fr": "l’élue",
+     "ko": "선출된 의원, 당선된 여성",
+     "note": ""
+    },
+    {
+     "fr": "entamer",
+     "ko": "상처를 내다, 시작하다, 개시하다",
+     "note": "entamer une tournée : 투어를 개시하다"
+    },
+    {
+     "fr": "l’organisme",
+     "ko": "기관",
+     "note": ""
+    },
+    {
+     "fr": "les personnalités",
+     "ko": "인물들, 유명 인사들",
+     "note": ""
+    },
+    {
+     "fr": "prendre soin de",
+     "ko": "돌보다=s'occuper de/ prendre en charge (책임지다)",
+     "note": ""
+    },
+    {
+     "fr": "logement",
+     "ko": "주거, 주택",
+     "note": ""
+    },
+    {
+     "fr": "abordable",
+     "ko": "저렴한 = accessible, raisonnable (합리적인), économique",
+     "note": ""
+    },
+    {
+     "fr": "rendre visite à",
+     "ko": "방문하다",
+     "note": ""
+    },
+    {
+     "fr": "le cyclisme",
+     "ko": "자전거 타기, 사이클링",
+     "note": ""
+    },
+    {
+     "fr": "applaudir",
+     "ko": "박수치다",
+     "note": ""
+    },
+    {
+     "fr": "faire état de",
+     "ko": "~를 보고하다",
+     "note": ""
+    },
+    {
+     "fr": "tout cela survient",
+     "ko": "이 모든 것은 (도입부에서 많이 사용)",
+     "note": ""
+    },
+    {
+     "fr": "révéler",
+     "ko": "드러나다, 밝혀지다",
+     "note": ""
+    },
+    {
+     "fr": "équivoque",
+     "ko": "애매한 = ambigu, incertain, douteux (의심스러운)",
+     "note": ""
+    },
+    {
+     "fr": "refléter",
+     "ko": "반영하다",
+     "note": ""
+    },
+    {
+     "fr": "profond",
+     "ko": "깊은",
+     "note": ""
+    },
+    {
+     "fr": "bouleverser",
+     "ko": "혼란에 빠뜨리다, 뒤집다",
+     "note": ""
+    },
+    {
+     "fr": "à la fois",
+     "ko": "한꺼번에",
+     "note": ""
+    },
+    {
+     "fr": "la compétitivité",
+     "ko": "경쟁력",
+     "note": ""
+    },
+    {
+     "fr": "un pôle",
+     "ko": "중심지, 중심축",
+     "note": ""
+    },
+    {
+     "fr": "logistique",
+     "ko": "물류",
+     "note": ""
+    },
+    {
+     "fr": "vital",
+     "ko": "생명과 관련된, 필수적인",
+     "note": ""
+    },
+    {
+     "fr": "les besoins",
+     "ko": "필요, 요구",
+     "note": ""
+    },
+    {
+     "fr": "pleinement",
+     "ko": "완전히, 충분히",
+     "note": ""
+    },
+    {
+     "fr": "être reconnu",
+     "ko": "인정받다",
+     "note": "reconnaître : 인정하다 / reconnaissant : 감사하는 adj."
+    },
+    {
+     "fr": "impératif",
+     "ko": "필수적인, 긴급한= obligatoire (의무적인), nécessaire",
+     "note": ""
+    }
+   ]
+  }
+ ]
+}
