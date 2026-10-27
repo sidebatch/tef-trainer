@@ -19,7 +19,7 @@ let navStack = [];
 let sharedAudio = null;
 let blobCache = new Map();
 let attemptPlays = {}; // per-item plays in the current attempt (before answering)
-let ui = { sentOpen: {}, optKoOpen: {}, dcOpen: {}, detailsOpen: {}, repeat: {}, transOpen: false, shadowMode: {}, dictInput: {}, dictResult: {}, sentInput: {}, sentResult: {}, drillSel: {}, eoIntroSel: {}, posterReveal: {}, flashFace: {}, idiomOpen: {}, sujetFilter: '전체', wordSub: 'core', coVocabSection: 0, calCursor: null, calSel: null };
+let ui = { sentOpen: {}, optKoOpen: {}, dcOpen: {}, detailsOpen: {}, repeat: {}, transOpen: false, rdKo: false, shadowMode: {}, dictInput: {}, dictResult: {}, sentInput: {}, sentResult: {}, drillSel: {}, eoIntroSel: {}, posterReveal: {}, flashFace: {}, idiomOpen: {}, sujetFilter: '전체', wordSub: 'core', coVocabSection: 0, calCursor: null, calSel: null };
 
 function loadState() {
   try {
@@ -373,7 +373,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 33)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 34)</p>';
   h += '</div>';
   return h;
 }
@@ -496,9 +496,10 @@ function viewReading(idx) {
       ? '<button class="btn ghost small" style="margin-top:8px" data-readdone="' + a.id + '">읽음 ✓ — 다시 누르면 취소</button>'
       : '<button class="btn small" style="margin-top:8px" data-readdone="' + a.id + '">다 읽었어요</button>') + '</div>';
   h += '<div class="card"><h3>본문</h3>';
-  a.paras.forEach((p) => {
+  h += '<div style="display:flex;justify-content:flex-end;margin:0 0 4px"><button type="button" class="btn ghost small" data-rdko>' + (ui.rdKo ? '해석 숨기기' : '🇰🇷 해석 보기') + '</button></div>';
+  a.paras.forEach((p, pi) => {
     if (p.h) h += '<h4 style="font-size:15.5px;margin:14px 0 6px">' + esc(p.h) + '</h4>';
-    else h += '<div style="margin:0 0 12px">' + p.sents.map((st) => speakableLine(st)).join('') + '</div>';
+    else h += '<div style="margin:0 0 12px">' + p.sents.map((st, si) => speakableLine(st) + (ui.rdKo && a.koParas && a.koParas[pi] && a.koParas[pi][si] ? '<div class="rd-ko" style="color:var(--muted);font-size:14px;line-height:1.55;margin:1px 0 7px">' + esc(a.koParas[pi][si]) + '</div>' : '')).join('') + '</div>';
   });
   h += '</div>';
   h += '<div class="card"><h3>단어장 — ' + a.vocab.length + '개</h3>' +
@@ -1201,7 +1202,7 @@ document.addEventListener('click', (ev) => {
   // row it would even record an answer the learner never meant to pick.
   const sel = window.getSelection ? window.getSelection() : null;
   if (sel && !sel.isCollapsed && sel.toString().trim() !== '') return;
-  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-pinset],[data-unpin],[data-optko],[data-sent],[data-dchunk],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-dict-play],[data-dict-slow],[data-dict-repeat],[data-stype-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday],[data-reading],[data-readdone]');
+  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-pinset],[data-unpin],[data-optko],[data-sent],[data-dchunk],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-dict-play],[data-dict-slow],[data-dict-repeat],[data-stype-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday],[data-reading],[data-readdone],[data-rdko]');
   // bottom nav + back handled separately below
   if (ev.target.closest('.nav-btn')) { setTab(ev.target.closest('.nav-btn').dataset.tab); return; }
   if (ev.target.closest('#backBtn')) { if (navStack.length) history.back(); else back(); return; }
@@ -1218,6 +1219,7 @@ document.addEventListener('click', (ev) => {
   if (t.dataset.setlist) { const [mod, set] = t.dataset.setlist.split('|'); go(mod === '읽기' ? 'ce' : 'co', 'setItems', { mod, set }, !t.dataset.nopush); return; }
   if (t.dataset.reading) { go('ce', 'reading', t.dataset.reading); return; }
   if (t.dataset.readdone) { state.readingDone = state.readingDone || {}; state.readingDone[t.dataset.readdone] = !state.readingDone[t.dataset.readdone]; save(); render(); return; }
+  if (t.dataset.rdko !== undefined) { ui.rdKo = !ui.rdKo; render(); return; }
   if (t.dataset.openitem) { openItem(t.dataset.openitem, t.dataset.mod, !!t.dataset.nopush); return; }
   if (t.dataset.answer) {
     const item = findItem(t.dataset.answer);

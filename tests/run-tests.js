@@ -145,15 +145,15 @@ for (const rel of ['icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touc
 const sw = fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
 const readme = fs.readFileSync(path.join(ROOT, 'README.md'), 'utf8');
 ok(sw.includes('fetch'), 'sw has fetch handler');
-ok(indexHtml.includes('app.js?v=33') && indexHtml.includes('styles.css?v=33'), 'shell assets are cache-busted (?v=33) so phones pick up fixes');
-ok(sw.includes("tef-trainer-v33"), 'sw cache bumped to tef-trainer-v33');
+ok(indexHtml.includes('app.js?v=34') && indexHtml.includes('styles.css?v=34'), 'shell assets are cache-busted (?v=34) so phones pick up fixes');
+ok(sw.includes("tef-trainer-v34"), 'sw cache bumped to tef-trainer-v34');
 ok(appJs.includes('isCollapsed'), 'click handler ignores clicks that end a text selection (selection survives mouse-up)');
 ok(appJs.includes('data-stype-result') && appJs.includes('Update in place'), 'sentence-typing check updates in place (details stays open, no scroll jump)');
 ok(appJs.includes("addEventListener('popstate'") && appJs.includes('history.pushState') && appJs.includes('history.back()'), 'system back button walks in-app history instead of closing the app (v16)');
 ok(indexHtml.includes('controllerchange') && indexHtml.includes('reg.update()'), 'service worker auto-update: checks on resume and reloads when a new version takes over (v17)');
 ok(appJs.includes('speechSynthesis.speaking || speechSynthesis.pending') && appJs.includes('setTimeout') && !appJs.includes("new Audio('assets"), 'pronunciation: no cancel+speak in same tick (one-tap-late synth bug), shared audio element reused (v18)');
-ok(appJs.includes('(버전 33)') && indexHtml.includes('app.js?v=33') && sw.includes("tef-trainer-v33"), 'version markers in sync: home label, shell query, SW cache all say 20');
-ok(readme.includes('현재 버전 33') && readme.includes('](https://sidebatch.github.io/tef-trainer/)') && readme.includes('](https://muse.ai/s/tef-2-xzxs5xxpkqxwxrin)'), 'README shows current version and both app links as clickable links');
+ok(appJs.includes('(버전 34)') && indexHtml.includes('app.js?v=34') && sw.includes("tef-trainer-v34"), 'version markers in sync: home label, shell query, SW cache all say 20');
+ok(readme.includes('현재 버전 34') && readme.includes('](https://sidebatch.github.io/tef-trainer/)') && readme.includes('](https://muse.ai/s/tef-2-xzxs5xxpkqxwxrin)'), 'README shows current version and both app links as clickable links');
 ok(appJs.includes(':stype') && appJs.includes(':task') && appJs.includes('eo:cat'), 'QA: 문장 타이핑·EE 원문·EO 카테고리 details도 열림 상태를 유지한다');
 ok(appJs.includes('ui.sentInput[ta.dataset.stypeInput]'), 'QA: 문장 타이핑 입력이 입력 즉시 저장돼 render에도 지워지지 않는다');
 ok(appJs.includes('function go(tab, view, param, pushStack) {\n  stopSpeak();') && appJs.includes('function back() {\n  stopSpeak();'), 'QA: 화면을 이동하면 TTS·딕테이션 반복이 정지한다');
@@ -420,6 +420,24 @@ try {
   ok(!appJs.includes('<button class="sent-btn'), 'selection: passage sentences are divs, not buttons');
   ok(appJs.includes('role="button"'), 'selection: tappable text rows keep button semantics');
 }
+
+
+  // --- v34: 기사 문장별 한국어 해석 ---
+  if (reading) for (const a of reading.articles) {
+    let kn = 0;
+    ok(Array.isArray(a.koParas) && a.koParas.length === a.paras.length, a.id + ' koParas 문단 정렬');
+    a.paras.forEach((p, pi) => {
+      const kp = a.koParas[pi];
+      if (p.h !== undefined) ok(kp === null, a.id + ' 제목 문단은 해석 없음');
+      else {
+        ok(Array.isArray(kp) && kp.length === p.sents.length, a.id + ' P' + pi + ' 해석 문장 수 일치');
+        for (const t of kp) { ok(typeof t === 'string' && t.trim().length > 0, a.id + ' 해석 비어있지 않음'); kn++; }
+      }
+    });
+    ok(kn === a.paras.reduce((n, p) => n + (p.sents ? p.sents.length : 0), 0), a.id + ' 해석 총수 = 문장수 (' + kn + ')');
+  }
+  ok(appJs.includes('data-rdko') && appJs.includes('ui.rdKo') && appJs.includes('koParas[pi][si]'), '해석 토글 배선');
+  ok(appJs.includes('해석 보기') && appJs.includes('해석 숨기기'), '해석 토글 라벨');
 
 console.log(`\n${pass} passed, ${fail} failed`);
 if (failures.length) { console.log('FAILURES:'); for (const f of failures) console.log('  ✗ ' + f); process.exit(1); }
