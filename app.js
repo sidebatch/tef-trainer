@@ -182,6 +182,7 @@ function firstUnfinishedInSet(mod, set) {
 /* ---------- navigation ---------- */
 function pushHist() { try { history.pushState({ tef: 1 }, ''); } catch (e) {} }
 function go(tab, view, param, pushStack) {
+  stopSpeak(); // leaving the screen stops TTS, the dictation loop and item audio
   if (pushStack !== false) { navStack.push({ tab: route.tab, view: route.view, param: route.param }); pushHist(); }
   route = { tab, view, param: param || null };
   state.last = { tab, view, param: route.param }; save();
@@ -189,6 +190,7 @@ function go(tab, view, param, pushStack) {
   window.scrollTo(0, 0);
 }
 function back() {
+  stopSpeak();
   const prev = navStack.pop();
   if (prev) { route = prev; render(); window.scrollTo(0, 0); }
   else go(route.tab, route.tab === 'home' ? 'home' : route.tab + 'Home', null, false);
@@ -202,8 +204,10 @@ document.addEventListener('toggle', (e) => {
   if (d && d.tagName === 'DETAILS' && d.dataset && d.dataset.dkey) ui.detailsOpen[d.dataset.dkey] = d.open;
 }, true);
 document.addEventListener('input', (e) => {
-  const ta = e.target.closest ? e.target.closest('[data-dict-input],[data-retype]') : null;
-  if (ta) ui.dictInput[ta.dataset.dictInput || ta.dataset.retype] = ta.value;
+  const ta = e.target.closest ? e.target.closest('[data-dict-input],[data-retype],[data-stype-input]') : null;
+  if (!ta) return;
+  if (ta.dataset.stypeInput != null) ui.sentInput[ta.dataset.stypeInput] = ta.value;
+  else ui.dictInput[ta.dataset.dictInput || ta.dataset.retype] = ta.value;
 });
 window.addEventListener('popstate', () => {
   if (navStack.length) back();
@@ -366,7 +370,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 30)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 31)</p>';
   h += '</div>';
   return h;
 }
@@ -594,7 +598,7 @@ function sentTypeHtml(item) {
   if (!(DATA.chunks || {})[item.id]) return '';
   const targets = sentenceTargets(item);
   if (!targets.length) return '';
-  let h = '<details><summary>문장 타이핑</summary>';
+  let h = '<details data-dkey="' + esc(item.id) + ':stype"' + (ui.detailsOpen[item.id + ':stype'] ? ' open' : '') + '><summary>문장 타이핑</summary>';
   targets.forEach((t, idx) => {
     const key = item.id + ':stype:' + idx;
     const res = ui.sentResult[key];
@@ -915,7 +919,7 @@ function viewEeDrill(no) {
   h += '<h3>1단계 · 모델 보기</h3>';
   if (prep.model) h += '<p class="fr16" style="white-space:pre-wrap">' + esc(prep.model) + '</p>' + speakBtn(prep.model);
   if (prep.modelKr) h += '<p class="muted">' + esc(prep.modelKr) + '</p>';
-  if (prep.taskText) h += '<details><summary>연습 과제 원문</summary><p style="white-space:pre-wrap">' + esc(prep.taskText) + '</p></details>';
+  if (prep.taskText) h += '<details data-dkey="ee' + prep.no + ':task"' + (ui.detailsOpen['ee' + prep.no + ':task'] ? ' open' : '') + '><summary>연습 과제 원문</summary><p style="white-space:pre-wrap">' + esc(prep.taskText) + '</p></details>';
   h += '<p class="muted small">예문 (각 문장에 🔊)</p>';
   (prep.examples || []).forEach((ex) => { h += speakableLine(ex, 'fr16'); });
   h += stepDoneBtn('ee', prep.no, 1, d.step1);
@@ -977,7 +981,7 @@ function viewEoScript() {
   h += '<div class="card"><h3>카테고리 질문 연습</h3>';
   s.categories.forEach((c, ci) => {
     const checked = !!state.eoCheck['cat' + ci];
-    h += '<details><summary>' + esc(c.name) + ' · ' + esc(c.fr || '') + (checked ? ' ✓' : '') + '</summary>';
+    h += '<details data-dkey="eo:cat' + ci + '"' + (ui.detailsOpen['eo:cat' + ci] ? ' open' : '') + '><summary>' + esc(c.name) + ' · ' + esc(c.fr || '') + (checked ? ' ✓' : '') + '</summary>';
     if (c.transition) h += speakableLine(c.transition, 'fr16');
     (c.questions || []).forEach((q) => { h += speakableLine(q, 'fr16'); });
     h += '<button class="btn ' + (checked ? 'ghost' : '') + ' small" data-eocheck="cat' + ci + '">' + (checked ? '연습 마침 ✓' : '이 카테고리 연습 마쳤어요') + '</button></details>';
@@ -1123,6 +1127,9 @@ function render() {
   } catch (e) {
     html = '<div class="card"><p>화면을 그리는 중 문제가 생겼어요: ' + esc(e.message) + '</p></div>';
   }
+  // A rebuild discards the item player element; pause it first so its sound
+  // never keeps playing from a detached element over the new screen.
+  appEl().querySelectorAll('audio').forEach((a) => { try { a.pause(); } catch (e) {} });
   appEl().innerHTML = html;
   // returning to a set list: bring the just-solved item into view
   if (route.view === 'setItems' && state.lastItem && route.param && state.lastItem.set === route.param.set) {
