@@ -113,8 +113,11 @@ function tokenize(s) { return normWs(s).split(' ').filter(Boolean); }
    accents (à, é, è…) are compared exactly as written. */
 function normWord(w) { return w.toLowerCase().replace(/[.,;:!?…·«»"'’‘“”\-—()]/g, ''); }
 function normTokens(s) {
-  // tokens that are pure punctuation (e.g. French-style " !" or "«") vanish
+  // Hyphens and apostrophes are word boundaries, not letters: "appelle-moi"
+  // grades the same as "appelle moi", and "l'immigration" as "l immigration".
+  // Tokens that are pure punctuation (e.g. French-style " !" or "«") vanish.
   return tokenize(s)
+    .flatMap((w) => w.split(/[-—–'’‘]+/).filter(Boolean))
     .map((w) => ({ orig: w, norm: normWord(w) }))
     .filter((p) => p.norm.length > 0);
 }
@@ -370,7 +373,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 31)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 32)</p>';
   h += '</div>';
   return h;
 }
@@ -534,6 +537,7 @@ function looseNormWord(w) {
 }
 function looseNormTokens(s) {
   return tokenize(s)
+    .flatMap((w) => w.split(/[-—–'’‘]+/).filter(Boolean))
     .map((w) => ({ orig: w, norm: looseNormWord(w) }))
     .filter((p) => p.norm.length > 0);
 }
