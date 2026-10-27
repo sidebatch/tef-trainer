@@ -4,7 +4,7 @@ TEF Canada 프랑스어 공부를 위한 개인 학습 트레이너입니다. �
 
 ## ▶ 바로 열기
 
-- **깃헙 버전 (이 리포, 현재 버전 27)**: [sidebatch.github.io/tef-trainer](https://sidebatch.github.io/tef-trainer/)
+- **깃헙 버전 (이 리포, 현재 버전 28)**: [sidebatch.github.io/tef-trainer](https://sidebatch.github.io/tef-trainer/)
 - **뮤즈 링크 버전**: [muse.ai/s/tef-2](https://muse.ai/s/tef-2-xzxs5xxpkqxwxrin)
 
 두 버전의 콘텐츠는 같습니다. 진도는 버전·기기별로 따로 저장됩니다.

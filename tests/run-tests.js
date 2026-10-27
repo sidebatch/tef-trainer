@@ -129,6 +129,7 @@ for (const s of ['방금 푼 문항', '다음 문항', 'scrollIntoView', 'data-r
 ok(!appJs.includes('badge last') && !appJs.includes('badge next') && !appJs.includes('>안 풂<') && !appJs.includes('>맞음<') && !appJs.includes('>틀림<'), 'set-list status badges removed — the dot carries the result (v26)');
 ok(css.includes('.dot.bad'), 'wrong-answer dot style present (v26)');
 ok(appJs.includes('pin: null') && appJs.includes('pin-card') && appJs.includes('오늘 할 공부') && appJs.includes("location.hash.startsWith('#pin=')") && appJs.includes('dataset.pinset') && appJs.includes('dataset.unpin') && appJs.includes('오늘 할 공부로 고정'), '오늘 할 공부 pin: state, home card, #pin= link, set-list toggle all wired (v27)');
+ok(!appJs.includes('opt-side') && appJs.includes('opt-under') && appJs.includes('opt-trans opt-under" data-optko'), 'option layout: speaker left of the option, 해석 toggle under it, translation card taps to close (v28)');
 ok(appJs.includes('chip-add') && css.includes('.chip-add') && !appJs.includes('내 단어에 추가'), 'word add control is a small chip (v26)');
 ok(css.includes('.set-row.just-done') && css.includes('.set-row.next-up'), 'set-list highlight styles present');
 ok(indexHtml.includes('manifest.webmanifest'), 'index links manifest');
@@ -143,15 +144,15 @@ for (const rel of ['icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touc
 const sw = fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
 const readme = fs.readFileSync(path.join(ROOT, 'README.md'), 'utf8');
 ok(sw.includes('fetch'), 'sw has fetch handler');
-ok(indexHtml.includes('app.js?v=27') && indexHtml.includes('styles.css?v=27'), 'shell assets are cache-busted (?v=14) so phones pick up fixes');
-ok(sw.includes("tef-trainer-v27"), 'sw cache bumped to tef-trainer-v27');
+ok(indexHtml.includes('app.js?v=28') && indexHtml.includes('styles.css?v=28'), 'shell assets are cache-busted (?v=14) so phones pick up fixes');
+ok(sw.includes("tef-trainer-v28"), 'sw cache bumped to tef-trainer-v28');
 ok(appJs.includes('isCollapsed'), 'click handler ignores clicks that end a text selection (selection survives mouse-up)');
 ok(appJs.includes('data-stype-result') && appJs.includes('Update in place'), 'sentence-typing check updates in place (details stays open, no scroll jump)');
 ok(appJs.includes("addEventListener('popstate'") && appJs.includes('history.pushState') && appJs.includes('history.back()'), 'system back button walks in-app history instead of closing the app (v16)');
 ok(indexHtml.includes('controllerchange') && indexHtml.includes('reg.update()'), 'service worker auto-update: checks on resume and reloads when a new version takes over (v17)');
 ok(appJs.includes('speechSynthesis.speaking || speechSynthesis.pending') && appJs.includes('setTimeout') && !appJs.includes("new Audio('assets"), 'pronunciation: no cancel+speak in same tick (one-tap-late synth bug), shared audio element reused (v18)');
-ok(appJs.includes('(버전 27)') && indexHtml.includes('app.js?v=27') && sw.includes("tef-trainer-v27"), 'version markers in sync: home label, shell query, SW cache all say 20');
-ok(readme.includes('현재 버전 27') && readme.includes('](https://sidebatch.github.io/tef-trainer/)') && readme.includes('](https://muse.ai/s/tef-2-xzxs5xxpkqxwxrin)'), 'README shows current version and both app links as clickable links');
+ok(appJs.includes('(버전 28)') && indexHtml.includes('app.js?v=28') && sw.includes("tef-trainer-v28"), 'version markers in sync: home label, shell query, SW cache all say 20');
+ok(readme.includes('현재 버전 28') && readme.includes('](https://sidebatch.github.io/tef-trainer/)') && readme.includes('](https://muse.ai/s/tef-2-xzxs5xxpkqxwxrin)'), 'README shows current version and both app links as clickable links');
 ok(appJs.includes("replace(/_+/g, '…')"), 'device-voice fallback turns blanks into a pause instead of spelling them out (v21)');
 ok((appJs.match(/chunk-why/g) || []).length >= 1 && css.includes('.chunk-why'), 'the inline chunk view renders the why-note line under a chunk (v22, unified v25)');
 ok(!appJs.includes('문서 전체 해석') && !appJs.includes('rb-sub') && !appJs.includes('바로 지문을 읽고 답을 고르는 흐름') && (appJs.match(/문장을 누르면/g) || []).length === 1, 'CE cleanup: full-translation block, banner explanation, CE lead and CE hint removed (CO hint kept) (v24)');
