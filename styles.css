@@ -329,6 +329,12 @@ textarea[data-dict-input],textarea[data-retype]{
   border:1px solid var(--border);color:var(--dim);background:var(--surface);
 }
 .masked .modes .mbtn.active{background:var(--accent);color:var(--accent-text);border-color:transparent}
+.dict-box .modes{display:flex;align-items:center;gap:8px;margin:0 0 10px;flex-wrap:wrap}
+.dict-box .modes .mbtn{
+  border-radius:999px;padding:6px 12px;font-size:13px;font-weight:500;min-height:36px;
+  border:1px solid var(--border);color:var(--dim);background:var(--surface);
+}
+.dict-box .modes .mbtn.active{background:var(--accent);color:var(--accent-text);border-color:transparent}
 
 /* EE drill chunks */
 .chunk{

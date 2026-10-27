@@ -19,7 +19,7 @@ let navStack = [];
 let sharedAudio = null;
 let blobCache = new Map();
 let attemptPlays = {}; // per-item plays in the current attempt (before answering)
-let ui = { sentOpen: {}, optKoOpen: {}, dcOpen: {}, repeat: {}, transOpen: false, shadowMode: {}, dictInput: {}, dictResult: {}, sentInput: {}, sentResult: {}, drillSel: {}, eoIntroSel: {}, posterReveal: {}, flashFace: {}, idiomOpen: {}, sujetFilter: '전체', wordSub: 'core', coVocabSection: 0, calCursor: null, calSel: null };
+let ui = { sentOpen: {}, optKoOpen: {}, dcOpen: {}, detailsOpen: {}, repeat: {}, transOpen: false, shadowMode: {}, dictInput: {}, dictResult: {}, sentInput: {}, sentResult: {}, drillSel: {}, eoIntroSel: {}, posterReveal: {}, flashFace: {}, idiomOpen: {}, sujetFilter: '전체', wordSub: 'core', coVocabSection: 0, calCursor: null, calSel: null };
 
 function loadState() {
   try {
@@ -45,7 +45,10 @@ function $(sel) { return document.querySelector(sel); }
 function appEl() { return document.getElementById('app'); }
 
 /* ---------- pronunciation ---------- */
-function speak(text) {
+let dictLoopKey = null;
+function speak(text, opts) {
+  opts = opts || {};
+  if (!opts.dict) { dictLoopKey = null; refreshDictRepeatBtns(); }
   if (!text) return;
   const map = DATA.tts || {};
   let file = map[text] || map[normWs(text)];
@@ -57,22 +60,25 @@ function speak(text) {
     if (!sharedAudio) { sharedAudio = new Audio(); sharedAudio.preload = 'auto'; }
     try { sharedAudio.pause(); } catch (e) {}
     sharedAudio.src = 'assets/tts/' + file;
+    sharedAudio.playbackRate = opts.rate || 1;
+    sharedAudio.onended = opts.onend || null;
     const p = sharedAudio.play();
-    if (p && p.catch) p.catch((err) => { if (err && err.name !== 'AbortError') fallbackVoice(text); });
+    if (p && p.catch) p.catch((err) => { if (err && err.name !== 'AbortError') fallbackVoice(text, opts.rate, opts.onend); });
   } else {
     if (sharedAudio) { try { sharedAudio.pause(); } catch (e) {} }
-    fallbackVoice(text);
+    fallbackVoice(text, opts.rate, opts.onend);
   }
 }
 /* Android Chrome drops or delays an utterance that is spoken in the same tick
    right after cancel() — the previous text then plays one tap late. When the
    synth is busy, cancel first and speak after a short flush delay; when idle,
    speak immediately without cancelling. */
-function fallbackVoice(text) {
+function fallbackVoice(text, rate, onend) {
   try {
     text = String(text).replace(/_+/g, '…'); // blanks are read as a pause, never spelled out
     const u = new SpeechSynthesisUtterance(text);
-    u.lang = 'fr-FR'; u.rate = 0.92;
+    u.lang = 'fr-FR'; u.rate = rate || 0.92;
+    if (onend) u.onend = onend;
     if (speechSynthesis.speaking || speechSynthesis.pending) {
       speechSynthesis.cancel();
       setTimeout(() => { try { speechSynthesis.speak(u); } catch (e) {} }, 90);
@@ -80,8 +86,21 @@ function fallbackVoice(text) {
   } catch (e) {}
 }
 function stopSpeak() {
-  if (sharedAudio) { try { sharedAudio.pause(); } catch (e) {} }
+  dictLoopKey = null; refreshDictRepeatBtns();
+  if (sharedAudio) { try { sharedAudio.pause(); sharedAudio.onended = null; } catch (e) {} }
   try { speechSynthesis.cancel(); } catch (e) {}
+}
+/* Dictation sentence playback: repeat loops the same sentence until stopped
+   (or until any other sound plays); slow plays it once at a slower rate. */
+function dictSpeak(key, text, slow) {
+  speak(text, { dict: true, rate: slow ? 0.68 : undefined, onend: () => { if (dictLoopKey === key) dictSpeak(key, text, slow); } });
+}
+function refreshDictRepeatBtns() {
+  document.querySelectorAll('[data-dict-repeat]').forEach((b) => {
+    const on = dictLoopKey === b.dataset.dictRepeat;
+    b.classList.toggle('active', on);
+    b.textContent = on ? '🔁 반복 중지' : '🔁 반복 듣기';
+  });
 }
 function speakBtn(text, label) {
   return '<button class="speak" data-speak="' + esc(text) + '" aria-label="발음 듣기" title="발음 듣기">🔊</button>' + (label ? '<span class="fr16">' + esc(label) + '</span>' : '');
@@ -123,6 +142,13 @@ function renderDiff(d) {
     if (o.type === 'miss') return '<span class="diff-miss">' + esc(o.w) + '</span>';
     return '<span class="diff-extra">' + esc(o.w) + '</span>';
   }).join(' ');
+}
+/* No percentages: the word-by-word diff itself is the feedback. */
+function dictResultHtml(res) {
+  if (!res) return '';
+  let h = '<p class="fr16" style="margin-top:8px">' + renderDiff(res) + '</p>';
+  if (res.score >= 1) h += '<p class="small" style="margin-top:4px">맞았어요 ✓</p>';
+  return h;
 }
 
 /* ---------- data helpers ---------- */
@@ -168,6 +194,17 @@ function back() {
   else go(route.tab, route.tab === 'home' ? 'home' : route.tab + 'Home', null, false);
 }
 /* 폰의 뒤로가기 버튼/제스처: 앱 안에서 한 단계씩 돌아가고, 첫 화면에서만 앱을 나가게 한다 */
+/* Keep <details> sections (딕테이션·쉐도잉·해석) open across re-renders, and
+   keep dictation typing in ui state as it is typed, so a re-render triggered
+   by another control never wipes an unchecked answer. */
+document.addEventListener('toggle', (e) => {
+  const d = e.target;
+  if (d && d.tagName === 'DETAILS' && d.dataset && d.dataset.dkey) ui.detailsOpen[d.dataset.dkey] = d.open;
+}, true);
+document.addEventListener('input', (e) => {
+  const ta = e.target.closest ? e.target.closest('[data-dict-input],[data-retype]') : null;
+  if (ta) ui.dictInput[ta.dataset.dictInput || ta.dataset.retype] = ta.value;
+});
 window.addEventListener('popstate', () => {
   if (navStack.length) back();
   else history.back();
@@ -329,7 +366,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 29)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 30)</p>';
   h += '</div>';
   return h;
 }
@@ -775,19 +812,23 @@ function transcriptReviewHtml(item) {
   if (pairs) {
     h += '<p class="xs dim" style="margin-bottom:8px">문장을 누르면 그 문장의 해석이 펼쳐져요.</p>' + sentencesHtml(item, pairs, item.stt ? 'stt' : 'co');
     // dictation
-    h += '<details><summary>딕테이션 — 듣고 받아쓰기</summary>';
+    h += '<details data-dkey="' + esc(item.id) + ':dict"' + (ui.detailsOpen[item.id + ':dict'] ? ' open' : '') + '><summary>딕테이션 — 듣고 받아쓰기</summary>';
     pairs.forEach((p, idx) => {
       const fr = item.stt ? p.fr : p[0];
       const key = item.id + ':dict:' + idx;
       const res = ui.dictResult[key];
-      h += '<div class="dict-box" style="margin:12px 0"><div class="row"><b>문장 ' + (idx + 1) + '</b>' + speakBtn(fr) + '</div>' +
+      h += '<div class="dict-box" style="margin:12px 0"><div class="row"><b>문장 ' + (idx + 1) + '</b></div>' +
+        '<div class="modes">' +
+        '<button class="mbtn" data-dict-play="' + esc(key) + '" data-text="' + esc(fr) + '">🔊 듣기</button>' +
+        '<button class="mbtn' + (dictLoopKey === key ? ' active' : '') + '" data-dict-repeat="' + esc(key) + '" data-text="' + esc(fr) + '">' + (dictLoopKey === key ? '🔁 반복 중지' : '🔁 반복 듣기') + '</button>' +
+        '<button class="mbtn" data-dict-slow="' + esc(key) + '" data-text="' + esc(fr) + '">🐢 느리게 듣기</button></div>' +
         '<textarea rows="2" data-dict-input="' + esc(key) + '" placeholder="들은 대로 적어 보세요">' + esc(ui.dictInput[key] || '') + '</textarea>' +
-        '<button class="btn small" data-dict-check="' + esc(key) + '" data-target="' + esc(fr) + '">확인</button>' +
-        (res ? '<p class="fr16" style="margin-top:8px">' + renderDiff(res) + '</p><p class="muted small">맞힌 비율 ' + Math.round(res.score * 100) + '%</p>' : '') + '</div>';
+        '<div style="margin-top:8px"><button class="btn small" data-dict-check="' + esc(key) + '" data-target="' + esc(fr) + '">확인</button></div>' +
+        '<div data-dict-result="' + esc(key) + '">' + dictResultHtml(res) + '</div></div>';
     });
     h += '</details>';
     // shadowing
-    h += '<details><summary>쉐도잉 — 따라 말하기</summary>';
+    h += '<details data-dkey="' + esc(item.id) + ':shadow"' + (ui.detailsOpen[item.id + ':shadow'] ? ' open' : '') + '><summary>쉐도잉 — 따라 말하기</summary>';
     pairs.forEach((p, idx) => {
       const fr = item.stt ? p.fr : p[0];
       const key = item.id + ':shadow:' + idx;
@@ -806,7 +847,7 @@ function transcriptReviewHtml(item) {
   } else {
     h += '<p class="fr">' + esc(item.transcript) + '</p>' + speakBtn(item.transcript);
   }
-  if (item.trans) h += '<details><summary>대본 전체 해석</summary><p>' + esc(item.trans) + '</p></details>';
+  if (item.trans) h += '<details data-dkey="' + esc(item.id) + ':trans"' + (ui.detailsOpen[item.id + ':trans'] ? ' open' : '') + '><summary>대본 전체 해석</summary><p>' + esc(item.trans) + '</p></details>';
   return h + '</div>';
 }
 
@@ -1108,7 +1149,7 @@ document.addEventListener('click', (ev) => {
   // row it would even record an answer the learner never meant to pick.
   const sel = window.getSelection ? window.getSelection() : null;
   if (sel && !sel.isCollapsed && sel.toString().trim() !== '') return;
-  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-pinset],[data-unpin],[data-optko],[data-sent],[data-dchunk],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-stype-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday]');
+  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-pinset],[data-unpin],[data-optko],[data-sent],[data-dchunk],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-dict-play],[data-dict-slow],[data-dict-repeat],[data-stype-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday]');
   // bottom nav + back handled separately below
   if (ev.target.closest('.nav-btn')) { setTab(ev.target.closest('.nav-btn').dataset.tab); return; }
   if (ev.target.closest('#backBtn')) { if (navStack.length) history.back(); else back(); return; }
@@ -1142,7 +1183,19 @@ document.addEventListener('click', (ev) => {
     const input = document.querySelector('[data-dict-input="' + CSS.escape(key) + '"]');
     ui.dictInput[key] = input ? input.value : '';
     ui.dictResult[key] = wordDiff(t.dataset.target, ui.dictInput[key]);
-    render(); return;
+    // Update in place: a full render() would collapse the 딕테이션 <details>
+    // and lose the learner's place mid-practice (same fix as 문장 타이핑).
+    const out = document.querySelector('[data-dict-result="' + CSS.escape(key) + '"]');
+    if (out) out.innerHTML = dictResultHtml(ui.dictResult[key]);
+    return;
+  }
+  if (t.dataset.dictPlay != null && t.hasAttribute('data-dict-play')) { speak(t.dataset.text); return; }
+  if (t.dataset.dictSlow != null && t.hasAttribute('data-dict-slow')) { speak(t.dataset.text, { rate: 0.68 }); return; }
+  if (t.dataset.dictRepeat != null && t.hasAttribute('data-dict-repeat')) {
+    const key = t.dataset.dictRepeat;
+    if (dictLoopKey === key) { stopSpeak(); }
+    else { dictLoopKey = key; dictSpeak(key, t.dataset.text, false); }
+    refreshDictRepeatBtns(); return;
   }
   if (t.dataset.stypeCheck) {
     const key = t.dataset.stypeCheck;
