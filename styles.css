@@ -383,6 +383,8 @@ textarea[data-dict-input],textarea[data-retype]{
 .chunk-wrap{margin-top:6px}
 .chunk-sent{margin:0 0 12px;line-height:1.5}
 .chunk-unit{display:inline-block;vertical-align:top;margin:0 8px 8px 0;max-width:100%}
+.chunk-unit[data-speak]{cursor:pointer}
+.chunk-unit[data-speak] .chunk-fr::after{content:' 🔊';font-size:11px;opacity:.55}
 .chunk-fr{display:block;font-family:Georgia,"Times New Roman",serif;font-size:15.5px;font-weight:600}
 .chunk-ko{display:block;font-size:13px;color:var(--dim);margin-top:1px}
 input[data-blank-input]{flex:1;min-width:0;width:auto}
