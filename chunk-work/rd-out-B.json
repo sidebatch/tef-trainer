@@ -1,0 +1,885 @@
+{
+ "RD-4": [
+  [
+   [
+    [
+     "Le commissaire à la protection de la vie privée",
+     "개인정보 보호 담당 위원장은"
+    ],
+    [
+     "du Canada, Philippe Dufresne,",
+     "캐나다의, 필리프 뒤프렌은,"
+    ],
+    [
+     "et ses homologues provinciaux",
+     "그리고 그의 주 동급 위원들은"
+    ],
+    [
+     "du Québec, de la Colombie-Britannique et de l’Alberta",
+     "퀘벡, 브리티시컬럼비아, 그리고 앨버타의"
+    ],
+    [
+     "ont participé à cet examen.",
+     "이 검토에 참여했다."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "TikTok a récolté,",
+     "틱톡은 수집했다,"
+    ],
+    [
+     "en trois ans,",
+     "3년 동안,"
+    ],
+    [
+     "les informations personnelles de quelque 1,5 million de comptes canadiens d’enfants de moins de 13 ans,",
+     "13세 미만 캐나다 어린이 계정 약 150만 개의 개인정보를"
+    ],
+    [
+     "avant de les bannir,",
+     "그것들을 차단하기 전에,"
+    ],
+    [
+     "faute de mesures efficaces",
+     "효과적인 조치가 없어서,"
+    ],
+    [
+     "pour vérifier l’âge des gens qui accèdent à sa plateforme.",
+     "그의 플랫폼에 접속하는 사람들의 나이를 확인하기 위한"
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "C’est l’une des choses",
+     "그것은 것들 중 하나다"
+    ],
+    [
+     "que l’on apprend",
+     "우리가 알게 되는"
+    ],
+    [
+     "dans un rapport sur TikTok",
+     "틱톡에 관한 보고서에서"
+    ],
+    [
+     "rendu public mardi",
+     "화요일에 공개된"
+    ],
+    [
+     "par les autorités de protection des renseignements personnels au Canada.",
+     "캐나다 개인정보 보호 당국에 의해."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "« L’entreprise recueille des renseignements sensibles",
+     "« 그 기업은 민감한 정보를 수집한다"
+    ],
+    [
+     "concernant de nombreux enfants",
+     "수많은 어린이에 관한"
+    ],
+    [
+     "et utilise ces renseignements à des fins de ciblage publicitaire",
+     "그리고 그 정보를 광고 타기팅 목적으로 이용한다"
+    ],
+    [
+     "et de recommandation de contenu.",
+     "그리고 콘텐츠 추천 목적으로."
+    ],
+    [
+     "» — Philippe Dufresne, commissaire à la protection de la vie privée",
+     "» — 필리프 뒤프렌, 개인정보 보호 담당 위원장"
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "« Le fait qu’un compte ait été supprimé de la plateforme",
+     "« 계정이 플랫폼에서 삭제됐다는 사실은"
+    ],
+    [
+     "ne signifie pas",
+     "의미하지 않는다"
+    ],
+    [
+     "que l’utilisateur n’est pas par la suite retourné",
+     "그 사용자가 이후에 돌아오지 않았다는 것을"
+    ],
+    [
+     "sur la plateforme",
+     "플랫폼으로"
+    ],
+    [
+     "en utilisant des identifiants différents [comme une adresse courriel]",
+     "이용하면서 다른 로그인 정보를 [이메일 주소 같은]"
+    ],
+    [
+     "», précise-t-on dans le rapport.",
+     "», 라고 보고서에서 명시한다."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "Les mesures mises en place pour détecter l’âge des utilisateurs qui se créent un compte sur la plateforme",
+     "플랫폼에 계정을 만드는 사용자의 나이를 감지하기 위해 마련된 조치들은"
+    ],
+    [
+     "sont si inefficaces que",
+     "너무 비효율적이어서"
+    ],
+    [
+     "de nombreux autres enfants n’ayant pas l’âge requis",
+     "요구되는 나이에 이르지 못한 수많은 다른 어린이들이"
+    ],
+    [
+     "continuent d’y accéder sans que TikTok s’en aperçoive,",
+     "틱톡이 알아차리지 못하는 사이에 거기에 계속 접속하고,"
+    ],
+    [
+     "estiment les commissaires à la vie privée du Canada,",
+     "라고 평가한다, 캐나다의 개인정보 위원장들은,"
+    ],
+    [
+     "du Québec, de la Colombie-Britannique et de l’Alberta,",
+     "퀘벡, 브리티시컬럼비아와 앨버타의,"
+    ],
+    [
+     "qui ont participé à cet examen.",
+     "이 검토에 참여한"
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "Parmi les informations sensibles récoltées par l’application de vidéo sur des enfants,",
+     "영상 앱이 어린이에게서 수집한 민감한 정보 중에는,"
+    ],
+    [
+     "sans le consentement d’un parent,",
+     "부모의 동의 없이,"
+    ],
+    [
+     "on compte des données biométriques,",
+     "생체 데이터가 포함된다,"
+    ],
+    [
+     "telles que l’analyse faciale et vocale.",
+     "얼굴 및 음성 분석 같은."
+    ]
+   ],
+   [
+    [
+     "L’application y a recours",
+     "그 앱은 그것을 이용한다"
+    ],
+    [
+     "afin d’éviter que des personnes de moins de 18 ans",
+     "18세 미만인 사람들이 ~하는 것을 피하기 위해"
+    ],
+    [
+     "lancent une diffusion en direct,",
+     "실시간 방송을 시작하는 것을,"
+    ],
+    [
+     "nommée TikTok Live.",
+     "틱톡 라이브라고 불리는."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "Or, ces « outils d’analyse sophistiqués »",
+     "그런데, 이 « 정교한 분석 도구 »는"
+    ],
+    [
+     "n’étaient pas utilisés par la plateforme",
+     "플랫폼에 의해 사용되지 않았다"
+    ],
+    [
+     "« pour empêcher les utilisateurs n’ayant pas l’âge minimum requis [d’y accéder]",
+     "« 요구되는 최소 나이에 이르지 못한 사용자가 [거기에 접속하는 것]을 막기 위해"
+    ],
+    [
+     "», note-t-on dans le rapport.",
+     "», 라고 보고서에서 지적한다."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "Au-delà des données personnelles,",
+     "개인정보를 넘어,"
+    ],
+    [
+     "consulter TikTok – une application figurant parmi les plus populaires auprès des jeunes au pays –",
+     "틱톡을 이용하는 것은 – 국내 젊은이들 사이에서 가장 인기 있는 앱 중 하나인 앱 –"
+    ],
+    [
+     "comporte son lot de risques pour la santé des enfants,",
+     "어린이 건강에 적지 않은 위험을 수반한다,"
+    ],
+    [
+     "plus susceptibles d’y voir des contenus « inappropriés pour leur âge »,",
+     "그곳에서 자신의 나이에 « 부적절한 » 콘텐츠를 볼 가능성이 더 크기 때문에,"
+    ],
+    [
+     "souligne la commissaire à l’information et à la protection",
+     "라고 강조한다, 정보 및 보호 담당 위원장은"
+    ],
+    [
+     "de la vie privée de l’Alberta,",
+     "개인정보, 앨버타의,"
+    ],
+    [
+     "Diane McLeod.",
+     "다이앤 맥레오드는."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "« [Les enfants] sont plus susceptibles de recevoir des publicités ciblées",
+     "« [어린이들은] 타기팅 광고를 받을 가능성이 더 크다,"
+    ],
+    [
+     "qui banalisent les jeux d’argent,",
+     "도박을 대수롭지 않게 만드는,"
+    ],
+    [
+     "augmentent les risques de vol d’identité,",
+     "신원 도용 위험을 높이는,"
+    ],
+    [
+     "nuisent à leur développement sain,",
+     "그들의 건강한 발달을 해치는,"
+    ],
+    [
+     "favorisent une image négative du corps ou une sexualisation précoce,",
+     "부정적인 신체 이미지를 조장하거나 조기 성애화를 부추기는,"
+    ],
+    [
+     "ou encore renforcent les stéréotypes de genre.",
+     "또는 성별 고정관념을 강화하는."
+    ],
+    [
+     "» — Diane McLeod, commissaire à l’information et à la protection de la vie privée de l’Alberta",
+     "» — 다이앤 맥레오드, 앨버타 정보·개인정보 보호 위원장"
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "L’enquête a aussi permis de révéler",
+     "이 조사는 또한 드러낼 수 있게 했다"
+    ],
+    [
+     "que TikTok n’en « faisait pas assez »",
+     "틱톡이 « 충분히 하지 않았다 »는 것을"
+    ],
+    [
+     "pour expliquer à ses utilisateurs – majeurs comme mineurs –",
+     "자신의 사용자들에게 설명하기 위해 – 성인이든 미성년이든 –"
+    ],
+    [
+     "ses pratiques en matière de données.",
+     "데이터에 관한 자신의 처리 방식을."
+    ]
+   ],
+   [
+    [
+     "Les lois canadiennes exigent, entre autres,",
+     "캐나다 법은, 그중에서도, 요구한다,"
+    ],
+    [
+     "que les internautes puissent consentir de manière éclairée",
+     "인터넷 사용자들이 충분히 알고 동의할 수 있을 것을"
+    ],
+    [
+     "à la collecte et à l’utilisation de leurs données.",
+     "자신의 데이터 수집과 이용에 대해."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "« Nous avons été choqués de constater à quel point",
+     "« 우리는 얼마나 ~한지를 확인하고 충격을 받았다"
+    ],
+    [
+     "les profils d’utilisateurs étaient élaborés,",
+     "사용자 프로필이 정교하게 만들어졌는지,"
+    ],
+    [
+     "et comment ces informations étaient utilisées en combinaison avec la géolocalisation,",
+     "그리고 그 정보가 위치 정보와 결합되어 어떻게 쓰이는지를,"
+    ],
+    [
+     "pour créer des informations précises sur le lieu où se trouve l’utilisateur",
+     "사용자가 있는 장소에 대한 정확한 정보를 만들기 위해,"
+    ],
+    [
+     "et quelles sont ses capacités financières",
+     "그리고 그의 재정 능력이 어느 정도인지 »,"
+    ],
+    [
+     "», détaille le commissaire à l’information et à la protection de la vie privée",
+     "라고 자세히 말한다, 정보·개인정보 보호 위원장은"
+    ],
+    [
+     "de la Colombie-Britannique, Michael Harvey.",
+     "브리티시컬럼비아의, 마이클 하비는."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "« C’est",
+     "« 그것은"
+    ],
+    [
+     "d’autant plus sensible",
+     "그만큼 더 민감하다"
+    ],
+    [
+     "lorsqu’on parle d’enfants.",
+     "어린이 얘기를 할 때."
+    ]
+   ],
+   [
+    [
+     "Nous ne pensons pas que",
+     "우리는 ~라고 생각하지 않는다"
+    ],
+    [
+     "les adultes soient bien informés",
+     "성인들이 제대로 알고 있다고"
+    ],
+    [
+     "de comment c’est utilisé",
+     "그것이 어떻게 쓰이는지를"
+    ],
+    [
+     "», ajoute-t-il.",
+     "», 라고 그는 덧붙였다."
+    ]
+   ]
+  ],
+  [],
+  [
+   [
+    [
+     "TikTok devra notamment adopter des mesures plus efficaces",
+     "틱톡은 특히 더 효과적인 조치를 도입해야 할 것이다"
+    ],
+    [
+     "pour empêcher les internautes de moins de 13 ans (14 ans au Québec)",
+     "13세 미만 인터넷 사용자들이 (퀘벡에서는 14세) ~하지 못하게 하기 위해"
+    ],
+    [
+     "de créer des comptes sur la plateforme,",
+     "플랫폼에 계정을 만드는 것을,"
+    ],
+    [
+     "et veiller à ce que ses communications",
+     "그리고 자신의 소통이 ~하도록 신경 써야 한다"
+    ],
+    [
+     "sur la protection de la vie privée soient claires,",
+     "개인정보 보호에 관한, 명확하고,"
+    ],
+    [
+     "offertes en français",
+     "프랑스어로 제공되며,"
+    ],
+    [
+     "et favorisent un consentement éclairé.",
+     "충분한 정보에 기반한 동의를 이끌어 내도록."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "La plateforme devra également préciser",
+     "그 플랫폼은 또한 명확히 밝혀야 할 것이다"
+    ],
+    [
+     "que les données des « utilisateurs canadiens",
+     "« 캐나다 사용자의 데이터가"
+    ],
+    [
+     "peuvent être transférées en Chine",
+     "중국으로 이전될 수 있고"
+    ],
+    [
+     "et que le gouvernement chinois peut y accéder ».",
+     "중국 정부가 거기에 접근할 수 있다 »."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "Le commissaire Philippe Dufresne a souligné à plusieurs reprises mardi",
+     "필리프 뒤프렌 위원장은 화요일에 여러 차례 강조했다"
+    ],
+    [
+     "que TikTok s’est engagée à appliquer les recommandations,",
+     "틱톡이 권고 사항을 적용하겠다고 약속했다는 것을,"
+    ],
+    [
+     "bien que la plateforme « n’était généralement pas d’accord avec [ses] conclusions",
+     "플랫폼이 « [그의] 결론에 대체로 동의하지 않았 »음에도,"
+    ],
+    [
+     "», lit-on dans le rapport.",
+     "라고 보고서에서 읽을 수 있다."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "« Nous apprécions la conclusion de cette enquête",
+     "« 우리는 이 조사의 결론에 감사한다"
+    ],
+    [
+     "après avoir collaboré de manière ouverte et constructive",
+     "개방적이고 건설적인 방식으로 협력한 뒤에 나온"
+    ],
+    [
+     "avec les commissaires à la protection de la vie privée,",
+     "개인정보 보호 위원장들과,"
+    ],
+    [
+     "et nous saluons leur accord sur plusieurs de nos propositions",
+     "그리고 우리의 여러 제안에 대한 그들의 동의를 환영한다"
+    ],
+    [
+     "visant à renforcer davantage notre plateforme pour les Canadiens",
+     "캐나다인들을 위해 우리 플랫폼을 한층 더 강화하려는"
+    ],
+    [
+     "», affirme TikTok Canada dans une déclaration.",
+     "», 라고 틱톡 캐나다는 성명에서 밝혔다."
+    ]
+   ],
+   [
+    [
+     "« Bien que nous ne soyons pas d’accord avec certaines des conclusions,",
+     "« 일부 결론에 우리가 동의하지 않지만,"
+    ],
+    [
+     "nous restons déterminés à maintenir des pratiques rigoureuses",
+     "우리는 엄격한 관행을 유지하기로 결심한 상태를 유지한다"
+    ],
+    [
+     "en matière de transparence et de protection de la vie privée. »",
+     "투명성과 개인정보 보호에 관한. »"
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "D’après le rapport,",
+     "보고서에 따르면,"
+    ],
+    [
+     "TikTok a déjà intégré des améliorations",
+     "틱톡은 이미 개선 사항을 반영했고"
+    ],
+    [
+     "et s’est engagée à mettre en œuvre de nouvelles méthodes de détection de l’âge",
+     "새로운 나이 감지 방식을 도입하겠다고 약속했다"
+    ],
+    [
+     "reposant sur des « indices visuels »,",
+     "« 시각적 단서 »에 기반한,"
+    ],
+    [
+     "telles l’analyse faciale du contenu publié,",
+     "게시된 콘텐츠의 얼굴 분석 같은,"
+    ],
+    [
+     "et l’analyse des comportements sur la plateforme.",
+     "그리고 플랫폼에서의 행동 분석 같은."
+    ]
+   ],
+   [
+    [
+     "La plateforme compte également ajouter un outil de traitement du langage naturel",
+     "그 플랫폼은 또한 자연어 처리 도구를 추가할 계획이다"
+    ],
+    [
+     "qui analysera le texte publié par les utilisateurs",
+     "사용자들이 게시한 텍스트를 분석할"
+    ],
+    [
+     "dans les commentaires ou la biographie, par exemple.",
+     "댓글 또는 프로필 소개 등에, 예를 들어."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "Ces modèles comporteraient toutefois des failles,",
+     "그러나 이 모델들에는 허점이 있을 수 있다,"
+    ],
+    [
+     "d’après ce qu’a reconnu TikTok,",
+     "틱톡이 인정한 바에 따르면,"
+    ],
+    [
+     "puisque les utilisateurs qui ne publient pas de vidéo ou de commentaires",
+     "영상이나 댓글을 게시하지 않는 사용자들이"
+    ],
+    [
+     "forment respectivement 73,5 % et 59,2 % des utilisateurs,",
+     "각각 사용자의 73.5%와 59.2%를 차지하기 때문에,"
+    ],
+    [
+     "révèle le rapport.",
+     "라고 보고서는 밝힌다."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "La plateforme s’engage ainsi à ajouter un troisième modèle de détection,",
+     "그 플랫폼은 이에 따라 세 번째 감지 모델을 추가하겠다고 약속한다,"
+    ],
+    [
+     "cette fois pour les « utilisateurs passifs »,",
+     "이번에는 « 수동적 사용자 »를 위한,"
+    ],
+    [
+     "qui « utiliserait un certain nombre de sources de données »",
+     "« 여러 데이터 출처를 이용할 »"
+    ],
+    [
+     "– non précisées publiquement, mais présentées aux commissariats –",
+     "– 공개적으로는 명시되지 않았지만, 위원회에는 제시된 –"
+    ],
+    [
+     "et « évaluerait les comptes en fonction des types de comportements d’autres utilisateurs",
+     "그리고 « 다른 사용자의 행동 유형에 따라 계정을 평가할 »,"
+    ],
+    [
+     "dont le compte a précédemment été déterminé comme étant détenu",
+     "그 계정이 이전에 소유된 것으로 판정된"
+    ],
+    [
+     "par une personne n’ayant pas l’âge minimum requis ».",
+     "최소 연령에 이르지 못한 사람에 의해 »."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "« Il y a beaucoup d’incohérences pour moi.",
+     "« 제게는 모순이 많다."
+    ],
+    [
+     "[...] Ce n’est pas complet comme solution »,",
+     "[...] 해결책으로는 완전하지 않다 »,"
+    ],
+    [
+     "réplique Laurence Grondin-Robillard,",
+     "라고 로랑스 그롱댕로비야르는 반박한다,"
+    ],
+    [
+     "professeure associée à l’École des médias de l’Université du Québec à Montréal (UQAM).",
+     "몬트리올 퀘벡대학교 미디어학부 부교수는."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "« Tout ça, ce sont quand même des données que nous allons partager [avec] TikTok.",
+     "« 이 모든 것은 어쨌든 우리가 [틱톡과] 공유하게 될 데이터다."
+    ],
+    [
+     "[...] On tolère que TikTok continue encore de récolter des données sur les mineurs",
+     "[...] 우리는 틱톡이 미성년자에게서 계속 데이터를 수집하는 것을 용인한다"
+    ],
+    [
+     "ou encore les plus jeunes qui ne devraient pas être sur la plateforme.",
+     "또는 플랫폼에 있어서는 안 될 더 어린 아이들에게서도."
+    ],
+    [
+     "» — Laurence Grondin-Robillard, professeure associée à l’École des médias de l’UQAM",
+     "» — 로랑스 그롱댕로비야르, UQAM 미디어학부 부교수"
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "Relancé à cet effet, un porte-parole du commissariat à la vie privée du Canada",
+     "이 문제에 대해 다시 질문을 받은, 캐나다 개인정보 위원회 대변인은"
+    ],
+    [
+     "a répondu par courriel que",
+     "이메일로 답했다,"
+    ],
+    [
+     "l’utilisation des données biométriques par TikTok",
+     "틱톡의 생체 데이터 이용은"
+    ],
+    [
+     "« n’est pas conçue [à des] fins de reconnaissance faciale ou d’identification des utilisateurs »,",
+     "« 사용자 얼굴 인식이나 신원 확인 [을 위한] 목적으로 설계된 것이 아니라 »,"
+    ],
+    [
+     "mais bien « pour déduire des renseignements potentiellement sensibles sur les utilisateurs,",
+     "오히려 « 사용자에 대한 잠재적으로 민감한 정보를 추론하기 위한 것이다,"
+    ],
+    [
+     "tels que leur âge et leur genre ».",
+     "그들의 나이와 성별 같은 »."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "Le rapport recommande donc à TikTok",
+     "따라서 보고서는 틱톡에게 권고한다"
+    ],
+    [
+     "« d’améliorer ses communications en matière de confidentialité afin de favoriser un consentement éclairé",
+     "« 충분한 정보에 기반한 동의를 이끌어 내기 위해 개인정보에 관한 소통을 개선할 것을"
+    ],
+    [
+     "à la collecte et à l’utilisation des données biométriques,",
+     "생체 데이터의 수집과 이용에 대해,"
+    ],
+    [
+     "ce que TikTok a accepté de faire », insiste-t-il.",
+     "틱톡이 하기로 받아들인 것 », 라고 그는 강조한다."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "Selon Paul Laurier, ex-enquêteur à la Sûreté du Québec (SQ),",
+     "퀘벡 주경찰(SQ) 전 수사관 폴 로리에에 따르면,"
+    ],
+    [
+     "croire que TikTok se conformera",
+     "틱톡이 따를 것이라고 믿는 것은"
+    ],
+    [
+     "est de la « pensée magique ».",
+     "« 마법 같은 생각 »이다."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "Même si TikTok se conformait,",
+     "틱톡이 따른다고 해도,"
+    ],
+    [
+     "peu de gens s’attardent à lire",
+     "꼼꼼히 읽는 사람은 거의 없다"
+    ],
+    [
+     "les quelque « 200 lignes de contrat d’engagement sur les licences ».",
+     "이른바 « 라이선스 약관 200줄 »을."
+    ]
+   ],
+   [
+    [
+     "« Qui les lit correctement",
+     "« 누가 그것을 제대로 읽고"
+    ],
+    [
+     "et qui, à la fin de la lecture,",
+     "누가, 다 읽은 뒤에,"
+    ],
+    [
+     "va dire : \"Non je n’y vais pas\"?",
+     "말하겠는가: \"아니, 나는 안 갈래\"?"
+    ],
+    [
+     "», demande-t-il.",
+     "», 라고 그는 묻는다."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "« Je ne crois pas que",
+     "« 나는 ~라고 믿지 않는다"
+    ],
+    [
+     "ce soit le premier",
+     "그것이 첫 번째일 것이라고"
+    ],
+    [
+     "de leurs soucis.",
+     "그들의 걱정거리."
+    ]
+   ],
+   [
+    [
+     "Le Canada est assez petit pour",
+     "캐나다는 충분히 작다"
+    ],
+    [
+     "forcer une compagnie comme ByteDance à se conformer.",
+     "바이트댄스 같은 회사를 따르게 강제하기에는."
+    ],
+    [
+     "» — Paul Laurier, ex-enquêteur à la SQ",
+     "» — 폴 로리에, SQ 전 수사관"
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "« Ces géants-là",
+     "« 저 거대 기업들은"
+    ],
+    [
+     "font de l’argent",
+     "돈을 번다"
+    ],
+    [
+     "avec les données personnelles.",
+     "개인정보로."
+    ]
+   ],
+   [
+    [
+     "C’est gratuit",
+     "그것은 공짜이고"
+    ],
+    [
+     "et on est le produit",
+     "우리는 상품이다"
+    ],
+    [
+     "», ajoute-t-il.",
+     "», 라고 그는 덧붙였다."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "Bien que Laurence Grondin-Robillard accueille favorablement le rapport,",
+     "로랑스 그롱댕로비야르가 보고서를 긍정적으로 받아들이지만,"
+    ],
+    [
+     "elle remarque que plusieurs éléments brillent par leur absence,",
+     "그녀는 여러 요소가 빠져 있음을 지적한다,"
+    ],
+    [
+     "notamment les jeux mobiles de ByteDance, la maison-mère de TikTok,",
+     "특히 바이트댄스의 모바일 게임, 틱톡의 모회사는,"
+    ],
+    [
+     "offerts sur les magasins d’applications App Store et Google Play Store,",
+     "앱스토어와 구글 플레이 스토어 앱 마켓에서 제공되는,"
+    ],
+    [
+     "et sa filiale d’intelligence artificielle.",
+     "그리고 그의 인공지능 자회사도."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "« C’est",
+     "« 그것은"
+    ],
+    [
+     "une belle",
+     "하나의 좋은"
+    ],
+    [
+     "initiative.",
+     "시도다."
+    ]
+   ],
+   [
+    [
+     "C’est mieux que rien,",
+     "그것은 없는 것보다 낫지만,"
+    ],
+    [
+     "mais ce n’est pas complet",
+     "완전하지는 않다"
+    ],
+    [
+     "comme solution », indique-t-elle.",
+     "해결책으로는 », 라고 그녀는 말했다."
+    ]
+   ]
+  ],
+  [
+   [
+    [
+     "TikTok devra suivre",
+     "틱톡은 따라야 할 것이다"
+    ],
+    [
+     "un calendrier serré pour",
+     "촉박한 일정을"
+    ],
+    [
+     "mettre en place les recommandations.",
+     "권고 사항을 실행하기 위해."
+    ]
+   ],
+   [
+    [
+     "Le commissaire à la vie privée, Philippe Dufresne,",
+     "개인정보 위원장, 필리프 뒤프렌은,"
+    ],
+    [
+     "n’exclut pas d’avoir recours à des procédures judiciaires",
+     "법적 절차에 나설 가능성을 배제하지 않는다"
+    ],
+    [
+     "afin que la plateforme se conforme,",
+     "플랫폼이 따르게 하기 위해,"
+    ],
+    [
+     "mais il « ne souhaite pas se rendre là ».",
+     "그러나 그는 « 거기까지 가고 싶지는 않다 »."
+    ]
+   ]
+  ]
+ ]
+}

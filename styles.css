@@ -252,6 +252,8 @@ summary{cursor:pointer;font-weight:600;padding:6px 0}
 .opt.sel{border-color:var(--accent);background:var(--accent-tint)}
 .opt.correct{border-color:var(--sage);background:var(--sage-tint)}
 .opt.wrong{border-color:var(--red);background:var(--red-tint)}
+.rd-tap{cursor:pointer}
+.rd-ko[data-rdchunk]{cursor:pointer}
 .opt-trans{cursor:pointer;
   border-radius:12px;background:var(--gold-bg);padding:10px 14px;
   font-size:14px;line-height:1.65;color:var(--dim);

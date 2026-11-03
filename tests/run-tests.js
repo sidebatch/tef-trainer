@@ -131,6 +131,24 @@ ok(css.includes('.dot.bad'), 'wrong-answer dot style present (v26)');
 ok(appJs.includes('pin: null') && appJs.includes('pin-card') && appJs.includes('오늘 할 공부') && appJs.includes("location.hash.startsWith('#pin=')") && appJs.includes('dataset.pinset') && appJs.includes('dataset.unpin') && appJs.includes('오늘 할 공부로 고정'), '오늘 할 공부 pin: state, home card, #pin= link, set-list toggle all wired (v27)');
 ok(!appJs.includes('opt-side') && appJs.includes('opt-under') && appJs.includes('opt-trans opt-under" data-optko'), 'option layout: speaker left of the option, 해석 toggle under it, translation card taps to close (v28)');
 ok(appJs.includes('hasKo && !showKo'), '해석 보기 button and translation card alternate — only one shows at a time (v29)');
+
+// reading articles: every sentence has 직독직해 chunks that rejoin to the sentence
+const readingData = JSON.parse(fs.readFileSync('data/reading.json', 'utf8'));
+let rdSents = 0, rdBad = 0;
+readingData.articles.forEach((a) => {
+  if (!a.chunks || a.chunks.length !== a.paras.length) rdBad++;
+  a.paras.forEach((p, pi) => {
+    (p.sents || []).forEach((st, si) => {
+      rdSents++;
+      const pairs = a.chunks && a.chunks[pi] ? a.chunks[pi][si] : null;
+      if (!pairs || !pairs.length) { rdBad++; return; }
+      if (pairs.some((x) => x.length < 2 || !x[0] || !x[1])) rdBad++;
+      if (pairs.map((x) => x[0]).join(' ').replace(/\s+/g, ' ').trim() !== st.replace(/\s+/g, ' ').trim()) rdBad++;
+    });
+  });
+});
+ok(rdSents === 137 && rdBad === 0, 'reading: all 137 article sentences carry 직독직해 chunks rejoining to the sentence (' + rdBad + ' bad)');
+ok(appJs.includes('rdChunk: {}') && appJs.includes('data-rdchunk') && appJs.includes('dataset.rdchunk'), 'reading: sentence tap toggles 직독직해 when 해석 is on (v30)');
 ok(appJs.includes('chip-add') && css.includes('.chip-add') && !appJs.includes('내 단어에 추가'), 'word add control is a small chip (v26)');
 ok(css.includes('.set-row.just-done') && css.includes('.set-row.next-up'), 'set-list highlight styles present');
 ok(indexHtml.includes('manifest.webmanifest'), 'index links manifest');

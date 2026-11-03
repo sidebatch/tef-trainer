@@ -19,7 +19,7 @@ let navStack = [];
 let sharedAudio = null;
 let blobCache = new Map();
 let attemptPlays = {}; // per-item plays in the current attempt (before answering)
-let ui = { sentOpen: {}, optKoOpen: {}, dcOpen: {}, detailsOpen: {}, repeat: {}, transOpen: false, rdKo: false, shadowMode: {}, dictInput: {}, dictResult: {}, sentInput: {}, sentResult: {}, drillSel: {}, eoIntroSel: {}, posterReveal: {}, flashFace: {}, idiomOpen: {}, sujetFilter: '전체', wordSub: 'core', coVocabSection: 0, calCursor: null, calSel: null };
+let ui = { sentOpen: {}, optKoOpen: {}, dcOpen: {}, detailsOpen: {}, repeat: {}, transOpen: false, rdKo: false, rdChunk: {}, shadowMode: {}, dictInput: {}, dictResult: {}, sentInput: {}, sentResult: {}, drillSel: {}, eoIntroSel: {}, posterReveal: {}, flashFace: {}, idiomOpen: {}, sujetFilter: '전체', wordSub: 'core', coVocabSection: 0, calCursor: null, calSel: null };
 
 function loadState() {
   try {
@@ -498,8 +498,21 @@ function viewReading(idx) {
   h += '<div class="card"><h3>본문</h3>';
   h += '<div style="display:flex;justify-content:flex-end;margin:0 0 4px"><button type="button" class="btn ghost small" data-rdko>' + (ui.rdKo ? '해석 숨기기' : '🇰🇷 해석 보기') + '</button></div>';
   a.paras.forEach((p, pi) => {
-    if (p.h) h += '<h4 style="font-size:15.5px;margin:14px 0 6px">' + esc(p.h) + '</h4>';
-    else h += '<div style="margin:0 0 12px">' + p.sents.map((st, si) => speakableLine(st) + (ui.rdKo && a.koParas && a.koParas[pi] && a.koParas[pi][si] ? '<div class="rd-ko" style="color:var(--muted);font-size:14px;line-height:1.55;margin:1px 0 7px">' + esc(a.koParas[pi][si]) + '</div>' : '')).join('') + '</div>';
+    if (p.h) { h += '<h4 style="font-size:15.5px;margin:14px 0 6px">' + esc(p.h) + '</h4>'; return; }
+    h += '<div style="margin:0 0 12px">' + p.sents.map((st, si) => {
+      const key = a.id + ':' + pi + ':' + si;
+      const ch = a.chunks && a.chunks[pi] ? a.chunks[pi][si] : null;
+      const canTap = !!(ui.rdKo && ch);
+      const open = canTap && ui.rdChunk[key];
+      let s = '<div class="row" style="align-items:flex-start"><span class="fr' + (canTap ? ' rd-tap' : '') + '" style="flex:1"' + (canTap ? ' data-rdchunk="' + key + '" role="button"' : '') + '>' + esc(st) + '</span>' + speakBtn(st) + '</div>';
+      if (ui.rdKo && a.koParas && a.koParas[pi] && a.koParas[pi][si]) {
+        s += '<div class="rd-ko" style="color:var(--muted);font-size:14px;line-height:1.55;margin:1px 0 7px"' + (canTap ? ' data-rdchunk="' + key + '" role="button"' : '') + '>' + esc(a.koParas[pi][si]) + (ch ? ' <span class="dc-hint">' + (open ? '직독직해 숨기기 ▴' : '눌러서 직독직해 ▾') + '</span>' : '') + '</div>';
+      }
+      if (open) {
+        s += '<div class="chunk-wrap dc-wrap"><p class="chunk-sent">' + ch.map((pair) => '<span class="chunk-unit"><span class="fr">' + esc(pair[0]) + '</span><span class="ko">' + esc(pair[1]) + '</span></span>').join(' ') + '</p></div>';
+      }
+      return s;
+    }).join('') + '</div>';
   });
   h += '</div>';
   h += '<div class="card"><h3>단어장 — ' + a.vocab.length + '개</h3>' +
@@ -1202,7 +1215,7 @@ document.addEventListener('click', (ev) => {
   // row it would even record an answer the learner never meant to pick.
   const sel = window.getSelection ? window.getSelection() : null;
   if (sel && !sel.isCollapsed && sel.toString().trim() !== '') return;
-  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-pinset],[data-unpin],[data-optko],[data-sent],[data-dchunk],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-dict-play],[data-dict-slow],[data-dict-repeat],[data-stype-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday],[data-reading],[data-readdone],[data-rdko]');
+  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-pinset],[data-unpin],[data-optko],[data-sent],[data-dchunk],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-dict-play],[data-dict-slow],[data-dict-repeat],[data-stype-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday],[data-reading],[data-readdone],[data-rdko],[data-rdchunk]');
   // bottom nav + back handled separately below
   if (ev.target.closest('.nav-btn')) { setTab(ev.target.closest('.nav-btn').dataset.tab); return; }
   if (ev.target.closest('#backBtn')) { if (navStack.length) history.back(); else back(); return; }
@@ -1220,6 +1233,7 @@ document.addEventListener('click', (ev) => {
   if (t.dataset.reading) { go('ce', 'reading', t.dataset.reading); return; }
   if (t.dataset.readdone) { state.readingDone = state.readingDone || {}; state.readingDone[t.dataset.readdone] = !state.readingDone[t.dataset.readdone]; save(); render(); return; }
   if (t.dataset.rdko !== undefined) { ui.rdKo = !ui.rdKo; render(); return; }
+  if (t.dataset.rdchunk) { ui.rdChunk[t.dataset.rdchunk] = !ui.rdChunk[t.dataset.rdchunk]; render(); return; }
   if (t.dataset.openitem) { openItem(t.dataset.openitem, t.dataset.mod, !!t.dataset.nopush); return; }
   if (t.dataset.answer) {
     const item = findItem(t.dataset.answer);
