@@ -102,8 +102,13 @@ function refreshDictRepeatBtns() {
     b.textContent = on ? '🔁 반복 중지' : '🔁 반복 듣기';
   });
 }
+const ICO_SPEAK = '<svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M4 9v6h4l6 5V4L8 9H4z"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M16.5 9a4.5 4.5 0 0 1 0 6M19 6.5a9 9 0 0 1 0 11"/></svg>';
+const ICO_PLAY = '<svg class="ic-play" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>';
+const ICO_PAUSE = '<svg class="ic-pause" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
+const ICO_HEAD = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style="vertical-align:-3px;margin-right:3px"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 15v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="7" rx="1.5"/><rect x="17" y="14" width="4" height="7" rx="1.5"/></g></svg>';
+const ICO_REPEAT = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" style="vertical-align:-2px"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></g></svg>';
 function speakBtn(text, label) {
-  return '<button class="speak" data-speak="' + esc(text) + '" aria-label="발음 듣기" title="발음 듣기">🔊</button>' + (label ? '<span class="fr16">' + esc(label) + '</span>' : '');
+  return '<button class="speak" data-speak="' + esc(text) + '" aria-label="발음 듣기" title="발음 듣기">' + ICO_SPEAK + '</button>' + (label ? '<span class="fr16">' + esc(label) + '</span>' : '');
 }
 
 /* ---------- word diff (LCS alignment; order matters) ---------- */
@@ -373,7 +378,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 37)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 38)</p>';
   h += '</div>';
   return h;
 }
@@ -711,14 +716,17 @@ function playerHtml(item) {
   const plays = attemptPlays[item.id] || 0;
   const blocked = scoredLimited && !answered && plays >= 1;
   let h = '<div class="card player-card"><div class="player-row">' +
-    '<button class="play-big" data-play="' + esc(item.id) + '"' + (blocked ? ' disabled' : '') + ' aria-label="오디오 재생">▶</button>' +
-    '<div class="player-status"><p class="p-main">🎧 듣기</p>' +
+    '<button class="play-big" data-play="' + esc(item.id) + '"' + (blocked ? ' disabled' : '') + ' aria-label="오디오 재생">' + ICO_PLAY + ICO_PAUSE + '</button>' +
+    '<div class="player-status"><p class="p-main">' + ICO_HEAD + '듣기</p>' +
     '<p class="xs dim" data-play-count="' + esc(item.id) + '">재생 횟수 ' + (state.plays[item.id] || 0) + '회</p>';
   if (scoredLimited && !answered) h += '<p class="xs dim">시험 모드: 1회 재생 — 답을 고르기 전에는 한 번만 들을 수 있어요.</p>';
   if (blocked) h += '<p class="xs dim"><b>시험 모드: 1회 재생</b>을 마쳤어요. 답을 고른 뒤에는 복습으로 다시 들을 수 있어요.</p>';
   const repOn = !!(ui.repeat && ui.repeat[item.id]);
   h += '</div></div>' +
-    '<div class="player-tools"><button class="repeat-btn' + (repOn ? ' on' : '') + '" data-repeat="' + esc(item.id) + '" aria-pressed="' + (repOn ? 'true' : 'false') + '">🔁 반복 듣기 ' + (repOn ? '켜짐' : '꺼짐') + '</button></div>' +
+    '<div class="player-progress"><span class="ptime" data-pt-cur="' + esc(item.id) + '">0:00</span>' +
+    '<input type="range" class="pseek" data-pseek="' + esc(item.id) + '" min="0" max="1000" value="0" disabled aria-label="재생 위치">' +
+    '<span class="ptime end" data-pt-dur="' + esc(item.id) + '">0:00</span></div>' +
+    '<div class="player-tools"><button class="repeat-btn' + (repOn ? ' on' : '') + '" data-repeat="' + esc(item.id) + '" aria-pressed="' + (repOn ? 'true' : 'false') + '">' + ICO_REPEAT + ' 반복 듣기 ' + (repOn ? '켜짐' : '꺼짐') + '</button></div>' +
     '<span data-player-msg="' + esc(item.id) + '" class="ok-text"></span>' +
     '<div data-native-slot="' + esc(item.id) + '"></div></div>';
   return h;
@@ -738,7 +746,7 @@ function ensureAudio(item, slot, msg) {
   if (audio) return audio;
   if (!slot) return null;
   audio = document.createElement('audio');
-  audio.controls = true; audio.preload = 'auto';
+  audio.preload = 'auto';
   // Start inside the tap gesture: a cached Blob URL when ready, otherwise the
   // file URL streams. Never await a download before play() — mobile browsers
   // drop the gesture and the first tap goes silent.
@@ -784,12 +792,43 @@ function ensureAudio(item, slot, msg) {
       slot.appendChild(rb);
     }
   });
+  // Custom player chrome: keep the big button, the seek bar and the time
+  // labels in sync with the hidden audio element. All updates are in place —
+  // a render() here would remove the element and kill playback.
+  const fmtT = (s) => { if (!isFinite(s) || s < 0) s = 0; const m = Math.floor(s / 60), ss = Math.floor(s % 60); return m + ':' + String(ss).padStart(2, '0'); };
+  const q = (sel) => document.querySelector(sel + '"' + CSS.escape(item.id) + '"]');
+  const syncDur = () => {
+    const dur = q('[data-pt-dur='); if (dur) dur.textContent = fmtT(audio.duration);
+    const sk = q('[data-pseek='); if (sk && isFinite(audio.duration)) sk.disabled = false;
+  };
+  audio.addEventListener('loadedmetadata', syncDur);
+  audio.addEventListener('durationchange', syncDur); // streamed MP3s can report Infinity first
+  audio.addEventListener('timeupdate', () => {
+    const sk = q('[data-pseek=');
+    if (sk && !audio._seeking && audio.duration) sk.value = Math.round((audio.currentTime / audio.duration) * 1000);
+    const cur = q('[data-pt-cur='); if (cur) cur.textContent = fmtT(audio.currentTime);
+  });
+  audio.addEventListener('play', () => { const b = q('[data-play='); if (b) b.classList.add('playing'); });
+  audio.addEventListener('pause', () => { const b = q('[data-play='); if (b) b.classList.remove('playing'); });
+  audio.addEventListener('ended', () => {
+    const b = q('[data-play='); if (b) b.classList.remove('playing');
+    const sk = q('[data-pseek='); if (sk) sk.value = 0;
+    const cur = q('[data-pt-cur='); if (cur) cur.textContent = '0:00';
+  });
   slot.appendChild(audio);
   return audio;
 }
 function playItemAudio(item, btn) {
   const msg = document.querySelector('[data-player-msg="' + CSS.escape(item.id) + '"]');
   const slot = document.querySelector('[data-native-slot="' + CSS.escape(item.id) + '"]');
+  // The big button is a play/pause toggle once an element exists: pausing is
+  // always allowed, and resuming mid-track continues the same play (the
+  // counting listener keys on dataset.counted), so neither hits the exam cap.
+  const ex = slot && slot.querySelector('audio');
+  if (ex && !ex.ended) {
+    if (!ex.paused) { ex.pause(); return; }
+    if (ex.currentTime > 0) { const rp = ex.play(); if (rp && rp.catch) rp.catch(() => {}); return; }
+  }
   const answered = isDone(item.id);
   const scoredLimited = item.scored !== false && item.answer != null;
   if (scoredLimited && !answered && (attemptPlays[item.id] || 0) >= 1) { if (msg) msg.textContent = '시험 모드: 1회 재생을 이미 썼어요.'; return; }
@@ -798,7 +837,7 @@ function playItemAudio(item, btn) {
   if (!audio) return;
   if (msg) msg.textContent = '';
   const p = audio.play();
-  if (p && p.catch) p.catch(() => { if (msg) msg.textContent = ' 재생이 막혔어요. 아래 재생 바의 ▶를 눌러 주세요.'; });
+  if (p && p.catch) p.catch(() => { if (msg) msg.textContent = ' 재생이 막혔어요. 잠시 뒤 다시 눌러 주세요.'; });
 }
 function toggleRepeat(item) {
   ui.repeat = ui.repeat || {};
@@ -808,7 +847,7 @@ function toggleRepeat(item) {
   document.querySelectorAll('[data-repeat="' + CSS.escape(item.id) + '"]').forEach((b) => {
     b.classList.toggle('on', on);
     b.setAttribute('aria-pressed', on ? 'true' : 'false');
-    b.textContent = '🔁 반복 듣기 ' + (on ? '켜짐' : '꺼짐');
+    b.innerHTML = ICO_REPEAT + ' 반복 듣기 ' + (on ? '켜짐' : '꺼짐');
   });
   const slot = document.querySelector('[data-native-slot="' + CSS.escape(item.id) + '"]');
   const msg = document.querySelector('[data-player-msg="' + CSS.escape(item.id) + '"]');
@@ -829,7 +868,7 @@ function toggleRepeat(item) {
   try { audio.currentTime = 0; } catch (e) {}
   if (msg) msg.textContent = '';
   const p = audio.play();
-  if (p && p.catch) p.catch(() => { if (msg) msg.textContent = ' 재생이 막혔어요. 아래 재생 바의 ▶를 눌러 주세요.'; });
+  if (p && p.catch) p.catch(() => { if (msg) msg.textContent = ' 재생이 막혔어요. 잠시 뒤 다시 눌러 주세요.'; });
 }
 function transcriptPairs(item) {
   if (item.stt && item.sentences && item.sentences.length) return item.sentences;
@@ -1208,6 +1247,24 @@ function openItem(id, mod, nopush) {
 document.addEventListener('pointerdown', (ev) => {
   const b = ev.target.closest('[data-play]');
   if (b) { const item = findItem(b.dataset.play); if (item) warmBlob(item); }
+});
+// Seek bar: drag updates the hidden audio element in place.
+document.addEventListener('input', (ev) => {
+  const sk = ev.target.closest && ev.target.closest('[data-pseek]');
+  if (!sk) return;
+  const slot = document.querySelector('[data-native-slot="' + CSS.escape(sk.dataset.pseek) + '"]');
+  const audio = slot && slot.querySelector('audio');
+  if (audio && audio.duration) {
+    audio._seeking = true;
+    try { audio.currentTime = (Number(sk.value) / 1000) * audio.duration; } catch (e) {}
+  }
+});
+document.addEventListener('change', (ev) => {
+  const sk = ev.target.closest && ev.target.closest('[data-pseek]');
+  if (!sk) return;
+  const slot = document.querySelector('[data-native-slot="' + CSS.escape(sk.dataset.pseek) + '"]');
+  const audio = slot && slot.querySelector('audio');
+  if (audio) audio._seeking = false;
 });
 document.addEventListener('click', (ev) => {
   // A drag that ends in a text selection is not a tap: acting on it would
