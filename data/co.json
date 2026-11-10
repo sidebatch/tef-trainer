@@ -5604,6 +5604,954 @@
    "uncertain": true,
    "scored": true,
    "stt": true
+  },
+  {
+   "answer": 0,
+   "audio": "assets/co/mockd/CO-1-15.mp3",
+   "expl": "'excellente idée'라며 이웃 간 돕기와 지역 농산물, 동네 유대 강화를 들어요.",
+   "id": "CO-MD1-15",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "tout à fait en faveur.",
+    "plutôt favorable.",
+    "complètement contre.",
+    "sans opinion."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Je pense que c'est une excellente idée.",
+     "ko": "정말 좋은 생각이라고 생각해요."
+    },
+    {
+     "fr": "Ils favorisent l'entraide entre voisins et permettent de cultiver des produits locaux.",
+     "ko": "이웃끼리 서로 돕게 해 주고, 지역에서 난 농산물을 기를 수 있게 해 주잖아요."
+    },
+    {
+     "fr": "Ça peut vraiment renforcer le lien social dans le quartier.",
+     "ko": "동네 사람들 사이의 유대도 정말 돈독해질 수 있어요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 1",
+   "stem": "« Êtes-vous en faveur ou non de la mise en place de jardins communautaires dans votre quartier ? » La personne interrogée est...",
+   "stt": true,
+   "trans": "정말 좋은 생각이라고 생각해요. 이웃끼리 서로 돕게 해 주고, 지역에서 난 농산물을 기를 수 있게 해 주잖아요. 동네 사람들 사이의 유대도 정말 돈독해질 수 있어요.",
+   "transcript": "Je pense que c'est une excellente idée. Ils favorisent l'entraide entre voisins et permettent de cultiver des produits locaux. Ça peut vraiment renforcer le lien social dans le quartier.",
+   "uncertain": false
+  },
+  {
+   "answer": 1,
+   "audio": "assets/co/mockd/CO-1-16.mp3",
+   "expl": "본인이 직접 'plutôt favorable, mais avec des réserves(유보적 찬성)'라고 말해요.",
+   "id": "CO-MD1-16",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "tout à fait en faveur.",
+    "plutôt favorable.",
+    "complètement contre.",
+    "sans opinion."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Je trouve que ça peut être utile, mais il y a aussi des problèmes de gestion et de sécurité à prendre en compte.",
+     "ko": "도움이 될 수는 있다고 보지만, 관리나 안전 문제도 함께 따져 봐야 해요."
+    },
+    {
+     "fr": "Je suis plutôt favorable, mais avec des réserves.",
+     "ko": "대체로 찬성이긴 한데, 좀 망설여지는 부분도 있어요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 1",
+   "stem": "« Êtes-vous en faveur ou non de la mise en place de jardins communautaires dans votre quartier ? » La personne interrogée est...",
+   "stt": true,
+   "trans": "도움이 될 수는 있다고 보지만, 관리나 안전 문제도 함께 따져 봐야 해요. 대체로 찬성이긴 한데, 좀 망설여지는 부분도 있어요.",
+   "transcript": "Je trouve que ça peut être utile, mais il y a aussi des problèmes de gestion et de sécurité à prendre en compte. Je suis plutôt favorable, mais avec des réserves.",
+   "uncertain": false
+  },
+  {
+   "answer": 2,
+   "audio": "assets/co/mockd/CO-1-17.mp3",
+   "expl": "'pas convaincue(납득이 안 돼요)' — 갈등과 관리 부담을 들며 부정적이에요.",
+   "id": "CO-MD1-17",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "tout à fait en faveur.",
+    "plutôt favorable.",
+    "complètement contre.",
+    "sans opinion."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Je ne suis pas convaincue.",
+     "ko": "저는 별로 내키지 않아요."
+    },
+    {
+     "fr": "Je pense que les jardins communautaires peuvent entraîner des conflits entre les usagers.",
+     "ko": "공동 텃밭 때문에 이용자들 사이에 다툼이 생길 수도 있다고 생각해요."
+    },
+    {
+     "fr": "En plus, ça demande beaucoup d'entretien.",
+     "ko": "게다가 손도 많이 가요."
+    },
+    {
+     "fr": "À mon avis, les gens auront du mal à gérer tout ça.",
+     "ko": "제 생각에는 사람들이 이걸 다 관리하기가 쉽지 않을 거예요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 1",
+   "stem": "« Êtes-vous en faveur ou non de la mise en place de jardins communautaires dans votre quartier ? » La personne interrogée est...",
+   "stt": true,
+   "trans": "저는 별로 내키지 않아요. 공동 텃밭 때문에 이용자들 사이에 다툼이 생길 수도 있다고 생각해요. 게다가 손도 많이 가요. 제 생각에는 사람들이 이걸 다 관리하기가 쉽지 않을 거예요.",
+   "transcript": "Je ne suis pas convaincue. Je pense que les jardins communautaires peuvent entraîner des conflits entre les usagers. En plus, ça demande beaucoup d'entretien. À mon avis, les gens auront du mal à gérer tout ça.",
+   "uncertain": false
+  },
+  {
+   "answer": 2,
+   "audio": "assets/co/mockd/CO-1-18.mp3",
+   "expl": "'pas essentiels(필수가 아니에요)' — 자원은 다른 데 쓰는 게 낫다고 해요.",
+   "id": "CO-MD1-18",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "pense que c'est très important.",
+    "pense que c'est important mais pas essentiel.",
+    "pense que ce n'est pas important.",
+    "n'a pas d'avis sur la question."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Je ne vois pas vraiment l'intérêt.",
+     "ko": "솔직히 무슨 의미가 있는지 잘 모르겠어요."
+    },
+    {
+     "fr": "Je pense que les spectacles de rue ne sont pas essentiels, et que les ressources pourraient être mieux utilisées ailleurs.",
+     "ko": "거리 공연은 꼭 필요한 게 아니고, 그 자원을 다른 데 쓰는 게 더 나을 수 있다고 생각해요."
+    },
+    {
+     "fr": "En plus, n'importe qui pourrait se mettre dans la rue, même pour mendier, et dire que c'est un spectacle.",
+     "ko": "게다가 누구나 길에 나와서, 심지어 구걸하면서도 이게 공연이라고 말할 수 있잖아요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 1",
+   "stem": "« Pensez-vous qu'il soit important de promouvoir les spectacles de rue dans les villes ? » La personne interrogée est...",
+   "stt": true,
+   "trans": "솔직히 무슨 의미가 있는지 잘 모르겠어요. 거리 공연은 꼭 필요한 게 아니고, 그 자원을 다른 데 쓰는 게 더 나을 수 있다고 생각해요. 게다가 누구나 길에 나와서, 심지어 구걸하면서도 이게 공연이라고 말할 수 있잖아요.",
+   "transcript": "Je ne vois pas vraiment l'intérêt. Je pense que les spectacles de rue ne sont pas essentiels, et que les ressources pourraient être mieux utilisées ailleurs. En plus, n'importe qui pourrait se mettre dans la rue, même pour mendier, et dire que c'est un spectacle.",
+   "uncertain": false
+  },
+  {
+   "answer": 3,
+   "audio": "assets/co/mockd/CO-1-19.mp3",
+   "expl": "'je n'ai pas d'avis(의견이 없어요)'라고 직접 말해요.",
+   "id": "CO-MD1-19",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "pense que c'est très important.",
+    "pense que c'est important mais pas essentiel.",
+    "pense que ce n'est pas important.",
+    "n'a pas d'avis sur la question."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Les spectacles de rue ?",
+     "ko": "거리 공연요?"
+    },
+    {
+     "fr": "Personnellement, je ne m'arrête jamais pour les regarder, donc je ne sais pas, je n'ai pas d'avis sur la question.",
+     "ko": "저는 개인적으로 멈춰 서서 본 적이 없어서 잘 모르겠어요. 이 문제에 대해서는 별다른 의견이 없어요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 1",
+   "stem": "« Pensez-vous qu'il soit important de promouvoir les spectacles de rue dans les villes ? » La personne interrogée est...",
+   "stt": true,
+   "trans": "거리 공연요? 저는 개인적으로 멈춰 서서 본 적이 없어서 잘 모르겠어요. 이 문제에 대해서는 별다른 의견이 없어요.",
+   "transcript": "Les spectacles de rue ? Personnellement, je ne m'arrête jamais pour les regarder, donc je ne sais pas, je n'ai pas d'avis sur la question.",
+   "uncertain": false
+  },
+  {
+   "answer": 0,
+   "audio": "assets/co/mockd/CO-1-20.mp3",
+   "expl": "'très important' — 도시 생활을 풍요롭게 하고 꼭 필요하다고 해요.",
+   "id": "CO-MD1-20",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "pense que c'est très important.",
+    "pense que c'est important mais pas essentiel.",
+    "pense que ce n'est pas important.",
+    "n'a pas d'avis sur la question."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Je pense que c'est très important.",
+     "ko": "아주 중요하다고 생각해요."
+    },
+    {
+     "fr": "Les spectacles de rue enrichissent la vie urbaine et rendent la ville plus humaine.",
+     "ko": "거리 공연은 도시 생활을 풍요롭게 하고 도시를 더 인간적으로 만들어 줘요."
+    },
+    {
+     "fr": "On en a besoin.",
+     "ko": "우리에게는 그게 필요해요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 1",
+   "stem": "« Pensez-vous qu'il soit important de promouvoir les spectacles de rue dans les villes ? » La personne interrogée est...",
+   "stt": true,
+   "trans": "아주 중요하다고 생각해요. 거리 공연은 도시 생활을 풍요롭게 하고 도시를 더 인간적으로 만들어 줘요. 우리에게는 그게 필요해요.",
+   "transcript": "Je pense que c'est très important. Les spectacles de rue enrichissent la vie urbaine et rendent la ville plus humaine. On en a besoin.",
+   "uncertain": false
+  },
+  {
+   "answer": 0,
+   "audio": "assets/co/mockd/CO-2-15.mp3",
+   "expl": "'on devrait tous avoir(모두가 가져야 할 선택지)' — 모두에게 열려 있어야 한다고 해요.",
+   "id": "CO-MD2-15",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "Est totalement pour.",
+    "Est plutôt pour.",
+    "Est totalement contre.",
+    "Ne se prononce pas."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "C'est une option qu'on devrait tous avoir.",
+     "ko": "우리 모두가 가질 수 있어야 하는 선택지예요."
+    },
+    {
+     "fr": "Moi, je suis libérale, je pense que c'est quelque chose qui devrait être accessible à tout le monde.",
+     "ko": "저는 개방적인 사람이라, 이건 누구나 누릴 수 있어야 한다고 생각해요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 2",
+   "stem": "« Pour ou contre l'adoption ? » La personne interrogée :",
+   "stt": true,
+   "trans": "우리 모두가 가질 수 있어야 하는 선택지예요. 저는 개방적인 사람이라, 이건 누구나 누릴 수 있어야 한다고 생각해요.",
+   "transcript": "C'est une option qu'on devrait tous avoir. Moi, je suis libérale, je pense que c'est quelque chose qui devrait être accessible à tout le monde.",
+   "uncertain": false
+  },
+  {
+   "answer": 1,
+   "audio": "assets/co/mockd/CO-2-16.mp3",
+   "expl": "본인은 두렵고 거리낌이 있지만 'chacun est libre de choisir(선택은 각자 자유)'라며 원칙은 인정해요.",
+   "id": "CO-MD2-16",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "Est totalement pour.",
+    "Est plutôt pour.",
+    "Est totalement contre.",
+    "Ne se prononce pas."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "C'est vrai que personnellement, je ne le ferai pas, ça me fait peur, j'ai quelques réticences, mais chacun est libre de choisir sa propre famille.",
+     "ko": "솔직히 저는 개인적으로 하지는 않을 거예요. 좀 겁도 나고 망설여지는 부분도 있지만, 각자 자기 가족은 자유롭게 선택할 수 있는 거잖아요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 2",
+   "stem": "« Pour ou contre l'adoption ? » La personne interrogée :",
+   "stt": true,
+   "trans": "솔직히 저는 개인적으로 하지는 않을 거예요. 좀 겁도 나고 망설여지는 부분도 있지만, 각자 자기 가족은 자유롭게 선택할 수 있는 거잖아요.",
+   "transcript": "C'est vrai que personnellement, je ne le ferai pas, ça me fait peur, j'ai quelques réticences, mais chacun est libre de choisir sa propre famille.",
+   "uncertain": false
+  },
+  {
+   "answer": 2,
+   "audio": "assets/co/mockd/CO-2-17.mp3",
+   "expl": "'la famille, c'est vraiment inutile(가족은 정말 쓸모없어요)' — 가족 자체를 부정해요.",
+   "id": "CO-MD2-17",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "Est totalement pour.",
+    "Est plutôt pour.",
+    "Est totalement contre.",
+    "Ne se prononce pas."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Pour moi, la famille, c'est vraiment inutile.",
+     "ko": "저한테 가족이란 건 정말 쓸모없는 거예요."
+    },
+    {
+     "fr": "En fait, je ne comprends pas qu'on ait des enfants, adoptés ou biologiques, avec ce monde qui devient fou.",
+     "ko": "사실 세상이 이렇게 미쳐 가는데 입양이든 친자식이든 아이를 갖는다는 게 이해가 안 돼요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 2",
+   "stem": "« Pour ou contre l'adoption ? » La personne interrogée :",
+   "stt": true,
+   "trans": "저한테 가족이란 건 정말 쓸모없는 거예요. 사실 세상이 이렇게 미쳐 가는데 입양이든 친자식이든 아이를 갖는다는 게 이해가 안 돼요.",
+   "transcript": "Pour moi, la famille, c'est vraiment inutile. En fait, je ne comprends pas qu'on ait des enfants, adoptés ou biologiques, avec ce monde qui devient fou.",
+   "uncertain": false
+  },
+  {
+   "answer": 2,
+   "audio": "assets/co/mockd/CO-2-18.mp3",
+   "expl": "'injuste(불공평해요)' — 멀리 사는 사람에겐 다른 대안이 없다고 반대해요.",
+   "id": "CO-MD2-18",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "Est totalement pour.",
+    "Est pour à certaines conditions.",
+    "Est totalement contre.",
+    "Ne se prononce pas."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "L'évolution ne va pas dans le bon sens.",
+     "ko": "변화가 좋은 방향으로 가고 있지는 않아요."
+    },
+    {
+     "fr": "Les gens qui habitent loin de la ville n'ont pas vraiment d'autres solutions.",
+     "ko": "도시에서 멀리 사는 사람들은 사실 다른 방법이 별로 없어요."
+    },
+    {
+     "fr": "C'est injuste pour eux.",
+     "ko": "그 사람들에게는 불공평한 일이에요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 2",
+   "stem": "« Pour ou contre les villes sans voiture ? » La personne interrogée :",
+   "stt": true,
+   "trans": "변화가 좋은 방향으로 가고 있지는 않아요. 도시에서 멀리 사는 사람들은 사실 다른 방법이 별로 없어요. 그 사람들에게는 불공평한 일이에요.",
+   "transcript": "L'évolution ne va pas dans le bon sens. Les gens qui habitent loin de la ville n'ont pas vraiment d'autres solutions. C'est injuste pour eux.",
+   "uncertain": false
+  },
+  {
+   "answer": 1,
+   "audio": "assets/co/mockd/CO-2-19.mp3",
+   "expl": "'bonne idée, mais d'abord...(좋은 생각이지만 먼저)' — 도로 정비라는 조건을 달아요.",
+   "id": "CO-MD2-19",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "Est totalement pour.",
+    "Est pour à certaines conditions.",
+    "Est totalement contre.",
+    "Ne se prononce pas."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Je trouve que c'est une bonne idée, mais il faudrait d'abord que les routes soient mieux aménagées, pour les vélos par exemple.",
+     "ko": "좋은 생각이라고 보지만, 먼저 도로부터 더 잘 정비해야 해요. 예를 들어 자전거를 위해서요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 2",
+   "stem": "« Pour ou contre les villes sans voiture ? » La personne interrogée :",
+   "stt": true,
+   "trans": "좋은 생각이라고 보지만, 먼저 도로부터 더 잘 정비해야 해요. 예를 들어 자전거를 위해서요.",
+   "transcript": "Je trouve que c'est une bonne idée, mais il faudrait d'abord que les routes soient mieux aménagées, pour les vélos par exemple.",
+   "uncertain": false
+  },
+  {
+   "answer": 0,
+   "audio": "assets/co/mockd/CO-2-20.mp3",
+   "expl": "'très bonne chose' — 삶의 질과 환경에 아주 좋다고 해요.",
+   "id": "CO-MD2-20",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "Est totalement pour.",
+    "Est pour à certaines conditions.",
+    "Est totalement contre.",
+    "Ne se prononce pas."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "La plupart des villes limitent déjà l'accès aux voitures, et c'est une très bonne chose pour la qualité de vie et l'environnement.",
+     "ko": "대부분의 도시는 이미 자동차 진입을 제한하고 있는데, 삶의 질과 환경을 위해서는 아주 좋은 일이에요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 2",
+   "stem": "« Pour ou contre les villes sans voiture ? » La personne interrogée :",
+   "stt": true,
+   "trans": "대부분의 도시는 이미 자동차 진입을 제한하고 있는데, 삶의 질과 환경을 위해서는 아주 좋은 일이에요.",
+   "transcript": "La plupart des villes limitent déjà l'accès aux voitures, et c'est une très bonne chose pour la qualité de vie et l'environnement.",
+   "uncertain": false
+  },
+  {
+   "answer": 2,
+   "audio": "assets/co/mockd/CO-3-15.mp3",
+   "expl": "'non, je ne suis pas d'accord(동의하지 않아요)' — 부작용을 우려해 반대해요.",
+   "id": "CO-MD3-15",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "tout à fait pour.",
+    "plutôt favorable.",
+    "complètement contre."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Les gens risquent de se plaindre juste parce que le médecin n'a pas donné le médicament qu'ils préfèrent.",
+     "ko": "사람들이 의사가 자기가 원하는 약을 안 줬다는 이유만으로 불만을 제기할 위험이 있어요."
+    },
+    {
+     "fr": "Donc non, je ne suis pas d'accord.",
+     "ko": "그래서 저는 반대예요."
+    },
+    {
+     "fr": "Ça pourrait mener à des dérives.",
+     "ko": "이게 잘못된 방향으로 흘러갈 수도 있어요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 3",
+   "stem": "« Êtes-vous pour ou contre l'évaluation des médecins par leurs patients ? » La personne interrogée est...",
+   "stt": true,
+   "trans": "사람들이 의사가 자기가 원하는 약을 안 줬다는 이유만으로 불만을 제기할 위험이 있어요. 그래서 저는 반대예요. 이게 잘못된 방향으로 흘러갈 수도 있어요.",
+   "transcript": "Les gens risquent de se plaindre juste parce que le médecin n'a pas donné le médicament qu'ils préfèrent. Donc non, je ne suis pas d'accord. Ça pourrait mener à des dérives.",
+   "uncertain": false
+  },
+  {
+   "answer": 1,
+   "audio": "assets/co/mockd/CO-3-16.mp3",
+   "expl": "'avis précieux, mais ça dépend du contexte(상황에 따라 달라요)', 'pourquoi pas ?' — 조건부 긍정이에요.",
+   "id": "CO-MD3-16",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "tout à fait pour.",
+    "plutôt favorable.",
+    "complètement contre."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Je pense que les patients peuvent donner un avis précieux, mais ça dépend aussi du contexte.",
+     "ko": "환자들이 소중한 의견을 줄 수 있다고 생각하지만, 상황에 따라 다르기도 해요."
+    },
+    {
+     "fr": "Dans certains cas, ça pourrait même être bénéfique pour les médecins, donc pourquoi pas ?",
+     "ko": "경우에 따라서는 의사들에게도 도움이 될 수 있으니, 못 할 것도 없죠."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 3",
+   "stem": "« Êtes-vous pour ou contre l'évaluation des médecins par leurs patients ? » La personne interrogée est...",
+   "stt": true,
+   "trans": "환자들이 소중한 의견을 줄 수 있다고 생각하지만, 상황에 따라 다르기도 해요. 경우에 따라서는 의사들에게도 도움이 될 수 있으니, 못 할 것도 없죠.",
+   "transcript": "Je pense que les patients peuvent donner un avis précieux, mais ça dépend aussi du contexte. Dans certains cas, ça pourrait même être bénéfique pour les médecins, donc pourquoi pas ?",
+   "uncertain": false
+  },
+  {
+   "answer": 0,
+   "audio": "assets/co/mockd/CO-3-17.mp3",
+   "expl": "'très bonne idée' — 진료 개선에 도움이 된다고 해요.",
+   "id": "CO-MD3-17",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "tout à fait pour.",
+    "plutôt favorable.",
+    "complètement contre."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Les patients ont souvent un point de vue intéressant sur la manière dont ils sont pris en charge.",
+     "ko": "환자들은 자기가 받는 진료 방식에 대해 흥미로운 시각을 갖고 있는 경우가 많아요."
+    },
+    {
+     "fr": "Je crois que c'est une très bonne idée et que ça pourrait aider à améliorer les soins.",
+     "ko": "아주 좋은 생각이고, 진료를 개선하는 데 도움이 될 수 있다고 믿어요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 3",
+   "stem": "« Êtes-vous pour ou contre l'évaluation des médecins par leurs patients ? » La personne interrogée est...",
+   "stt": true,
+   "trans": "환자들은 자기가 받는 진료 방식에 대해 흥미로운 시각을 갖고 있는 경우가 많아요. 아주 좋은 생각이고, 진료를 개선하는 데 도움이 될 수 있다고 믿어요.",
+   "transcript": "Les patients ont souvent un point de vue intéressant sur la manière dont ils sont pris en charge. Je crois que c'est une très bonne idée et que ça pourrait aider à améliorer les soins.",
+   "uncertain": false
+  },
+  {
+   "answer": 1,
+   "audio": "assets/co/mockd/CO-3-18.mp3",
+   "expl": "'je ne pense pas que ce soit crucial(결정적이진 않아요)' — 신경 안 써도 건강하다고 해요.",
+   "id": "CO-MD3-18",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "pense que c'est très important.",
+    "pense que ce n'est pas important.",
+    "n'a pas d'avis sur la question."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Je n'ai jamais vraiment fait attention à ce que je mange, et je me porte bien.",
+     "ko": "저는 먹는 걸 딱히 신경 써 본 적이 없는데도 건강하게 잘 지내요."
+    },
+    {
+     "fr": "Je ne pense pas que ce soit crucial.",
+     "ko": "그렇게까지 중요한 건 아니라고 생각해요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 3",
+   "stem": "« Pensez-vous qu'il soit essentiel d'avoir une alimentation équilibrée ? » La personne interrogée...",
+   "stt": true,
+   "trans": "저는 먹는 걸 딱히 신경 써 본 적이 없는데도 건강하게 잘 지내요. 그렇게까지 중요한 건 아니라고 생각해요.",
+   "transcript": "Je n'ai jamais vraiment fait attention à ce que je mange, et je me porte bien. Je ne pense pas que ce soit crucial.",
+   "uncertain": false
+  },
+  {
+   "answer": 0,
+   "audio": "assets/co/mockd/CO-3-19.mp3",
+   "expl": "'absolument essentiel(절대적으로 필수)' — 영양사가 과학적으로 증명됐다고 해요.",
+   "id": "CO-MD3-19",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "pense que c'est très important.",
+    "pense que ce n'est pas important.",
+    "n'a pas d'avis sur la question."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "En tant que diététicienne, je dirais que oui, c'est absolument essentiel.",
+     "ko": "영양사로서 말씀드리면, 네, 그건 정말 필수예요."
+    },
+    {
+     "fr": "Une alimentation équilibrée est la base d'une bonne santé, ça a été prouvé scientifiquement.",
+     "ko": "균형 잡힌 식단이 건강의 기본이라는 건 과학적으로도 증명됐어요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 3",
+   "stem": "« Pensez-vous qu'il soit essentiel d'avoir une alimentation équilibrée ? » La personne interrogée...",
+   "stt": true,
+   "trans": "영양사로서 말씀드리면, 네, 그건 정말 필수예요. 균형 잡힌 식단이 건강의 기본이라는 건 과학적으로도 증명됐어요.",
+   "transcript": "En tant que diététicienne, je dirais que oui, c'est absolument essentiel. Une alimentation équilibrée est la base d'une bonne santé, ça a été prouvé scientifiquement.",
+   "uncertain": false
+  },
+  {
+   "answer": 1,
+   "audio": "assets/co/mockd/CO-3-20.mp3",
+   "expl": "'important, mais pas la fin du monde(중요하지만 세상 끝날 일은 아니에요)' — 중요하지만 최우선은 아니에요.",
+   "id": "CO-MD3-20",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "pense que c'est très important.",
+    "pense que c'est important mais pas primordial.",
+    "pense que ce n'est pas important."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "J'essaie de manger sainement, mais je pense qu'il faut aussi savoir se faire plaisir de temps en temps.",
+     "ko": "건강하게 먹으려고 노력은 하지만, 가끔은 맛있는 걸 즐기는 여유도 필요하다고 생각해요."
+    },
+    {
+     "fr": "Alors, c'est important, mais pas la fin du monde si on fait quelques écarts.",
+     "ko": "그러니까 중요하긴 하지만, 가끔 좀 흐트러진다고 세상이 끝나는 건 아니에요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 3",
+   "stem": "« Pensez-vous qu'il soit essentiel d'avoir une alimentation équilibrée ? » La personne interrogée...",
+   "stt": true,
+   "trans": "건강하게 먹으려고 노력은 하지만, 가끔은 맛있는 걸 즐기는 여유도 필요하다고 생각해요. 그러니까 중요하긴 하지만, 가끔 좀 흐트러진다고 세상이 끝나는 건 아니에요.",
+   "transcript": "J'essaie de manger sainement, mais je pense qu'il faut aussi savoir se faire plaisir de temps en temps. Alors, c'est important, mais pas la fin du monde si on fait quelques écarts.",
+   "uncertain": false
+  },
+  {
+   "answer": 1,
+   "audio": "assets/co/mockd/CO-4-15.mp3",
+   "expl": "시대가 변했다며 회의적이지만 'peut-être qu'il faut essayer(시도는 해봐야 해요)'라고 해 절반쯤 찬성으로 봤어요.",
+   "id": "CO-MD4-15",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "est pour à 100 %.",
+    "est moyennement pour.",
+    "est contre."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Si on était en 1904, ça pourrait marcher facilement, mais on est en 2024.",
+     "ko": "1904년이라면 쉽게 통할 수도 있겠지만, 지금은 2024년이잖아요."
+    },
+    {
+     "fr": "Ce serait vraiment dur d'imposer ça aux jeunes d'aujourd'hui, parce qu'ils veulent exprimer leur identité à tout prix sur les réseaux sociaux.",
+     "ko": "요즘 젊은이들에게 그걸 강요하기는 정말 힘들 거예요. 소셜 미디어에서 무슨 수를 써서라도 자기 개성을 드러내고 싶어 하니까요."
+    },
+    {
+     "fr": "Mais vu l'état déplorable de la jeunesse, peut-être qu'il faut essayer.",
+     "ko": "하지만 요즘 젊은이들의 한심한 상태를 보면, 한번 시도해 볼 필요는 있을지도 몰라요."
+    },
+    {
+     "fr": "Mais honnêtement, j'ai peu d'espoir que ça marche, malheureusement.",
+     "ko": "하지만 솔직히 말하면, 안타깝게도 그게 통할 거라는 기대는 별로 없어요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 4",
+   "stem": "« Êtes-vous pour ou contre le port de l'uniforme à l'école ? » La personne interrogée 1...",
+   "stt": true,
+   "trans": "1904년이라면 쉽게 통할 수도 있겠지만, 지금은 2024년이잖아요. 요즘 젊은이들에게 그걸 강요하기는 정말 힘들 거예요. 소셜 미디어에서 무슨 수를 써서라도 자기 개성을 드러내고 싶어 하니까요. 하지만 요즘 젊은이들의 한심한 상태를 보면, 한번 시도해 볼 필요는 있을지도 몰라요. 하지만 솔직히 말하면, 안타깝게도 그게 통할 거라는 기대는 별로 없어요.",
+   "transcript": "Si on était en 1904, ça pourrait marcher facilement, mais on est en 2024. Ce serait vraiment dur d'imposer ça aux jeunes d'aujourd'hui, parce qu'ils veulent exprimer leur identité à tout prix sur les réseaux sociaux. Mais vu l'état déplorable de la jeunesse, peut-être qu'il faut essayer. Mais honnêtement, j'ai peu d'espoir que ça marche, malheureusement.",
+   "uncertain": true
+  },
+  {
+   "answer": 0,
+   "audio": "assets/co/mockd/CO-4-16.mp3",
+   "expl": "'c'est une bonne idée, il faut le faire(좋은 생각이고 해야 해요)' — 훈육과 규칙을 들어 전면 찬성이에요.",
+   "id": "CO-MD4-16",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "est pour à 100 %.",
+    "est moyennement pour.",
+    "est contre."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Personnellement, je pense que les jeunes ne sont pas disciplinés de nos jours.",
+     "ko": "개인적으로는 요즘 젊은이들이 규율이 없다고 생각해요."
+    },
+    {
+     "fr": "Donc s'habiller pareil, comme à l'ancienne, ça leur permettra d'avoir conscience de la vie en groupe et qu'il faut respecter les règles.",
+     "ko": "그래서 옛날처럼 똑같이 옷을 입으면 단체 생활에 대한 의식도 생기고, 규칙을 지켜야 한다는 것도 알게 될 거예요."
+    },
+    {
+     "fr": "Donc c'est une bonne idée, il faut le faire.",
+     "ko": "그러니까 좋은 생각이에요. 꼭 해야 해요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 4",
+   "stem": "« Êtes-vous pour ou contre le port de l'uniforme à l'école ? » La personne interrogée 2...",
+   "stt": true,
+   "trans": "개인적으로는 요즘 젊은이들이 규율이 없다고 생각해요. 그래서 옛날처럼 똑같이 옷을 입으면 단체 생활에 대한 의식도 생기고, 규칙을 지켜야 한다는 것도 알게 될 거예요. 그러니까 좋은 생각이에요. 꼭 해야 해요.",
+   "transcript": "Personnellement, je pense que les jeunes ne sont pas disciplinés de nos jours. Donc s'habiller pareil, comme à l'ancienne, ça leur permettra d'avoir conscience de la vie en groupe et qu'il faut respecter les règles. Donc c'est une bonne idée, il faut le faire.",
+   "uncertain": false
+  },
+  {
+   "answer": 2,
+   "audio": "assets/co/mockd/CO-4-17.mp3",
+   "expl": "'pas possible(불가능해요)' — 사람들이 받아들이지 않을 거라고 해요.",
+   "id": "CO-MD4-17",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "est pour à 100 %.",
+    "est moyennement pour.",
+    "est contre."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Ici à Montréal, ça ne pourrait pas marcher dans les écoles publiques, pas possible.",
+     "ko": "여기 몬트리올에서는 공립학교에서 그게 통할 리가 없어요. 불가능해요."
+    },
+    {
+     "fr": "Les gens ne vont pas l'accepter, et ils auront bien raison.",
+     "ko": "사람들이 받아들이지 않을 거고, 그게 당연해요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 4",
+   "stem": "« Êtes-vous pour ou contre le port de l'uniforme à l'école ? » La personne interrogée 3...",
+   "stt": true,
+   "trans": "여기 몬트리올에서는 공립학교에서 그게 통할 리가 없어요. 불가능해요. 사람들이 받아들이지 않을 거고, 그게 당연해요.",
+   "transcript": "Ici à Montréal, ça ne pourrait pas marcher dans les écoles publiques, pas possible. Les gens ne vont pas l'accepter, et ils auront bien raison.",
+   "uncertain": false
+  },
+  {
+   "answer": 2,
+   "audio": "assets/co/mockd/CO-4-18.mp3",
+   "expl": "'Absolument pas(절대 아니에요)', 'Je n'irai nulle part(어디도 안 가요)' — 떠날 마음이 전혀 없어요.",
+   "id": "CO-MD4-18",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "en aurait très envie.",
+    "en aurait un peu envie.",
+    "n'en aurait pas du tout envie."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Absolument pas.",
+     "ko": "전혀요."
+    },
+    {
+     "fr": "J'aime mon pays.",
+     "ko": "저는 제 나라를 사랑해요."
+    },
+    {
+     "fr": "Je sais qu'il n'est pas parfait, mais comparé à la plupart des pays du monde, la qualité de vie est très bonne.",
+     "ko": "완벽하지 않다는 건 알지만, 세계 대부분의 나라와 비교하면 삶의 질이 아주 좋아요."
+    },
+    {
+     "fr": "Je n'irai nulle part.",
+     "ko": "어디에도 가지 않을 거예요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 4",
+   "stem": "« Auriez-vous l'envie de quitter la France ? » La personne interrogée 1...",
+   "stt": true,
+   "trans": "전혀요. 저는 제 나라를 사랑해요. 완벽하지 않다는 건 알지만, 세계 대부분의 나라와 비교하면 삶의 질이 아주 좋아요. 어디에도 가지 않을 거예요.",
+   "transcript": "Absolument pas. J'aime mon pays. Je sais qu'il n'est pas parfait, mais comparé à la plupart des pays du monde, la qualité de vie est très bonne. Je n'irai nulle part.",
+   "uncertain": false
+  },
+  {
+   "answer": 1,
+   "audio": "assets/co/mockd/CO-4-19.mp3",
+   "expl": "'mitigée(반반이에요)' — 떠날 생각이 크진 않지만 기회가 오면 갈 수도 있다고 해요.",
+   "id": "CO-MD4-19",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "en aurait très envie.",
+    "en aurait un peu envie.",
+    "n'en aurait pas du tout envie."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Je suis mitigée.",
+     "ko": "저는 반반이에요."
+    },
+    {
+     "fr": "En fait, je ne désire pas partir à tout prix, et puis comme on dit, l'herbe n'est pas plus verte ailleurs.",
+     "ko": "사실 꼭 떠나고 싶은 건 아니에요. 그리고 흔히 말하듯이, 다른 곳이라고 잔디가 더 푸른 것도 아니잖아요."
+    },
+    {
+     "fr": "Mais si j'en ai l'occasion, je le ferai peut-être.",
+     "ko": "하지만 기회가 생기면 아마 해 볼지도 몰라요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 4",
+   "stem": "« Auriez-vous l'envie de quitter la France ? » La personne interrogée 2...",
+   "stt": true,
+   "trans": "저는 반반이에요. 사실 꼭 떠나고 싶은 건 아니에요. 그리고 흔히 말하듯이, 다른 곳이라고 잔디가 더 푸른 것도 아니잖아요. 하지만 기회가 생기면 아마 해 볼지도 몰라요.",
+   "transcript": "Je suis mitigée. En fait, je ne désire pas partir à tout prix, et puis comme on dit, l'herbe n'est pas plus verte ailleurs. Mais si j'en ai l'occasion, je le ferai peut-être.",
+   "uncertain": false
+  },
+  {
+   "answer": 0,
+   "audio": "assets/co/mockd/CO-4-20.mp3",
+   "expl": "'C'est mon rêve(제 꿈이에요)', 'je partirais demain(내일이라도 떠나요)' — 아주 떠나고 싶어 해요.",
+   "id": "CO-MD4-20",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "en aurait très envie.",
+    "en aurait un peu envie.",
+    "n'en aurait pas du tout envie."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "C'est mon rêve.",
+     "ko": "그게 제 꿈이에요."
+    },
+    {
+     "fr": "Si je pouvais, je partirais demain, parce que franchement, j'en peux plus de la mentalité française.",
+     "ko": "할 수만 있다면 내일 당장 떠날 거예요. 솔직히 프랑스 사람들의 사고방식에는 이제 질렸거든요."
+    },
+    {
+     "fr": "Les gens sont trop fermés ici.",
+     "ko": "여기 사람들은 너무 폐쇄적이에요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 4",
+   "stem": "« Auriez-vous l'envie de quitter la France ? » La personne interrogée 3...",
+   "stt": true,
+   "trans": "그게 제 꿈이에요. 할 수만 있다면 내일 당장 떠날 거예요. 솔직히 프랑스 사람들의 사고방식에는 이제 질렸거든요. 여기 사람들은 너무 폐쇄적이에요.",
+   "transcript": "C'est mon rêve. Si je pouvais, je partirais demain, parce que franchement, j'en peux plus de la mentalité française. Les gens sont trop fermés ici.",
+   "uncertain": false
+  },
+  {
+   "answer": 0,
+   "audio": "assets/co/mockd/CO-5-15.mp3",
+   "expl": "명상과 운동으로 평정을 유지하고 'Ça m'aide beaucoup(많은 도움이 돼요)'라고 해요.",
+   "id": "CO-MD5-15",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "Je gère bien le stress, j'ai mes techniques pour rester calme.",
+    "Je fais de mon mieux, mais parfois c'est difficile.",
+    "Le stress me dépasse souvent."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Je médite et je fais du sport pour garder mon calme.",
+     "ko": "저는 침착함을 유지하려고 명상을 하고 운동을 해요."
+    },
+    {
+     "fr": "Ça m'aide beaucoup.",
+     "ko": "그게 큰 도움이 돼요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 5",
+   "stem": "« Comment gérer le stress au travail ? » La personne interrogée...",
+   "stt": true,
+   "trans": "저는 침착함을 유지하려고 명상을 하고 운동을 해요. 그게 큰 도움이 돼요.",
+   "transcript": "Je médite et je fais du sport pour garder mon calme. Ça m'aide beaucoup.",
+   "uncertain": false
+  },
+  {
+   "answer": 2,
+   "audio": "assets/co/mockd/CO-5-16.mp3",
+   "expl": "'Le stress me touche souvent(스트레스가 자주 와요)' — 효과적인 방법을 아직 못 찾았대요.",
+   "id": "CO-MD5-16",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "Je gère bien le stress, j'ai mes techniques pour rester calme.",
+    "Je fais de mon mieux, mais parfois c'est difficile.",
+    "Le stress me dépasse souvent."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Le stress me touche souvent, surtout quand les délais sont courts.",
+     "ko": "저는 스트레스를 자주 받아요. 특히 마감 기한이 촉박할 때요."
+    },
+    {
+     "fr": "Je n'ai pas encore trouvé de méthode efficace pour le gérer.",
+     "ko": "아직 그걸 다스릴 효과적인 방법을 찾지 못했어요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 5",
+   "stem": "« Comment gérer le stress au travail ? » La personne interrogée...",
+   "stt": true,
+   "trans": "저는 스트레스를 자주 받아요. 특히 마감 기한이 촉박할 때요. 아직 그걸 다스릴 효과적인 방법을 찾지 못했어요.",
+   "transcript": "Le stress me touche souvent, surtout quand les délais sont courts. Je n'ai pas encore trouvé de méthode efficace pour le gérer.",
+   "uncertain": false
+  },
+  {
+   "answer": 1,
+   "audio": "assets/co/mockd/CO-5-17.mp3",
+   "expl": "'Parfois ça va, parfois c'est difficile(어떨 땐 괜찮고 어떨 땐 힘들어요)' — 반반이에요.",
+   "id": "CO-MD5-17",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "Je gère bien le stress, j'ai mes techniques pour rester calme.",
+    "Je fais de mon mieux, mais parfois c'est difficile.",
+    "Le stress me dépasse souvent."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Parfois ça va, parfois c'est difficile.",
+     "ko": "어떨 때는 괜찮고, 어떨 때는 힘들어요."
+    },
+    {
+     "fr": "J'essaye de respirer profondément, mais ça ne suffit pas toujours.",
+     "ko": "깊이 숨을 쉬어 보려고 하지만, 그것만으로는 항상 충분하지 않아요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 5",
+   "stem": "« Comment gérer le stress au travail ? » La personne interrogée...",
+   "stt": true,
+   "trans": "어떨 때는 괜찮고, 어떨 때는 힘들어요. 깊이 숨을 쉬어 보려고 하지만, 그것만으로는 항상 충분하지 않아요.",
+   "transcript": "Parfois ça va, parfois c'est difficile. J'essaye de respirer profondément, mais ça ne suffit pas toujours.",
+   "uncertain": false
+  },
+  {
+   "answer": 0,
+   "audio": "assets/co/mockd/CO-5-18.mp3",
+   "expl": "'je travaille presque toujours à distance(거의 항상 원격으로 일해요)'라고 해요.",
+   "id": "CO-MD5-18",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "Oui, je travaille principalement de chez moi.",
+    "Je travaille de temps en temps à distance.",
+    "Non, je préfère travailler au bureau."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "En évitant les trajets quotidiens, je gagne du temps et je bénéficie d'un environnement plus calme, qui améliore ma concentration.",
+     "ko": "매일 출퇴근을 하지 않으니 시간을 아낄 수 있고, 집중력을 높여 주는 더 조용한 환경에서 일할 수 있어요."
+    },
+    {
+     "fr": "C'est pourquoi je travaille presque toujours à distance, car cela me semble plus pratique.",
+     "ko": "그래서 저는 거의 항상 재택근무를 해요. 그게 더 실용적으로 느껴지거든요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 5",
+   "stem": "« Travaillez-vous souvent à distance ? » La personne interrogée...",
+   "stt": true,
+   "trans": "매일 출퇴근을 하지 않으니 시간을 아낄 수 있고, 집중력을 높여 주는 더 조용한 환경에서 일할 수 있어요. 그래서 저는 거의 항상 재택근무를 해요. 그게 더 실용적으로 느껴지거든요.",
+   "transcript": "En évitant les trajets quotidiens, je gagne du temps et je bénéficie d'un environnement plus calme, qui améliore ma concentration. C'est pourquoi je travaille presque toujours à distance, car cela me semble plus pratique.",
+   "uncertain": false
+  },
+  {
+   "answer": 1,
+   "audio": "assets/co/mockd/CO-5-19.mp3",
+   "expl": "'de temps en temps(가끔)' 원격으로 일하며 균형을 맞춘다고 해요.",
+   "id": "CO-MD5-19",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "Oui, je travaille principalement de chez moi.",
+    "Je travaille de temps en temps à distance.",
+    "Non, je préfère travailler au bureau."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Travailler à distance de temps en temps me permet de mieux organiser ma journée, tout en maintenant un équilibre entre concentration chez moi et interaction dynamique au bureau.",
+     "ko": "가끔 재택근무를 하면 하루를 더 잘 계획할 수 있고, 집에서의 집중과 사무실에서의 활발한 소통 사이의 균형도 유지할 수 있어요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 5",
+   "stem": "« Travaillez-vous souvent à distance ? » La personne interrogée...",
+   "stt": true,
+   "trans": "가끔 재택근무를 하면 하루를 더 잘 계획할 수 있고, 집에서의 집중과 사무실에서의 활발한 소통 사이의 균형도 유지할 수 있어요.",
+   "transcript": "Travailler à distance de temps en temps me permet de mieux organiser ma journée, tout en maintenant un équilibre entre concentration chez moi et interaction dynamique au bureau.",
+   "uncertain": false
+  },
+  {
+   "answer": 2,
+   "audio": "assets/co/mockd/CO-5-20.mp3",
+   "expl": "재택이 덜 효율적이고 사무실의 구조와 동료와의 교류가 더 낫다고 해요.",
+   "id": "CO-MD5-20",
+   "image": "",
+   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "options": [
+    "Oui, je travaille principalement de chez moi.",
+    "Je travaille de temps en temps à distance.",
+    "Non, je préfère travailler au bureau."
+   ],
+   "scored": true,
+   "sentences": [
+    {
+     "fr": "Je trouve le télétravail moins efficace pour moi, car l'environnement structuré du bureau et les interactions directes avec mes collègues me permettent d'être plus productif et de mieux collaborer.",
+     "ko": "저에게 재택근무는 덜 효율적이에요. 사무실의 체계적인 환경과 동료들과의 직접적인 소통 덕분에 더 생산적으로 일하고 더 잘 협업할 수 있거든요."
+    }
+   ],
+   "set": "모의고사 CO-D 세트 5",
+   "stem": "« Travaillez-vous souvent à distance ? » La personne interrogée...",
+   "stt": true,
+   "trans": "저에게 재택근무는 덜 효율적이에요. 사무실의 체계적인 환경과 동료들과의 직접적인 소통 덕분에 더 생산적으로 일하고 더 잘 협업할 수 있거든요.",
+   "transcript": "Je trouve le télétravail moins efficace pour moi, car l'environnement structuré du bureau et les interactions directes avec mes collègues me permettent d'être plus productif et de mieux collaborer.",
+   "uncertain": false
   }
  ],
  "vocab": [

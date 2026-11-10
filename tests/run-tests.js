@@ -24,12 +24,12 @@ const ce = loadData('ce.json'), co = loadData('co.json'), ee = loadData('ee.json
 
 ok(ce.items.length === 187, 'CE items = 187', String(ce.items.length));
 ok(ce.strategies.length === 8, 'CE strategies = 8');
-ok(co.items.length === 163, 'CO items = 163', String(co.items.length));
+ok(co.items.length === 193, 'CO items = 193', String(co.items.length));
 const scored = co.items.filter(i => i.scored), unscored = co.items.filter(i => !i.scored);
-ok(scored.length === 156, 'CO scored = 156', String(scored.length));
+ok(scored.length === 186, 'CO scored = 186', String(scored.length));
 ok(unscored.length === 7, 'CO unscored = 7', String(unscored.length));
 ok(unscored.every(i => i.set.includes('CO-A 세트 2')), 'unscored are all CO-A 세트 2');
-ok(co.items.filter(i => i.stt).length === 40, 'STT mock-B/C items = 40');
+ok(co.items.filter(i => i.stt).length === 70, 'STT mock-B/C/D items = 70');
 const covocabCount = co.vocab.reduce((a, s) => a + s.words.length, 0);
 ok(covocabCount === 184, 'CO vocab = 184', String(covocabCount));
 ok(ee.prep.length === 10, 'EE drills = 10');
@@ -48,7 +48,7 @@ for (const p of eo.posters) checkAsset(p.image);
 ok(missingAssets.length === 0, 'all referenced audio/image assets exist', missingAssets.slice(0, 5).join(', '));
 const coAudioFiles = new Set();
 for (const it of co.items) if (it.audio) coAudioFiles.add(it.audio);
-ok(coAudioFiles.size === 121, 'distinct CO audio files = 121', String(coAudioFiles.size));
+ok(coAudioFiles.size === 151, 'distinct CO audio files = 151', String(coAudioFiles.size));
 
 // ---------- answer validity ----------
 let badAnswers = [];
@@ -150,6 +150,12 @@ readingData.articles.forEach((a) => {
 ok(rdSents === 137 && rdBad === 0, 'reading: all 137 article sentences carry 직독직해 chunks rejoining to the sentence (' + rdBad + ' bad)');
 ok(appJs.includes('rdChunk: {}') && appJs.includes('data-rdchunk') && appJs.includes('dataset.rdchunk'), 'reading: sentence tap toggles 직독직해 when 해석 is on (v35)');
 ok((appJs.match(/class="chunk-unit" data-speak/g) || []).length >= 2, '직독직해 chunks are tappable to hear each fragment — item view and reading articles (v36)');
+
+// 모의고사 CO-D (2026-11-09 수령): 30 vox-pop items, STT-derived keys, all scored
+const mdItems = co.items.filter((i) => i.id.startsWith('CO-MD'));
+ok(mdItems.length === 30 && mdItems.every((i) => i.scored && i.answer != null && i.sentences && i.sentences.length >= 1 && fs.existsSync(i.audio)), '모의고사 CO-D: 30 items scored with transcripts and audio files (v37)');
+ok(mdItems.filter((i) => i.uncertain).map((i) => i.id).join() === 'CO-MD4-15', '모의고사 CO-D: only CO-MD4-15 flagged uncertain');
+ok(appJs.includes("'모의고사 CO-D 세트 5'"), '모의고사 CO-D sets registered in CO_MOCK');
 ok(appJs.includes('chip-add') && css.includes('.chip-add') && !appJs.includes('내 단어에 추가'), 'word add control is a small chip (v26)');
 ok(css.includes('.set-row.just-done') && css.includes('.set-row.next-up'), 'set-list highlight styles present');
 ok(indexHtml.includes('manifest.webmanifest'), 'index links manifest');
@@ -164,15 +170,15 @@ for (const rel of ['icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touc
 const sw = fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
 const readme = fs.readFileSync(path.join(ROOT, 'README.md'), 'utf8');
 ok(sw.includes('fetch'), 'sw has fetch handler');
-ok(indexHtml.includes('app.js?v=36') && indexHtml.includes('styles.css?v=36'), 'shell assets are cache-busted (?v=34) so phones pick up fixes');
-ok(sw.includes("tef-trainer-v36"), 'sw cache bumped to tef-trainer-v36');
+ok(indexHtml.includes('app.js?v=37') && indexHtml.includes('styles.css?v=37'), 'shell assets are cache-busted (?v=34) so phones pick up fixes');
+ok(sw.includes("tef-trainer-v37"), 'sw cache bumped to tef-trainer-v37');
 ok(appJs.includes('isCollapsed'), 'click handler ignores clicks that end a text selection (selection survives mouse-up)');
 ok(appJs.includes('data-stype-result') && appJs.includes('Update in place'), 'sentence-typing check updates in place (details stays open, no scroll jump)');
 ok(appJs.includes("addEventListener('popstate'") && appJs.includes('history.pushState') && appJs.includes('history.back()'), 'system back button walks in-app history instead of closing the app (v16)');
 ok(indexHtml.includes('controllerchange') && indexHtml.includes('reg.update()'), 'service worker auto-update: checks on resume and reloads when a new version takes over (v17)');
 ok(appJs.includes('speechSynthesis.speaking || speechSynthesis.pending') && appJs.includes('setTimeout') && !appJs.includes("new Audio('assets"), 'pronunciation: no cancel+speak in same tick (one-tap-late synth bug), shared audio element reused (v18)');
-ok(appJs.includes('(버전 36)') && indexHtml.includes('app.js?v=36') && sw.includes("tef-trainer-v36"), 'version markers in sync: home label, shell query, SW cache all say 20');
-ok(readme.includes('현재 버전 36') && readme.includes('](https://sidebatch.github.io/tef-trainer/)') && readme.includes('](https://muse.ai/s/tef-2-xzxs5xxpkqxwxrin)'), 'README shows current version and both app links as clickable links');
+ok(appJs.includes('(버전 37)') && indexHtml.includes('app.js?v=37') && sw.includes("tef-trainer-v37"), 'version markers in sync: home label, shell query, SW cache all say 20');
+ok(readme.includes('현재 버전 37') && readme.includes('](https://sidebatch.github.io/tef-trainer/)') && readme.includes('](https://muse.ai/s/tef-2-xzxs5xxpkqxwxrin)'), 'README shows current version and both app links as clickable links');
 ok(appJs.includes(':stype') && appJs.includes(':task') && appJs.includes('eo:cat'), 'QA: 문장 타이핑·EE 원문·EO 카테고리 details도 열림 상태를 유지한다');
 ok(appJs.includes('ui.sentInput[ta.dataset.stypeInput]'), 'QA: 문장 타이핑 입력이 입력 즉시 저장돼 render에도 지워지지 않는다');
 ok(appJs.includes('function go(tab, view, param, pushStack) {\n  stopSpeak();') && appJs.includes('function back() {\n  stopSpeak();'), 'QA: 화면을 이동하면 TTS·딕테이션 반복이 정지한다');
@@ -341,7 +347,7 @@ for (const rel of coAudioFiles) {
   else if (st.channels !== 2) encProblems.push(rel + ':ch=' + st.channels);
   else if (Math.abs(parseInt(p.format.bit_rate) / 1000 - 128) > 8) encProblems.push(rel + ':br=' + p.format.bit_rate);
 }
-ok(encProblems.length === 0, 'all 97 CO MP3s are standard MP3 (CBR128/44.1k/stereo/no ID3)', encProblems.slice(0, 5).join(', '));
+ok(encProblems.length === 0, 'all 151 CO MP3s are standard MP3 (CBR128/44.1k/stereo/no ID3)', encProblems.slice(0, 5).join(', '));
 
 // ---------- audio loudness: TTS sample ----------
 function loudness(abs) {
