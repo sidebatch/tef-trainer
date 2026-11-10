@@ -7330,6 +7330,342 @@
     ]
    ],
    "source": "모의고사-CE-C(1)-(4).pdf"
+  },
+  {
+   "id": "MD-01",
+   "set": "CE-D 모의고사 (1)(2)",
+   "doc": "Document 1 (Film 1) : John a quitté les services secrets et vit maintenant en Jamaïque. Mais sa tranquillité se termine quand un ami lui demande de l'aide : il faut sauver un scientifique qui vient d'être kidnappé. L'épreuve commence dans la jungle... / Document 2 (Film 2) : Paul et Virginie viennent d'avoir un petit garçon. Heureux à l'idée de découvrir leur nouvelle vie de jeunes parents, ils n'imaginaient pas du tout que leur bébé allait devenir le centre d'une forte lutte entre les grands-parents... / Document 3 (Film 3) : Hatidze est une des dernières personnes à récolter le miel de manière traditionnelle, dans les montagnes désertiques de Macédoine. Elle prélève uniquement le miel nécessaire pour gagner modestement sa vie et essayer de préserver la biodiversité. / Document 4 (Film 4) : Léa, Marc, Karine et Francis sont deux couples d'amis de longue date. Mais l'harmonie disparaît le jour où Léa leur annonce qu'elle a écrit un roman, qui deviendra un best-seller. La jalousie commence à apparaître avec ses conséquences !",
+   "stem": "Quel film propose de l'aventure ?",
+   "options": [
+    "Film 1",
+    "Film 2",
+    "Film 3",
+    "Film 4"
+   ],
+   "answer": 0,
+   "uncertain": false,
+   "expl": "Film 1이에요. 비밀 요원이 납치된 과학자를 구하러 가고 '정글에서 시련이 시작된다'고 하니 모험 영화예요. 2번은 아기를 둘러싼 가족 이야기, 3번은 전통 양봉 다큐멘터리, 4번은 질투를 다룬 드라마예요.",
+   "trans": "문서 1(영화 1): 존은 비밀 기관을 떠나 지금은 자메이카에 살고 있어요. 하지만 친구가 도움을 청하면서 평온은 끝나요. 납치된 과학자를 구해야 하거든요. 정글에서 시련이 시작됩니다... / 문서 2(영화 2): 폴과 비르지니는 막 아들을 낳았어요. 젊은 부모로서의 새 삶을 발견할 생각에 행복했지만, 아기가 조부모들 사이의 치열한 다툼의 중심이 되리라고는 전혀 상상하지 못했어요... / 문서 3(영화 3): 하티제는 마케도니아의 황량한 산악 지대에서 전통 방식으로 꿀을 채취하는 마지막 사람들 중 하나예요. 소박하게 생계를 꾸리고 생물 다양성을 지키기 위해 필요한 만큼의 꿀만 채취해요. / 문서 4(영화 4): 레아, 마르크, 카린, 프랑시스는 오랜 친구인 두 커플이에요. 하지만 레아가 베스트셀러가 될 소설을 썼다고 발표하는 날 조화는 깨지고, 질투가 그 후과와 함께 나타나기 시작해요!",
+   "words": [
+    [
+     "kidnapper",
+     "납치하다"
+    ],
+    [
+     "un scientifique",
+     "과학자"
+    ],
+    [
+     "la biodiversité",
+     "생물 다양성"
+    ],
+    [
+     "récolter",
+     "수확하다, 채취하다"
+    ],
+    [
+     "la jalousie",
+     "질투"
+    ],
+    [
+     "un best-seller",
+     "베스트셀러"
+    ]
+   ]
+  },
+  {
+   "id": "MD-02",
+   "set": "CE-D 모의고사 (1)(2)",
+   "doc": "Document 1 (Activité 1) : Le GR 20 est réservé aux randonneurs confirmés : 200 km entre Calenzana et Conca, offrant des décors variés d'anciens villages détruits, alpages, bergeries, mouflons, chèvres, lacs... Les excellents marcheurs peuvent le faire en 12 à 15 jours, mais prévoyez 15 jours de plus si l'ensemble est plus raisonnable. / Document 2 (Activité 2) : La via ferrata, ce sont des itinéraires rocheux sécurisés par un câble et des marches métalliques. La première a été aménagée dans la vallée d'Aspe : longue de 350 m et réservée aux sportifs, on peut la faire seul ou avec un guide. Une bonne formule pour s'initier aux frissons de la verticale. / Document 3 (Activité 3) : Balisés en orange, les sentiers \"Mare a Mare\" permettent de traverser la Corse d'une mer à l'autre. Ce sont des itinéraires courts de moyenne montagne offrant un panorama sur les plus célèbres sommets de l'île. Les parcours sont d'un accès facile à travers des régions variées. / Document 4 (Activité 4) : La Corse compte près de 100 sites où le canyoning peut être pratiqué. Il s'agit de descendre un cours d'eau encaissé dans un canyon, à pied, à la nage, par des sauts, en rappel ou en glissant sur des \"toboggans\". Un équipement spécial est nécessaire.",
+   "stem": "Quelle activité semble la moins difficile physiquement ?",
+   "options": [
+    "Activité 1",
+    "Activité 2",
+    "Activité 3",
+    "Activité 4"
+   ],
+   "answer": 2,
+   "uncertain": false,
+   "expl": "Activité 3이에요. '짧은 코스(itinéraires courts)'에 '접근이 쉬운(accès facile)' 중급 산악 길이라고 했어요. 1번은 숙련자 전용 200km 종주, 2번은 스포츠맨 대상 암벽 코스, 4번은 점프와 하강이 필요한 캐니어닝이라 셋 다 훨씬 힘들어요.",
+   "trans": "문서 1(활동 1): GR 20은 숙련된 등산객 전용이에요. 칼렌자나와 콘카 사이 200km로, 폐허가 된 옛 마을, 고산 목초지, 양치기 오두막, 무플론, 염소, 호수 등 다양한 풍경을 제공해요. 뛰어난 도보 여행자는 12~15일이면 완주할 수 있지만, 전체를 무리 없이 하려면 15일을 더 잡으세요. / 문서 2(활동 2): 비아 페라타는 케이블과 금속 발판으로 안전을 확보한 암벽 코스예요. 첫 코스는 아스프 계곡에 조성됐고, 길이 350m에 스포츠맨 대상이며 혼자서도 가이드와도 할 수 있어요. 수직의 스릴에 입문하기 좋은 방식이에요. / 문서 3(활동 3): 주황색으로 표시된 '마레 아 마레' 길은 코르시카를 한 바다에서 다른 바다까지 가로지를 수 있게 해요. 중급 산악의 짧은 코스로 섬의 가장 유명한 봉우리들을 조망할 수 있어요. 다양한 지역을 지나는 코스들은 접근이 쉬워요. / 문서 4(활동 4): 코르시카에는 캐니어닝을 할 수 있는 곳이 거의 100곳 있어요. 협곡에 갇힌 물길을 도보, 수영, 점프, 하강, 또는 '미끄럼틀'에서 미끄러지며 내려가는 활동이에요. 특수 장비가 필요해요.",
+   "words": [
+    [
+     "un randonneur",
+     "등산객, 도보 여행자"
+    ],
+    [
+     "confirmé",
+     "숙련된"
+    ],
+    [
+     "s'initier à",
+     "~에 입문하다"
+    ],
+    [
+     "un parcours",
+     "코스, 경로"
+    ],
+    [
+     "en rappel",
+     "로프 하강으로"
+    ],
+    [
+     "un équipement",
+     "장비"
+    ]
+   ]
+  },
+  {
+   "id": "MD-03",
+   "set": "CE-D 모의고사 (1)(2)",
+   "doc": "Document 1 (Séjour 1) : Troglodyte, rien que le nom est déjà un voyage. Habiter une maison creusée dans la roche calcaire ou un mode de vie insolite et mystérieux. Ainsi, plusieurs groupes de gîtes vous reçoivent dans des falaises d'un grand intérêt paysager et historique. Un lieu idéal pour une introspection face au fleuve, bercé par le bruit des vagues et hypnotisé par le coucher du soleil. / Document 2 (Séjour 2) : Comme dans une bulle, vous devenez \"un habitant de la nature\" sans rien lui gâcher. L'expérience s'adresse à tous les citadins qui souhaitent se retirer du monde pour vivre en liaison directe, protégés par une bulle en plastique recyclé. En harmonie avec la nature, l'être humain se laisse envoûter par la faune et la flore qui l'entourent, attentif au moindre cri de nos compagnons qui l'habitent. / Document 3 (Séjour 3) : Les organisateurs d'idées insolites pour le séjour de cette nouvelle façon de vivre : voyage dans le quotidien des Bourguignons du château de Guédelon. Vous ouvrirez ses portes, les amoureux des fortes bases seront les bienvenus pour y découvrir des façons de vivre ancestrales, des costumes traditionnels et des coutumes d'époque. Un séjour hors du temps au goût du terroir qui saura vous satisfaire. / Document 4 (Séjour 4) : Au milieu des vacances ou de courtes escapades de loisirs, la yourte s'offre partout pour dompter les températures extrêmes. Amateurs de sports d'hiver, la yourte vous attend pour offrir à vos yeux cette destination unique et forte pour vous. Dominant de son architecture unique, devenue l'alternative écologique du moment, seul ou en couple, vous pouvez être sûrs de respirer un grand bol d'air frais.",
+   "stem": "Quelle offre de séjour correspond le mieux aux passionnés d'Histoire ?",
+   "options": [
+    "Séjour 1",
+    "Séjour 2",
+    "Séjour 3",
+    "Séjour 4"
+   ],
+   "answer": 2,
+   "uncertain": false,
+   "expl": "Séjour 3이에요. 게들롱 성에서 옛 부르고뉴 사람들의 일상을 여행하고 '조상들의 생활 방식, 전통 의상, 시대 풍습'을 발견하는 프로그램이죠. 1번도 절벽의 '역사적 관심'은 언급하지만 핵심은 동굴 숙소 자체고, 역사 체험이 중심인 건 3번이에요.",
+   "trans": "문서 1(숙박 1): 트로글로디트, 이름만으로도 이미 여행이에요. 석회암 바위를 파서 만든 집에 사는 것, 특이하고 신비로운 생활 방식이죠. 여러 지트(민박) 그룹이 경관과 역사 면에서 큰 가치가 있는 절벽에서 여러분을 맞아요. 강을 마주하고 파도 소리에 흔들리며 석양에 최면 걸린 듯 자기 성찰을 하기 이상적인 장소예요. / 문서 2(숙박 2): 거품 속에 있는 것처럼, 여러분은 자연을 해치지 않으면서 '자연의 주민'이 돼요. 이 체험은 세상에서 물러나 재활용 플라스틱 거품의 보호를 받으며 직접 연결되어 살고 싶은 모든 도시인을 대상으로 해요. 자연과 조화를 이루며 인간은 자기를 둘러싼 동식물에 매혹되고, 함께 사는 존재들의 작은 소리에도 귀를 기울여요. / 문서 3(숙박 3): 이 새로운 삶의 방식을 위한 특이한 숙박 아이디어 기획자들: 게들롱 성의 부르고뉴 사람들 일상으로의 여행. 여러분은 그 문을 열게 되고, 요새를 사랑하는 이들은 조상들의 생활 방식과 전통 의상, 시대의 풍습을 발견하러 오는 것을 환영받을 거예요. 지역의 맛이 나는, 시간을 벗어난 숙박이 여러분을 만족시킬 거예요. / 문서 4(숙박 4): 휴가나 짧은 레저 여행 어디에서든 유르트는 극한의 기온을 길들이기 위해 제공돼요. 겨울 스포츠 애호가 여러분, 유르트가 이 독특하고 강렬한 목적지를 여러분 눈앞에 선사하려 기다리고 있어요. 독특한 건축으로 우뚝 서서 이 시대의 생태적 대안이 된 유르트에서, 혼자든 커플이든 신선한 공기를 한껏 마실 수 있을 거예요.",
+   "words": [
+    [
+     "creuser",
+     "파다"
+    ],
+    [
+     "une falaise",
+     "절벽"
+    ],
+    [
+     "ancestral",
+     "조상의, 옛날부터 전해오는"
+    ],
+    [
+     "une coutume",
+     "풍습, 관습"
+    ],
+    [
+     "la faune et la flore",
+     "동식물(군)"
+    ],
+    [
+     "un terroir",
+     "지역 특산물·풍토"
+    ]
+   ]
+  },
+  {
+   "id": "MD-04",
+   "set": "CE-D 모의고사 (1)(2)",
+   "doc": "Document 1 (Appel 1) : L'éducation se codifie : notre site propose un sujet lié à la \"parentalité bienveillante\". Vous êtes parents à l'origine, souffrez-vous parfois du manque d'écoute de vos enfants ? Vous avez un adolescent ou un enfant qui en souffre et qui est en capacité de raconter son ressenti le long du conflit parental ? Vos témoignages (anonymat garanti) nous seront très précieux. Prenez contact avec nous ! / Document 2 (Appel 2) : Le secteur de la puériculture connaît des difficultés importantes de recrutement, qui se posent avec acuité à chaque rentrée : fermeture ou dysfonctionnements d'accueils, réduction de la capacité d'accueil. Racontez-nous les conséquences de ces difficultés sur votre foyer : Avez-vous dû revoir votre organisation de travail et du mode de garde que vous vouliez privilégier ? Votre appel à la solidarité familiale ? / Document 3 (Appel 3) : Enfant de médecin, vous l'êtes devenu à votre tour. Médecin, vous avez un enfant qui fait ses études aujourd'hui. Quel regard portez-vous sur le métier ? Avec ses difficultés multiples (déserts médicaux, manque de moyens, etc.), le secteur en devient moins attractif pour les nouvelles générations. Votre témoignage nous intéresse pour notre prochain article sur ce sujet. / Document 4 (Appel 4) : Tarifs exorbitants, l'impensable opaque : les profits fondés sur le secteur très lucratif des crèches privées ne sont plus à présenter. Mais comment le nouveau régime est-il rencontré par l'ouverture du marché collectif ? Telle est notre question ! Que vos enfants soient accueillis en crèche privée ou que vous évoluiez dans ce secteur, Mediapart vous donne la parole dans sa nouvelle formule participative.",
+   "stem": "À quel appel répondra un professionnel de la petite enfance souhaitant parler de sa pratique ?",
+   "options": [
+    "Appel 1",
+    "Appel 2",
+    "Appel 3",
+    "Appel 4"
+   ],
+   "answer": 3,
+   "uncertain": false,
+   "expl": "Appel 4예요. 사립 어린이집 '분야에서 일하든(que vous évoluiez dans ce secteur)' 이용자든 Mediapart가 발언 기회를 준다고 했어요. 2번도 영유아 분야 이야기지만 부모 입장에서 '가정에 생긴 후과'를 묻는 거라, 자기 실무를 말하고 싶은 전문가가 답할 건 4번이에요.",
+   "trans": "문서 1(모집 1): 교육이 규범화되고 있어요. 저희 사이트는 '다정한 양육'과 관련된 주제를 제안해요. 원래 부모인 여러분, 아이들이 귀 기울여 주지 않아 힘들 때가 있나요? 부모와의 갈등 속에서 자기 느낌을 이야기할 수 있는 청소년이나 아이가 있나요? 여러분의 증언(익명 보장)은 저희에게 아주 소중할 거예요. 연락 주세요! / 문서 2(모집 2): 영유아 보육 분야는 매 학기 초마다 절실해지는 심각한 채용난을 겪고 있어요. 보육 시설의 폐쇄나 운영 이상, 수용 인원 축소 같은 문제죠. 이 어려움이 여러분 가정에 미친 후과를 들려주세요. 일하는 방식과 원하던 보육 방식을 재검토해야 했나요? 가족의 연대에 호소했나요? / 문서 3(모집 3): 의사의 자녀로 태어나 당신도 의사가 됐어요. 의사인 당신에게는 오늘 공부하는 자녀가 있어요. 이 직업을 어떤 시선으로 보나요? 의료 사막, 수단 부족 등 여러 어려움 때문에 이 분야는 새 세대에게 매력이 떨어지고 있어요. 다음 기사 주제로 여러분의 증언에 관심이 있어요. / 문서 4(모집 4): 터무니없는 요금, 상상 못 할 불투명함. 매우 수익성 높은 사립 어린이집 분야의 이익은 이제 새삼 소개할 필요도 없죠. 그런데 집단 시장 개방으로 새 제도는 어떻게 받아들여지고 있을까요? 그게 저희 질문이에요! 자녀가 사립 어린이집에 다니든, 당신이 이 분야에서 일하든, Mediapart가 새 참여형 코너에서 발언 기회를 드려요.",
+   "words": [
+    [
+     "la petite enfance",
+     "영유아(기)"
+    ],
+    [
+     "la puériculture",
+     "영유아 보육"
+    ],
+    [
+     "un témoignage",
+     "증언, 경험담"
+    ],
+    [
+     "une crèche",
+     "어린이집, 탁아소"
+    ],
+    [
+     "lucratif",
+     "수익성이 높은"
+    ],
+    [
+     "le recrutement",
+     "채용"
+    ]
+   ]
+  },
+  {
+   "id": "MD-05",
+   "set": "CE-D 모의고사 (1)(2)",
+   "doc": "Document 1 (Offre 1) : ADILEB recrute un(e) gestionnaire de clientèle. Vos missions consisteront à créer des offres commerciales et à nouer une relation de confiance avec nos clients. Si vous possédez un excellent relationnel et maîtrisez les outils bureautiques, postez votre CV et votre lettre de motivation sur www.ADILEB.com. / Document 2 (Offre 2) : Pour compléter notre équipe de conseillers financiers, nous vous proposons un poste d'expert-comptable à pourvoir immédiatement. Votre parcours en analyse bancaire sera un avantage pour notre entreprise, Banka. Venez nous voir avec votre CV au Salon des métiers de l'économie! / Document 3 (Offre 3) : L'Alliance française de Vancouver recrute des professeurs ayant de l'expérience dans l'enseignement pour un public adulte et adolescent. Grâce à vos qualités pédagogiques, nous resterons le leader sur le marché des cours de français. Envoyez-nous votre CV! / Document 4 (Offre 4) : Vous êtes connecté(e), intéressé(e) par le monde digital? RTNC recherche un(e) journaliste spécialisé(e) dans l'étude des nouvelles technologies pour animer sa chronique quotidienne. Envoyez-nous une vidéo de présentation: www.RTNCrecrute.ca",
+   "stem": "Quelle offre s'adresse à des personnes travaillant dans les médias ?",
+   "options": [
+    "Offre 1",
+    "Offre 2",
+    "Offre 3",
+    "Offre 4"
+   ],
+   "answer": 3,
+   "uncertain": false,
+   "expl": "Offre 4예요. RTNC가 신기술 전문 기자를 뽑아 매일 나가는 코너(chronique quotidienne)를 맡기는 공고예요. 1번은 영업, 2번은 회계, 3번은 프랑스어 교사 공고라 미디어 종사자 대상은 4번뿐이에요.",
+   "trans": "문서 1(공고 1): ADILEB가 고객 관리자를 채용해요. 업무는 상업 제안서를 만들고 고객과 신뢰 관계를 맺는 거예요. 뛰어난 대인 관계 능력을 갖추고 사무 도구를 능숙히 다룬다면 www.ADILEB.com에 이력서와 지원 동기를 올려 주세요. / 문서 2(공고 2): 재무 상담사 팀을 보강하기 위해 즉시 충원할 회계 전문가 자리를 제안해요. 은행 분석 경력은 저희 회사 Banka에서 강점이 될 거예요. 경제 직업 박람회에 이력서를 들고 오세요! / 문서 3(공고 3): 밴쿠버 알리앙스 프랑세즈가 성인 및 청소년 대상 교육 경험이 있는 교사를 채용해요. 여러분의 교육 역량 덕분에 저희는 프랑스어 강좌 시장의 선두 자리를 지킬 거예요. 이력서를 보내 주세요! / 문서 4(공고 4): 연결되어 있고 디지털 세계에 관심이 있나요? RTNC가 신기술 연구 전문 기자를 찾고 있어요. 매일 나가는 코너를 진행할 분이에요. 소개 영상을 보내 주세요: www.RTNCrecrute.ca",
+   "words": [
+    [
+     "recruter",
+     "채용하다"
+    ],
+    [
+     "un gestionnaire de clientèle",
+     "고객 관리자"
+    ],
+    [
+     "nouer une relation",
+     "관계를 맺다"
+    ],
+    [
+     "un expert-comptable",
+     "회계 전문가"
+    ],
+    [
+     "une chronique",
+     "정기 코너, 칼럼"
+    ],
+    [
+     "à pourvoir",
+     "충원할 (자리)"
+    ]
+   ]
+  },
+  {
+   "id": "MD-06",
+   "set": "CE-D 모의고사 (1)(2)",
+   "doc": "Document 1 (Offre 1) : Formez vos collaborateurs aux gestes qui sauvent: connaître les gestes basiques de premiers secours est déterminant pour les personnes en contact avec le public. Formation d'une demi-journée avec 10 participants maximum par groupe. En présentiel uniquement et adaptable à tout type d'entreprise. / Document 2 (Offre 2) : Nous proposons une formation qui permet à vos équipes d'enrichir leur expression écrite et d'améliorer leur orthographe, une compétence indispensable au quotidien: en effet, 70% des salariés écrivent chaque jour (courriels, présentations etc...). Tarif réduit pour les groupes. Contactez-nous pour un devis. / Document 3 (Offre 3) : Comment renforcer l'esprit d'équipe? Notre programme de deux jours est conçu pour aider à améliorer les situations de travail en équipe dans l'entreprise. Après cette formation, vos collaborateurs seront capables de créer une ambiance saine et productive. Nombre de participants: minimum 3, maximum 8. / Document 4 (Offre 4) : Ateliers de relaxation en entreprise: l'objectif est que les employés apprennent à contrôler leur stress professionnel grâce à des techniques simples. Prise en charge de l'organisation par les formateurs. Ateliers en petits groupes jusqu'à 6 personnes. Exemple de programme sur demande.",
+   "stem": "Quelle formation peut être suivie de manière individuelle ?",
+   "options": [
+    "Offre 1",
+    "Offre 2",
+    "Offre 3",
+    "Offre 4"
+   ],
+   "answer": 1,
+   "uncertain": true,
+   "expl": "불확실: 정답지가 없는 파일이라 근거로 도출했어요. 1번은 그룹당 10명, 3번은 최소 3명, 4번은 소그룹(최대 6명)처럼 단체 구성이 정해진 연수예요. 2번은 '그룹 할인'이 있다는 언급만 있을 뿐 개인 수강을 막는 조건이 없어서, 개인이 들을 수 있는 건 2번으로 판단했어요.",
+   "trans": "문서 1(공고 1): 직원들에게 생명을 살리는 동작을 가르치세요. 기본 응급처치 동작을 아는 것은 대중과 접촉하는 사람들에게 결정적이에요. 반나절 교육, 그룹당 최대 10명. 대면만 가능하고 모든 유형의 회사에 맞출 수 있어요. / 문서 2(공고 2): 저희는 팀의 글쓰기 표현을 풍부하게 하고 맞춤법을 향상시키는 교육을 제안해요. 일상에서 필수적인 능력이죠. 실제로 직원의 70%가 매일 글을 써요(이메일, 발표 자료 등). 그룹 할인 요금이 있어요. 견적은 문의 주세요. / 문서 3(공고 3): 팀 정신을 어떻게 강화할까요? 저희 이틀 프로그램은 회사 내 팀워크 상황을 개선하도록 설계됐어요. 이 교육 후 직원들은 건강하고 생산적인 분위기를 만들 수 있을 거예요. 참가 인원: 최소 3명, 최대 8명. / 문서 4(공고 4): 회사 내 이완 워크숍: 목표는 직원들이 간단한 기법으로 직업 스트레스를 조절하는 법을 배우는 거예요. 운영은 강사진이 맡아요. 최대 6명의 소그룹 워크숍. 프로그램 예시는 요청 시 제공해요.",
+   "words": [
+    [
+     "les premiers secours",
+     "응급처치"
+    ],
+    [
+     "en présentiel",
+     "대면으로"
+    ],
+    [
+     "l'orthographe",
+     "맞춤법, 철자"
+    ],
+    [
+     "un devis",
+     "견적(서)"
+    ],
+    [
+     "l'esprit d'équipe",
+     "팀 정신"
+    ],
+    [
+     "un atelier",
+     "워크숍, 실습 수업"
+    ]
+   ]
+  },
+  {
+   "id": "MD-07",
+   "set": "CE-D 모의고사 (1)(2)",
+   "doc": "Document 1 (Séjour 1) : Troglodyte, rien que le terme est déjà un voyage. Habiter une maison creusée dans la roche est devenu un mode de vie insolite et minimaliste. Ainsi, plusieurs grottes de pêcheurs nichées dans les falaises ont été transformées en chambres d'hôtes. Un lieu idéal pour une introspection face à l'océan, bercé par le bruit des vagues et hypnotisé par le coucher du soleil. / Document 2 (Séjour 2) : Confiné dans une bulle, vous devenez l'incarnation de l'expression \"être dans sa bulle\". Expérience idéale pour les loups solitaires qui souhaitent se retirer du monde pour vivre en forêt, protégés par une bulle en plastique recyclé. En harmonie avec la nature, l'être humain se laisse envoûter par la faune et la flore qui l'entourent. Attention toutefois à ne pas déranger l'ours qui hiberne.... / Document 3 (Séjour 3) : Les chasseurs d'hôtels insolites vont se réjouir de cette nouvelle façon de vivre. Plongé dans le quotidien des Bourbons, le château de Fontainebleau ouvre grand ses portes. Les amoureux des forteresses seront les bienvenus pour y découvrir des façons de vivre ancestrales, des coutumes traditionnelles et des costumes d'époque. Un séjour dans ce lieu singulier saura vous satisfaire. / Document 4 (Séjour 4) : Au revoir les vacances à la mer, les coups de soleil et le sable qui s'infiltre partout ! Et bonjour les températures extrêmes! Amateurs de sport d'hiver et aventuriers qui n'ont pas froid aux yeux, cette destination unique est faite pour vous! Dormir dans un igloo est devenu LA tendance écologique du moment: seul ou en couple, vous pouvez être sûrs de respirer un bon bol d'air frais!",
+   "stem": "Quelle offre de séjour correspond le mieux aux passionnés d'Histoire ?",
+   "options": [
+    "Séjour 1",
+    "Séjour 2",
+    "Séjour 3",
+    "Séjour 4"
+   ],
+   "answer": 2,
+   "uncertain": false,
+   "expl": "Séjour 3이에요. 퐁텐블로 성에서 부르봉 왕가 사람들의 일상에 잠겨 '조상들의 생활 방식, 전통 풍습과 시대 의상'을 발견하는 숙박이죠. 나머지는 동굴 민박(1), 숲속 버블(2), 이글루(4)라 역사 애호가에게 맞는 건 3번이에요.",
+   "trans": "문서 1(숙박 1): 트로글로디트, 용어만으로도 이미 여행이에요. 바위를 파서 만든 집에 사는 것은 특이하고 미니멀한 생활 방식이 됐어요. 어부들의 동굴 여러 곳이 절벽에 자리 잡은 채 게스트하우스로 바뀌었어요. 바다를 마주하고 파도 소리에 흔들리며 석양에 최면 걸린 듯 자기 성찰을 하기 이상적인 장소예요. / 문서 2(숙박 2): 거품 안에 갇히면 여러분은 '자기만의 세계에 빠지다'라는 표현 그 자체가 돼요. 세상에서 물러나 숲에서 살고 싶은 외로운 늑대들에게 이상적인 체험으로, 재활용 플라스틱 거품의 보호를 받아요. 자연과 조화를 이루며 인간은 자기를 둘러싼 동식물에 매혹돼요. 다만 겨울잠 자는 곰을 방해하지 않도록 주의하세요.... / 문서 3(숙박 3): 특이한 호텔을 찾는 이들이 이 새로운 삶의 방식을 기뻐할 거예요. 부르봉 왕가 사람들의 일상에 잠긴 채, 퐁텐블로 성이 문을 활짝 열어요. 요새를 사랑하는 이들은 조상들의 생활 방식과 전통 풍습, 시대 의상을 발견하러 오는 것을 환영받을 거예요. 이 특별한 장소에서의 숙박이 여러분을 만족시킬 거예요. / 문서 4(숙박 4): 바다 휴가, 햇볕 화상, 사방에 스며드는 모래와는 안녕! 그리고 극한의 기온아 안녕! 겨울 스포츠 애호가와 추위를 두려워하지 않는 모험가 여러분, 이 독특한 목적지는 여러분을 위한 거예요! 이글루에서 자는 것은 이 시대의 바로 그 생태 트렌드가 됐어요. 혼자든 커플이든 신선한 공기를 한껏 마실 수 있을 거예요!",
+   "words": [
+    [
+     "une grotte",
+     "동굴"
+    ],
+    [
+     "une chambre d'hôtes",
+     "게스트하우스, 민박"
+    ],
+    [
+     "hiberner",
+     "겨울잠을 자다"
+    ],
+    [
+     "une forteresse",
+     "요새"
+    ],
+    [
+     "un coup de soleil",
+     "햇볕 화상"
+    ],
+    [
+     "s'infiltrer",
+     "스며들다"
+    ]
+   ]
+  },
+  {
+   "id": "MD-08",
+   "set": "CE-D 모의고사 (1)(2)",
+   "doc": "Document 1 (Offre 1) : Vous cherchez un logement luxueux et moderne pour vos vacances à New York? Bravo, vous venez de trouver votre bonheur: niché au cœur de Manhattan, Penttech vous propose un appartement sans pareil au dernier étage. En plus d'offrir une vue imparable, la technologie intelligente de cette suite vous éblouira. Entre reconnaissance vocale et portes automatiques, tout le monde y trouvera son compte ! / Document 2 (Offre 2) : Le camping de Brétignolles-sur-Mer vous emmène dans un endroit familial truffé d'activités qui combleront vos journées. Déposez vos enfants dans les groupes jeunes et partez vous aérer près du rivage, là où les paysages sont à couper le souffle. Un verre de bienvenue sera servi dès votre arrivée pour vous plonger dans une ambiance conviviale à laquelle vous ne pourrez pas résister. / Document 3 (Offre 3) : Envie d'évasion et d'aventures...? Rejoignez le Club Maldives vers une destination de rêve pour tous les amoureux d'eau cristalline et de sources enchanteresses. Massages, bains de boue, ateliers culinaires n'auront plus de secrets pour vous! Vous succomberez au plaisir d'une maison sur pilotis aux services cinq étoiles, où chaque matin sera un vrai délice. / Document 4 (Offre 4) : À l'Hôtel Baobab, le choix de ne pas proposer le Wi-Fi serait une façon de vous rappeler que vous vous prélassez au beau milieu de la nature et que vous êtes priés de lui accorder toute votre attention. Un Eden à la végétation luxuriante, à l'architecture ancestrale, où chaque détail a été pensé pour minimiser l'impact sur l'environnement.",
+   "stem": "Quelle offre permet de passer un séjour éco-responsable?",
+   "options": [
+    "Offre 1",
+    "Offre 2",
+    "Offre 3",
+    "Offre 4"
+   ],
+   "answer": 3,
+   "uncertain": false,
+   "expl": "Offre 4예요. 바오밥 호텔은 '모든 디테일이 환경 영향을 최소화하도록(minimiser l'impact sur l'environnement)' 설계됐고 와이파이도 없애 자연에 집중하게 해요. 나머지는 고급 아파트(1), 가족 캠핑(2), 몰디브 리조트(3)라 친환경 숙박은 4번이에요.",
+   "trans": "문서 1(공고 1): 뉴욕 휴가를 위한 고급스럽고 현대적인 숙소를 찾고 있나요? 축하해요, 딱 맞는 곳을 찾았어요. 맨해튼 중심에 자리한 Penttech가 최상층의 비할 데 없는 아파트를 제안해요. 막힘없는 전망에 더해, 이 스위트의 스마트 기술이 여러분을 눈부시게 할 거예요. 음성 인식과 자동문 사이에서 누구나 만족을 찾을 거예요! / 문서 2(공고 2): 브레티뇰쉬르메르 캠핑장은 하루를 가득 채울 활동들로 가득한 가족적인 장소로 여러분을 데려가요. 아이들을 청소년 그룹에 맡기고 해안가 근처에서 바람을 쐬세요. 숨이 멎을 듯한 풍경이 있는 곳이죠. 도착하자마자 환영 음료가 제공되어 저항할 수 없는 화기애애한 분위기에 빠져들 거예요. / 문서 3(공고 3): 일탈과 모험이 끌리나요...? 수정처럼 맑은 물과 매혹적인 샘을 사랑하는 모든 이를 위한 꿈의 목적지, 클럽 몰디브로 오세요. 마사지, 진흙 목욕, 요리 워크숍이 더 이상 비밀이 아닐 거예요! 매일 아침이 진정한 기쁨이 되는 5성급 서비스의 수상 가옥의 즐거움에 굴복하게 될 거예요. / 문서 4(공고 4): 바오밥 호텔에서는 와이파이를 제공하지 않는 선택이, 여러분이 자연 한가운데서 쉬고 있으며 자연에 온전히 관심을 기울여야 한다는 것을 상기시키는 방식일 거예요. 울창한 식생과 옛 건축을 갖춘 에덴으로, 모든 디테일이 환경에 미치는 영향을 최소화하도록 고안됐어요.",
+   "words": [
+    [
+     "un logement",
+     "숙소, 주거"
+    ],
+    [
+     "sans pareil",
+     "비할 데 없는"
+    ],
+    [
+     "éblouir",
+     "눈부시게 하다, 매혹하다"
+    ],
+    [
+     "à couper le souffle",
+     "숨이 멎을 듯한"
+    ],
+    [
+     "se prélasser",
+     "느긋하게 쉬다"
+    ],
+    [
+     "minimiser l'impact",
+     "영향을 최소화하다"
+    ]
+   ]
   }
  ],
  "strategies": [

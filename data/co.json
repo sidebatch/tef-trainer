@@ -5611,7 +5611,7 @@
    "expl": "'excellente idée'라며 이웃 간 돕기와 지역 농산물, 동네 유대 강화를 들어요.",
    "id": "CO-MD1-15",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "tout à fait en faveur.",
     "plutôt favorable.",
@@ -5646,7 +5646,7 @@
    "expl": "본인이 직접 'plutôt favorable, mais avec des réserves(유보적 찬성)'라고 말해요.",
    "id": "CO-MD1-16",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "tout à fait en faveur.",
     "plutôt favorable.",
@@ -5677,7 +5677,7 @@
    "expl": "'pas convaincue(납득이 안 돼요)' — 갈등과 관리 부담을 들며 부정적이에요.",
    "id": "CO-MD1-17",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "tout à fait en faveur.",
     "plutôt favorable.",
@@ -5687,7 +5687,7 @@
    "scored": true,
    "sentences": [
     {
-     "fr": "Je ne suis pas convaincue.",
+     "fr": "Je ne suis pas convaincu.",
      "ko": "저는 별로 내키지 않아요."
     },
     {
@@ -5707,7 +5707,7 @@
    "stem": "« Êtes-vous en faveur ou non de la mise en place de jardins communautaires dans votre quartier ? » La personne interrogée est...",
    "stt": true,
    "trans": "저는 별로 내키지 않아요. 공동 텃밭 때문에 이용자들 사이에 다툼이 생길 수도 있다고 생각해요. 게다가 손도 많이 가요. 제 생각에는 사람들이 이걸 다 관리하기가 쉽지 않을 거예요.",
-   "transcript": "Je ne suis pas convaincue. Je pense que les jardins communautaires peuvent entraîner des conflits entre les usagers. En plus, ça demande beaucoup d'entretien. À mon avis, les gens auront du mal à gérer tout ça.",
+   "transcript": "Je ne suis pas convaincu. Je pense que les jardins communautaires peuvent entraîner des conflits entre les usagers. En plus, ça demande beaucoup d'entretien. À mon avis, les gens auront du mal à gérer tout ça.",
    "uncertain": false
   },
   {
@@ -5716,7 +5716,7 @@
    "expl": "'pas essentiels(필수가 아니에요)' — 자원은 다른 데 쓰는 게 낫다고 해요.",
    "id": "CO-MD1-18",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "pense que c'est très important.",
     "pense que c'est important mais pas essentiel.",
@@ -5751,7 +5751,7 @@
    "expl": "'je n'ai pas d'avis(의견이 없어요)'라고 직접 말해요.",
    "id": "CO-MD1-19",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "pense que c'est très important.",
     "pense que c'est important mais pas essentiel.",
@@ -5782,7 +5782,7 @@
    "expl": "'très important' — 도시 생활을 풍요롭게 하고 꼭 필요하다고 해요.",
    "id": "CO-MD1-20",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "pense que c'est très important.",
     "pense que c'est important mais pas essentiel.",
@@ -5817,7 +5817,7 @@
    "expl": "'on devrait tous avoir(모두가 가져야 할 선택지)' — 모두에게 열려 있어야 한다고 해요.",
    "id": "CO-MD2-15",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "Est totalement pour.",
     "Est plutôt pour.",
@@ -5848,7 +5848,7 @@
    "expl": "본인은 두렵고 거리낌이 있지만 'chacun est libre de choisir(선택은 각자 자유)'라며 원칙은 인정해요.",
    "id": "CO-MD2-16",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "Est totalement pour.",
     "Est plutôt pour.",
@@ -5858,15 +5858,23 @@
    "scored": true,
    "sentences": [
     {
-     "fr": "C'est vrai que personnellement, je ne le ferai pas, ça me fait peur, j'ai quelques réticences, mais chacun est libre de choisir sa propre famille.",
-     "ko": "솔직히 저는 개인적으로 하지는 않을 거예요. 좀 겁도 나고 망설여지는 부분도 있지만, 각자 자기 가족은 자유롭게 선택할 수 있는 거잖아요."
+     "fr": "C'est vrai que personnellement, je ne le ferai pas.",
+     "ko": "솔직히 저는 개인적으로 하지는 않을 거예요."
+    },
+    {
+     "fr": "Ça me fait peur.",
+     "ko": "좀 겁이 나요."
+    },
+    {
+     "fr": "J'ai quelque réticence, mais chacun est libre de choisir sa propre famille.",
+     "ko": "망설여지는 부분도 있지만, 각자 자기 가족은 자유롭게 선택할 수 있는 거잖아요."
     }
    ],
    "set": "모의고사 CO-D 세트 2",
    "stem": "« Pour ou contre l'adoption ? » La personne interrogée :",
    "stt": true,
-   "trans": "솔직히 저는 개인적으로 하지는 않을 거예요. 좀 겁도 나고 망설여지는 부분도 있지만, 각자 자기 가족은 자유롭게 선택할 수 있는 거잖아요.",
-   "transcript": "C'est vrai que personnellement, je ne le ferai pas, ça me fait peur, j'ai quelques réticences, mais chacun est libre de choisir sa propre famille.",
+   "trans": "솔직히 저는 개인적으로 하지는 않을 거예요. 좀 겁이 나요. 망설여지는 부분도 있지만, 각자 자기 가족은 자유롭게 선택할 수 있는 거잖아요.",
+   "transcript": "C'est vrai que personnellement, je ne le ferai pas. Ça me fait peur. J'ai quelque réticence, mais chacun est libre de choisir sa propre famille.",
    "uncertain": false
   },
   {
@@ -5875,7 +5883,7 @@
    "expl": "'la famille, c'est vraiment inutile(가족은 정말 쓸모없어요)' — 가족 자체를 부정해요.",
    "id": "CO-MD2-17",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "Est totalement pour.",
     "Est plutôt pour.",
@@ -5906,7 +5914,7 @@
    "expl": "'injuste(불공평해요)' — 멀리 사는 사람에겐 다른 대안이 없다고 반대해요.",
    "id": "CO-MD2-18",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "Est totalement pour.",
     "Est pour à certaines conditions.",
@@ -5920,19 +5928,15 @@
      "ko": "변화가 좋은 방향으로 가고 있지는 않아요."
     },
     {
-     "fr": "Les gens qui habitent loin de la ville n'ont pas vraiment d'autres solutions.",
-     "ko": "도시에서 멀리 사는 사람들은 사실 다른 방법이 별로 없어요."
-    },
-    {
-     "fr": "C'est injuste pour eux.",
-     "ko": "그 사람들에게는 불공평한 일이에요."
+     "fr": "Les personnes qui habitent loin de la ville n'ont pas vraiment d'autre solution, c'est injuste pour elles.",
+     "ko": "도시에서 멀리 사는 사람들은 사실 다른 방법이 별로 없어요. 그 사람들에게는 불공평한 일이에요."
     }
    ],
    "set": "모의고사 CO-D 세트 2",
    "stem": "« Pour ou contre les villes sans voiture ? » La personne interrogée :",
    "stt": true,
    "trans": "변화가 좋은 방향으로 가고 있지는 않아요. 도시에서 멀리 사는 사람들은 사실 다른 방법이 별로 없어요. 그 사람들에게는 불공평한 일이에요.",
-   "transcript": "L'évolution ne va pas dans le bon sens. Les gens qui habitent loin de la ville n'ont pas vraiment d'autres solutions. C'est injuste pour eux.",
+   "transcript": "L'évolution ne va pas dans le bon sens. Les personnes qui habitent loin de la ville n'ont pas vraiment d'autre solution, c'est injuste pour elles.",
    "uncertain": false
   },
   {
@@ -5941,7 +5945,7 @@
    "expl": "'bonne idée, mais d'abord...(좋은 생각이지만 먼저)' — 도로 정비라는 조건을 달아요.",
    "id": "CO-MD2-19",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "Est totalement pour.",
     "Est pour à certaines conditions.",
@@ -5968,7 +5972,7 @@
    "expl": "'très bonne chose' — 삶의 질과 환경에 아주 좋다고 해요.",
    "id": "CO-MD2-20",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "Est totalement pour.",
     "Est pour à certaines conditions.",
@@ -5978,24 +5982,24 @@
    "scored": true,
    "sentences": [
     {
-     "fr": "La plupart des villes limitent déjà l'accès aux voitures, et c'est une très bonne chose pour la qualité de vie et l'environnement.",
-     "ko": "대부분의 도시는 이미 자동차 진입을 제한하고 있는데, 삶의 질과 환경을 위해서는 아주 좋은 일이에요."
+     "fr": "La plupart des villes limitent déjà l'accès aux voitures, ce qui est une très bonne chose pour la qualité de vie et pour l'environnement.",
+     "ko": "대부분의 도시는 이미 자동차 진입을 제한하고 있는데, 그건 삶의 질과 환경을 위해 아주 좋은 일이에요."
     }
    ],
    "set": "모의고사 CO-D 세트 2",
    "stem": "« Pour ou contre les villes sans voiture ? » La personne interrogée :",
    "stt": true,
-   "trans": "대부분의 도시는 이미 자동차 진입을 제한하고 있는데, 삶의 질과 환경을 위해서는 아주 좋은 일이에요.",
-   "transcript": "La plupart des villes limitent déjà l'accès aux voitures, et c'est une très bonne chose pour la qualité de vie et l'environnement.",
+   "trans": "대부분의 도시는 이미 자동차 진입을 제한하고 있는데, 그건 삶의 질과 환경을 위해 아주 좋은 일이에요.",
+   "transcript": "La plupart des villes limitent déjà l'accès aux voitures, ce qui est une très bonne chose pour la qualité de vie et pour l'environnement.",
    "uncertain": false
   },
   {
    "answer": 2,
    "audio": "assets/co/mockd/CO-3-15.mp3",
-   "expl": "'non, je ne suis pas d'accord(동의하지 않아요)' — 부작용을 우려해 반대해요.",
+   "expl": "'non, je suis pas d'accord(동의하지 않아요)' — 부작용을 우려해 반대해요.",
    "id": "CO-MD3-15",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "tout à fait pour.",
     "plutôt favorable.",
@@ -6004,11 +6008,11 @@
    "scored": true,
    "sentences": [
     {
-     "fr": "Les gens risquent de se plaindre juste parce que le médecin n'a pas donné le médicament qu'ils préfèrent.",
+     "fr": "Les gens risquent de se plaindre juste parce que le médecin n'a pas donné le médicament qu'il préfère.",
      "ko": "사람들이 의사가 자기가 원하는 약을 안 줬다는 이유만으로 불만을 제기할 위험이 있어요."
     },
     {
-     "fr": "Donc non, je ne suis pas d'accord.",
+     "fr": "Donc non, je suis pas d'accord.",
      "ko": "그래서 저는 반대예요."
     },
     {
@@ -6020,7 +6024,7 @@
    "stem": "« Êtes-vous pour ou contre l'évaluation des médecins par leurs patients ? » La personne interrogée est...",
    "stt": true,
    "trans": "사람들이 의사가 자기가 원하는 약을 안 줬다는 이유만으로 불만을 제기할 위험이 있어요. 그래서 저는 반대예요. 이게 잘못된 방향으로 흘러갈 수도 있어요.",
-   "transcript": "Les gens risquent de se plaindre juste parce que le médecin n'a pas donné le médicament qu'ils préfèrent. Donc non, je ne suis pas d'accord. Ça pourrait mener à des dérives.",
+   "transcript": "Les gens risquent de se plaindre juste parce que le médecin n'a pas donné le médicament qu'il préfère. Donc non, je suis pas d'accord. Ça pourrait mener à des dérives.",
    "uncertain": false
   },
   {
@@ -6029,7 +6033,7 @@
    "expl": "'avis précieux, mais ça dépend du contexte(상황에 따라 달라요)', 'pourquoi pas ?' — 조건부 긍정이에요.",
    "id": "CO-MD3-16",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "tout à fait pour.",
     "plutôt favorable.",
@@ -6042,7 +6046,7 @@
      "ko": "환자들이 소중한 의견을 줄 수 있다고 생각하지만, 상황에 따라 다르기도 해요."
     },
     {
-     "fr": "Dans certains cas, ça pourrait même être bénéfique pour les médecins, donc pourquoi pas ?",
+     "fr": "Dans certains cas, ça pourrait même être bénéfique pour les médecins, donc, pourquoi pas.",
      "ko": "경우에 따라서는 의사들에게도 도움이 될 수 있으니, 못 할 것도 없죠."
     }
    ],
@@ -6050,7 +6054,7 @@
    "stem": "« Êtes-vous pour ou contre l'évaluation des médecins par leurs patients ? » La personne interrogée est...",
    "stt": true,
    "trans": "환자들이 소중한 의견을 줄 수 있다고 생각하지만, 상황에 따라 다르기도 해요. 경우에 따라서는 의사들에게도 도움이 될 수 있으니, 못 할 것도 없죠.",
-   "transcript": "Je pense que les patients peuvent donner un avis précieux, mais ça dépend aussi du contexte. Dans certains cas, ça pourrait même être bénéfique pour les médecins, donc pourquoi pas ?",
+   "transcript": "Je pense que les patients peuvent donner un avis précieux, mais ça dépend aussi du contexte. Dans certains cas, ça pourrait même être bénéfique pour les médecins, donc, pourquoi pas.",
    "uncertain": false
   },
   {
@@ -6059,7 +6063,7 @@
    "expl": "'très bonne idée' — 진료 개선에 도움이 된다고 해요.",
    "id": "CO-MD3-17",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "tout à fait pour.",
     "plutôt favorable.",
@@ -6089,7 +6093,7 @@
    "expl": "'je ne pense pas que ce soit crucial(결정적이진 않아요)' — 신경 안 써도 건강하다고 해요.",
    "id": "CO-MD3-18",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "pense que c'est très important.",
     "pense que ce n'est pas important.",
@@ -6119,7 +6123,7 @@
    "expl": "'absolument essentiel(절대적으로 필수)' — 영양사가 과학적으로 증명됐다고 해요.",
    "id": "CO-MD3-19",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "pense que c'est très important.",
     "pense que ce n'est pas important.",
@@ -6146,10 +6150,10 @@
   {
    "answer": 1,
    "audio": "assets/co/mockd/CO-3-20.mp3",
-   "expl": "'important, mais pas la fin du monde(중요하지만 세상 끝날 일은 아니에요)' — 중요하지만 최우선은 아니에요.",
+   "expl": "'c'est important, mais ce n'est pas la fin du monde(중요하지만 세상 끝날 일은 아니에요)' — 중요하지만 최우선은 아니에요.",
    "id": "CO-MD3-20",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "pense que c'est très important.",
     "pense que c'est important mais pas primordial.",
@@ -6162,7 +6166,7 @@
      "ko": "건강하게 먹으려고 노력은 하지만, 가끔은 맛있는 걸 즐기는 여유도 필요하다고 생각해요."
     },
     {
-     "fr": "Alors, c'est important, mais pas la fin du monde si on fait quelques écarts.",
+     "fr": "Alors, c'est important, mais ce n'est pas la fin du monde si on fait quelques écarts.",
      "ko": "그러니까 중요하긴 하지만, 가끔 좀 흐트러진다고 세상이 끝나는 건 아니에요."
     }
    ],
@@ -6170,7 +6174,7 @@
    "stem": "« Pensez-vous qu'il soit essentiel d'avoir une alimentation équilibrée ? » La personne interrogée...",
    "stt": true,
    "trans": "건강하게 먹으려고 노력은 하지만, 가끔은 맛있는 걸 즐기는 여유도 필요하다고 생각해요. 그러니까 중요하긴 하지만, 가끔 좀 흐트러진다고 세상이 끝나는 건 아니에요.",
-   "transcript": "J'essaie de manger sainement, mais je pense qu'il faut aussi savoir se faire plaisir de temps en temps. Alors, c'est important, mais pas la fin du monde si on fait quelques écarts.",
+   "transcript": "J'essaie de manger sainement, mais je pense qu'il faut aussi savoir se faire plaisir de temps en temps. Alors, c'est important, mais ce n'est pas la fin du monde si on fait quelques écarts.",
    "uncertain": false
   },
   {
@@ -6179,7 +6183,7 @@
    "expl": "시대가 변했다며 회의적이지만 'peut-être qu'il faut essayer(시도는 해봐야 해요)'라고 해 절반쯤 찬성으로 봤어요.",
    "id": "CO-MD4-15",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "est pour à 100 %.",
     "est moyennement pour.",
@@ -6188,11 +6192,11 @@
    "scored": true,
    "sentences": [
     {
-     "fr": "Si on était en 1904, ça pourrait marcher facilement, mais on est en 2024.",
+     "fr": "Si on était en mille-neuf-cent-quatre, ça pourrait marcher facilement, mais on est en deux-mille-vingt-quatre.",
      "ko": "1904년이라면 쉽게 통할 수도 있겠지만, 지금은 2024년이잖아요."
     },
     {
-     "fr": "Ce serait vraiment dur d'imposer ça aux jeunes d'aujourd'hui, parce qu'ils veulent exprimer leur identité à tout prix sur les réseaux sociaux.",
+     "fr": "Ce serait vraiment dur d'imposer ça aux jeunes d'aujourd'hui parce qu'ils veulent exprimer leur identité à tout prix sur les réseaux sociaux.",
      "ko": "요즘 젊은이들에게 그걸 강요하기는 정말 힘들 거예요. 소셜 미디어에서 무슨 수를 써서라도 자기 개성을 드러내고 싶어 하니까요."
     },
     {
@@ -6208,7 +6212,7 @@
    "stem": "« Êtes-vous pour ou contre le port de l'uniforme à l'école ? » La personne interrogée 1...",
    "stt": true,
    "trans": "1904년이라면 쉽게 통할 수도 있겠지만, 지금은 2024년이잖아요. 요즘 젊은이들에게 그걸 강요하기는 정말 힘들 거예요. 소셜 미디어에서 무슨 수를 써서라도 자기 개성을 드러내고 싶어 하니까요. 하지만 요즘 젊은이들의 한심한 상태를 보면, 한번 시도해 볼 필요는 있을지도 몰라요. 하지만 솔직히 말하면, 안타깝게도 그게 통할 거라는 기대는 별로 없어요.",
-   "transcript": "Si on était en 1904, ça pourrait marcher facilement, mais on est en 2024. Ce serait vraiment dur d'imposer ça aux jeunes d'aujourd'hui, parce qu'ils veulent exprimer leur identité à tout prix sur les réseaux sociaux. Mais vu l'état déplorable de la jeunesse, peut-être qu'il faut essayer. Mais honnêtement, j'ai peu d'espoir que ça marche, malheureusement.",
+   "transcript": "Si on était en mille-neuf-cent-quatre, ça pourrait marcher facilement, mais on est en deux-mille-vingt-quatre. Ce serait vraiment dur d'imposer ça aux jeunes d'aujourd'hui parce qu'ils veulent exprimer leur identité à tout prix sur les réseaux sociaux. Mais vu l'état déplorable de la jeunesse, peut-être qu'il faut essayer. Mais honnêtement, j'ai peu d'espoir que ça marche, malheureusement.",
    "uncertain": true
   },
   {
@@ -6217,7 +6221,7 @@
    "expl": "'c'est une bonne idée, il faut le faire(좋은 생각이고 해야 해요)' — 훈육과 규칙을 들어 전면 찬성이에요.",
    "id": "CO-MD4-16",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "est pour à 100 %.",
     "est moyennement pour.",
@@ -6251,7 +6255,7 @@
    "expl": "'pas possible(불가능해요)' — 사람들이 받아들이지 않을 거라고 해요.",
    "id": "CO-MD4-17",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "est pour à 100 %.",
     "est moyennement pour.",
@@ -6281,7 +6285,7 @@
    "expl": "'Absolument pas(절대 아니에요)', 'Je n'irai nulle part(어디도 안 가요)' — 떠날 마음이 전혀 없어요.",
    "id": "CO-MD4-18",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "en aurait très envie.",
     "en aurait un peu envie.",
@@ -6316,10 +6320,10 @@
   {
    "answer": 1,
    "audio": "assets/co/mockd/CO-4-19.mp3",
-   "expl": "'mitigée(반반이에요)' — 떠날 생각이 크진 않지만 기회가 오면 갈 수도 있다고 해요.",
+   "expl": "'mitigé(반반이에요)' — 떠날 생각이 크진 않지만 기회가 오면 갈 수도 있다고 해요.",
    "id": "CO-MD4-19",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "en aurait très envie.",
     "en aurait un peu envie.",
@@ -6328,12 +6332,12 @@
    "scored": true,
    "sentences": [
     {
-     "fr": "Je suis mitigée.",
-     "ko": "저는 반반이에요."
+     "fr": "Je suis mitigé, en fait.",
+     "ko": "사실 저는 반반이에요."
     },
     {
-     "fr": "En fait, je ne désire pas partir à tout prix, et puis comme on dit, l'herbe n'est pas plus verte ailleurs.",
-     "ko": "사실 꼭 떠나고 싶은 건 아니에요. 그리고 흔히 말하듯이, 다른 곳이라고 잔디가 더 푸른 것도 아니잖아요."
+     "fr": "Je ne désire pas partir à tout prix, et puis, comme on dit, l'herbe n'est pas plus verte ailleurs.",
+     "ko": "꼭 떠나고 싶은 건 아니에요. 그리고 흔히 말하듯이, 다른 곳이라고 잔디가 더 푸른 것도 아니잖아요."
     },
     {
      "fr": "Mais si j'en ai l'occasion, je le ferai peut-être.",
@@ -6343,8 +6347,8 @@
    "set": "모의고사 CO-D 세트 4",
    "stem": "« Auriez-vous l'envie de quitter la France ? » La personne interrogée 2...",
    "stt": true,
-   "trans": "저는 반반이에요. 사실 꼭 떠나고 싶은 건 아니에요. 그리고 흔히 말하듯이, 다른 곳이라고 잔디가 더 푸른 것도 아니잖아요. 하지만 기회가 생기면 아마 해 볼지도 몰라요.",
-   "transcript": "Je suis mitigée. En fait, je ne désire pas partir à tout prix, et puis comme on dit, l'herbe n'est pas plus verte ailleurs. Mais si j'en ai l'occasion, je le ferai peut-être.",
+   "trans": "사실 저는 반반이에요. 꼭 떠나고 싶은 건 아니에요. 그리고 흔히 말하듯이, 다른 곳이라고 잔디가 더 푸른 것도 아니잖아요. 하지만 기회가 생기면 아마 해 볼지도 몰라요.",
+   "transcript": "Je suis mitigé, en fait. Je ne désire pas partir à tout prix, et puis, comme on dit, l'herbe n'est pas plus verte ailleurs. Mais si j'en ai l'occasion, je le ferai peut-être.",
    "uncertain": false
   },
   {
@@ -6353,7 +6357,7 @@
    "expl": "'C'est mon rêve(제 꿈이에요)', 'je partirais demain(내일이라도 떠나요)' — 아주 떠나고 싶어 해요.",
    "id": "CO-MD4-20",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "en aurait très envie.",
     "en aurait un peu envie.",
@@ -6417,7 +6421,7 @@
    "expl": "'Le stress me touche souvent(스트레스가 자주 와요)' — 효과적인 방법을 아직 못 찾았대요.",
    "id": "CO-MD5-16",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "Je gère bien le stress, j'ai mes techniques pour rester calme.",
     "Je fais de mon mieux, mais parfois c'est difficile.",
@@ -6447,7 +6451,7 @@
    "expl": "'Parfois ça va, parfois c'est difficile(어떨 땐 괜찮고 어떨 땐 힘들어요)' — 반반이에요.",
    "id": "CO-MD5-17",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "Je gère bien le stress, j'ai mes techniques pour rester calme.",
     "Je fais de mon mieux, mais parfois c'est difficile.",
@@ -6460,7 +6464,7 @@
      "ko": "어떨 때는 괜찮고, 어떨 때는 힘들어요."
     },
     {
-     "fr": "J'essaye de respirer profondément, mais ça ne suffit pas toujours.",
+     "fr": "J'essaie de respirer profondément, mais ça ne suffit pas toujours.",
      "ko": "깊이 숨을 쉬어 보려고 하지만, 그것만으로는 항상 충분하지 않아요."
     }
    ],
@@ -6468,7 +6472,7 @@
    "stem": "« Comment gérer le stress au travail ? » La personne interrogée...",
    "stt": true,
    "trans": "어떨 때는 괜찮고, 어떨 때는 힘들어요. 깊이 숨을 쉬어 보려고 하지만, 그것만으로는 항상 충분하지 않아요.",
-   "transcript": "Parfois ça va, parfois c'est difficile. J'essaye de respirer profondément, mais ça ne suffit pas toujours.",
+   "transcript": "Parfois ça va, parfois c'est difficile. J'essaie de respirer profondément, mais ça ne suffit pas toujours.",
    "uncertain": false
   },
   {
@@ -6477,7 +6481,7 @@
    "expl": "'je travaille presque toujours à distance(거의 항상 원격으로 일해요)'라고 해요.",
    "id": "CO-MD5-18",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "Oui, je travaille principalement de chez moi.",
     "Je travaille de temps en temps à distance.",
@@ -6486,7 +6490,7 @@
    "scored": true,
    "sentences": [
     {
-     "fr": "En évitant les trajets quotidiens, je gagne du temps et je bénéficie d'un environnement plus calme, qui améliore ma concentration.",
+     "fr": "En évitant les trajets quotidiens, je gagne du temps et bénéficie d'un environnement plus calme qui améliore ma concentration.",
      "ko": "매일 출퇴근을 하지 않으니 시간을 아낄 수 있고, 집중력을 높여 주는 더 조용한 환경에서 일할 수 있어요."
     },
     {
@@ -6498,7 +6502,7 @@
    "stem": "« Travaillez-vous souvent à distance ? » La personne interrogée...",
    "stt": true,
    "trans": "매일 출퇴근을 하지 않으니 시간을 아낄 수 있고, 집중력을 높여 주는 더 조용한 환경에서 일할 수 있어요. 그래서 저는 거의 항상 재택근무를 해요. 그게 더 실용적으로 느껴지거든요.",
-   "transcript": "En évitant les trajets quotidiens, je gagne du temps et je bénéficie d'un environnement plus calme, qui améliore ma concentration. C'est pourquoi je travaille presque toujours à distance, car cela me semble plus pratique.",
+   "transcript": "En évitant les trajets quotidiens, je gagne du temps et bénéficie d'un environnement plus calme qui améliore ma concentration. C'est pourquoi je travaille presque toujours à distance, car cela me semble plus pratique.",
    "uncertain": false
   },
   {
@@ -6507,7 +6511,7 @@
    "expl": "'de temps en temps(가끔)' 원격으로 일하며 균형을 맞춘다고 해요.",
    "id": "CO-MD5-19",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "Oui, je travaille principalement de chez moi.",
     "Je travaille de temps en temps à distance.",
@@ -6516,15 +6520,19 @@
    "scored": true,
    "sentences": [
     {
-     "fr": "Travailler à distance de temps en temps me permet de mieux organiser ma journée, tout en maintenant un équilibre entre concentration chez moi et interaction dynamique au bureau.",
-     "ko": "가끔 재택근무를 하면 하루를 더 잘 계획할 수 있고, 집에서의 집중과 사무실에서의 활발한 소통 사이의 균형도 유지할 수 있어요."
+     "fr": "Travailler à distance de temps en temps me permet de mieux organiser ma journée,",
+     "ko": "가끔 재택근무를 하면 하루를 더 잘 계획할 수 있고,"
+    },
+    {
+     "fr": "tout en maintenant un équilibre entre concentration chez moi et interactions dynamiques au bureau.",
+     "ko": "집에서의 집중과 사무실에서의 활발한 소통 사이의 균형도 유지할 수 있어요."
     }
    ],
    "set": "모의고사 CO-D 세트 5",
    "stem": "« Travaillez-vous souvent à distance ? » La personne interrogée...",
    "stt": true,
    "trans": "가끔 재택근무를 하면 하루를 더 잘 계획할 수 있고, 집에서의 집중과 사무실에서의 활발한 소통 사이의 균형도 유지할 수 있어요.",
-   "transcript": "Travailler à distance de temps en temps me permet de mieux organiser ma journée, tout en maintenant un équilibre entre concentration chez moi et interaction dynamique au bureau.",
+   "transcript": "Travailler à distance de temps en temps me permet de mieux organiser ma journée, tout en maintenant un équilibre entre concentration chez moi et interactions dynamiques au bureau.",
    "uncertain": false
   },
   {
@@ -6533,7 +6541,7 @@
    "expl": "재택이 덜 효율적이고 사무실의 구조와 동료와의 교류가 더 낫다고 해요.",
    "id": "CO-MD5-20",
    "image": "",
-   "note": "대본은 오디오에서 음성인식으로 추출해 검수했고, 정답은 그 대본을 근거로 도출했어요.",
+   "note": "대본은 공식 전사 파일과 대조해 교정했고, 정답은 그 대본을 근거로 도출했어요.",
    "options": [
     "Oui, je travaille principalement de chez moi.",
     "Je travaille de temps en temps à distance.",
@@ -6542,8 +6550,12 @@
    "scored": true,
    "sentences": [
     {
-     "fr": "Je trouve le télétravail moins efficace pour moi, car l'environnement structuré du bureau et les interactions directes avec mes collègues me permettent d'être plus productif et de mieux collaborer.",
-     "ko": "저에게 재택근무는 덜 효율적이에요. 사무실의 체계적인 환경과 동료들과의 직접적인 소통 덕분에 더 생산적으로 일하고 더 잘 협업할 수 있거든요."
+     "fr": "Je trouve le télétravail moins efficace pour moi,",
+     "ko": "저에게 재택근무는 덜 효율적이에요."
+    },
+    {
+     "fr": "car l'environnement structuré du bureau et les interactions directes avec mes collègues me permettent d'être plus productif et de mieux collaborer.",
+     "ko": "사무실의 체계적인 환경과 동료들과의 직접적인 소통 덕분에 더 생산적으로 일하고 더 잘 협업할 수 있거든요."
     }
    ],
    "set": "모의고사 CO-D 세트 5",
