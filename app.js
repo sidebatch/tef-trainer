@@ -45,9 +45,9 @@ function normWs(s) { return String(s || '').replace(/\s+/g, ' ').trim(); }
    start of each document's first sentence. The label is document structure,
    not content: it stays in the reading text, but must not leak into sentence
    typing targets, the chunk view, or sentence audio. */
-function stripDocHeadFr(s) { return String(s || '').replace(/^Document \d+ \([^)]*\) :\s*(•\s*)?/, ''); }
-function stripDocHeadKo(s) { return String(s || '').replace(/^문서 \d+ \([^)]*\) :\s*/, ''); }
-const DOC_HEAD_PAIR = /^Document \d+ \([^)]*\) :$/;
+function stripDocHeadFr(s) { return String(s || '').replace(/^Document \d+ \([^)]*\)\s*:\s*(•\s*)?/, ''); }
+function stripDocHeadKo(s) { return String(s || '').replace(/^문서 \d+ \([^)]*\)\s*:\s*/, ''); }
+const DOC_HEAD_PAIR = /^Document \d+ \([^)]*\)\s*:$/;
 function $(sel) { return document.querySelector(sel); }
 function appEl() { return document.getElementById('app'); }
 
@@ -285,7 +285,7 @@ function sentencesHtml(item, pairs, kind) {
     const dcOpen = !!ui.dcOpen[dcKey];
     let koHtml = '';
     if (open) {
-      koHtml = '<p class="sent-ko"' + (sentChunks ? ' data-dchunk="' + esc(dcKey) + '" role="button"' : '') + '><b>해석 · </b>' + esc(ko) +
+      koHtml = '<p class="sent-ko"' + (sentChunks ? ' data-dchunk="' + esc(dcKey) + '" role="button"' : '') + '><b>해석 · </b>' + esc(stripDocHeadKo(ko)) +
         (sentChunks ? ' <span class="dc-hint">' + (dcOpen ? '직독직해 숨기기 ▴' : '눌러서 직독직해 ▾') + '</span>' : '') + '</p>' +
         (sentChunks && dcOpen ? '<div class="chunk-wrap dc-wrap"><p class="chunk-sent">' + sentChunks.map((pair) => '<span class="chunk-unit" data-speak="' + esc(pair[0]) + '" role="button" title="눌러서 이 조각 듣기"><span class="chunk-fr">' + esc(pair[0]) + '</span><span class="chunk-ko">' + esc(pair[1]) + '</span>' + (pair[2] ? '<span class="chunk-why">왜 · ' + esc(pair[2]) + '</span>' : '') + '</span>').join('') + '</p></div>' : '');
     }
@@ -386,7 +386,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 41)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 42)</p>';
   h += '</div>';
   return h;
 }
