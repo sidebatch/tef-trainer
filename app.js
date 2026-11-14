@@ -41,6 +41,13 @@ function logActivity(kind) {
 }
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 function normWs(s) { return String(s || '').replace(/\s+/g, ' ').trim(); }
+/* Matching-type CE documents carry a "Document N (Label N) :" label at the
+   start of each document's first sentence. The label is document structure,
+   not content: it stays in the reading text, but must not leak into sentence
+   typing targets, the chunk view, or sentence audio. */
+function stripDocHeadFr(s) { return String(s || '').replace(/^Document \d+ \([^)]*\) :\s*(•\s*)?/, ''); }
+function stripDocHeadKo(s) { return String(s || '').replace(/^문서 \d+ \([^)]*\) :\s*/, ''); }
+const DOC_HEAD_PAIR = /^Document \d+ \([^)]*\) :$/;
 function $(sel) { return document.querySelector(sel); }
 function appEl() { return document.getElementById('app'); }
 
@@ -272,7 +279,8 @@ function sentencesHtml(item, pairs, kind) {
     const key = item.id + ':' + kind + ':' + idx;
     const open = !!ui.sentOpen[key];
     const sentCls = kind === 'ce' ? 'sent-doc' : 'sent-script';
-    const sentChunks = ((DATA.chunks || {})[item.id] || [])[idx];
+    const rawChunks = ((DATA.chunks || {})[item.id] || [])[idx];
+    const sentChunks = rawChunks && rawChunks.length && DOC_HEAD_PAIR.test(rawChunks[0][0]) ? rawChunks.slice(1) : rawChunks;
     const dcKey = item.id + ':dc:' + idx;
     const dcOpen = !!ui.dcOpen[dcKey];
     let koHtml = '';
@@ -282,7 +290,7 @@ function sentencesHtml(item, pairs, kind) {
         (sentChunks && dcOpen ? '<div class="chunk-wrap dc-wrap"><p class="chunk-sent">' + sentChunks.map((pair) => '<span class="chunk-unit" data-speak="' + esc(pair[0]) + '" role="button" title="눌러서 이 조각 듣기"><span class="chunk-fr">' + esc(pair[0]) + '</span><span class="chunk-ko">' + esc(pair[1]) + '</span>' + (pair[2] ? '<span class="chunk-why">왜 · ' + esc(pair[2]) + '</span>' : '') + '</span>').join('') + '</p></div>' : '');
     }
     return '<div><div class="sent-row"><div class="sent-btn' + (open ? ' open' : '') + '" role="button" tabindex="0" data-sent="' + esc(key) + '">' +
-      '<span class="fr ' + sentCls + '">' + esc(fr) + '</span></div>' + speakBtn(fr) + '</div>' + koHtml + '</div>';
+      '<span class="fr ' + sentCls + '">' + esc(fr) + '</span></div>' + speakBtn(stripDocHeadFr(fr)) + '</div>' + koHtml + '</div>';
   }).join('');
   return '<div class="sent-list">' + rows + '</div>';
 }
@@ -378,7 +386,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 40)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 41)</p>';
   h += '</div>';
   return h;
 }
@@ -637,8 +645,8 @@ function sentenceTargets(item) {
   const pairs = (DATA.sentKo || {})[item.id] || (item.doc ? [[item.doc, item.trans || '']] : []);
   const ans = item.options ? (item.options[item.answer] || '') : '';
   return pairs.map((p) => {
-    let fr = normWs(p[0]);
-    let ko = p[1] || '';
+    let fr = stripDocHeadFr(normWs(p[0]));
+    let ko = stripDocHeadKo(p[1] || '');
     let cloze = false;
     if (fr.includes('______')) {
       cloze = true;
