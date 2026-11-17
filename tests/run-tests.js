@@ -53,6 +53,21 @@ ok(ce.items.length === 195, 'CE items = 195', String(ce.items.length));
   const docCounts = mdItems.map(it => (sentKo[it.id] || []).filter(p => /^Document \d+ /.test(p[0])).length);
   ok(mdItems.length === 8 && docCounts.every(n => n === 4), 'v43: every CE-D mock item exposes exactly 4 documents to flip through', docCounts.join(','));
 }
+{ // CE-D lesson layer: tutor explanations for every sentence (v44)
+  const lesson = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/lesson.json'), 'utf8'));
+  const appSrc = fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8');
+  const mdItems = ce.items.filter(i => i.set === 'CE-D 모의고사 (1)(2)');
+  const gaps = [];
+  for (const it of mdItems) {
+    const L = lesson[it.id];
+    if (!L || !L.stemKo || !L.stemGuide || !L.verdict) { gaps.push(it.id + ':fields'); continue; }
+    const n = (sentKo[it.id] || []).length;
+    for (let i = 0; i < n; i++) if (!L.notes[i]) gaps.push(it.id + ':' + i);
+  }
+  ok(gaps.length === 0, 'v44: lesson covers stem guide, verdict and a note for every CE-D mock sentence', gaps.join(', '));
+  ok(appSrc.includes("lesson: 'data/lesson.json'") && appSrc.includes('선생님 해설 · 이 문서') && appSrc.includes('선생님 정답 해설'),
+    'v44: app loads lesson.json and renders the question guide, per-document notes and verdict');
+}
 ok(ce.strategies.length === 8, 'CE strategies = 8');
 ok(co.items.length === 193, 'CO items = 193', String(co.items.length));
 const scored = co.items.filter(i => i.scored), unscored = co.items.filter(i => !i.scored);
@@ -200,8 +215,8 @@ for (const rel of ['icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touc
 const sw = fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
 const readme = fs.readFileSync(path.join(ROOT, 'README.md'), 'utf8');
 ok(sw.includes('fetch'), 'sw has fetch handler');
-ok(indexHtml.includes('app.js?v=43') && indexHtml.includes('styles.css?v=43'), 'shell assets are cache-busted (?v=34) so phones pick up fixes');
-ok(sw.includes("tef-trainer-v43"), 'sw cache bumped to tef-trainer-v43');
+ok(indexHtml.includes('app.js?v=44') && indexHtml.includes('styles.css?v=44'), 'shell assets are cache-busted (?v=34) so phones pick up fixes');
+ok(sw.includes("tef-trainer-v44"), 'sw cache bumped to tef-trainer-v44');
 ok(appJs.includes('data-pseek') && appJs.includes('player-progress') && appJs.includes('data-pt-dur'), 'v38: custom player chrome (seek bar + time labels)');
 ok(appJs.includes('ICO_SPEAK') && !appJs.includes('>🔊</button>') && indexHtml.includes('nav-ic') && indexHtml.includes('splash'), 'v38: SVG icon set (speak, bottom nav) + splash boot screen');
 ok(sw.includes("url.origin !== self.location.origin") && sw.includes("req.mode === 'navigate'"), 'v40: SW leaves cross-origin requests (translation popup audio) untouched and never answers non-navigation requests with index.html');
@@ -210,8 +225,8 @@ ok(appJs.includes('data-stype-result') && appJs.includes('Update in place'), 'se
 ok(appJs.includes("addEventListener('popstate'") && appJs.includes('history.pushState') && appJs.includes('history.back()'), 'system back button walks in-app history instead of closing the app (v16)');
 ok(indexHtml.includes('controllerchange') && indexHtml.includes('reg.update()'), 'service worker auto-update: checks on resume and reloads when a new version takes over (v17)');
 ok(appJs.includes('speechSynthesis.speaking || speechSynthesis.pending') && appJs.includes('setTimeout') && !appJs.includes("new Audio('assets"), 'pronunciation: no cancel+speak in same tick (one-tap-late synth bug), shared audio element reused (v18)');
-ok(appJs.includes('(버전 43)') && indexHtml.includes('app.js?v=43') && sw.includes("tef-trainer-v43"), 'version markers in sync: home label, shell query, SW cache all say 20');
-ok(readme.includes('현재 버전 43') && readme.includes('](https://sidebatch.github.io/tef-trainer/)') && readme.includes('](https://muse.ai/s/tef-2-xzxs5xxpkqxwxrin)'), 'README shows current version and both app links as clickable links');
+ok(appJs.includes('(버전 44)') && indexHtml.includes('app.js?v=44') && sw.includes("tef-trainer-v44"), 'version markers in sync: home label, shell query, SW cache all say 20');
+ok(readme.includes('현재 버전 44') && readme.includes('](https://sidebatch.github.io/tef-trainer/)') && readme.includes('](https://muse.ai/s/tef-2-xzxs5xxpkqxwxrin)'), 'README shows current version and both app links as clickable links');
 ok(appJs.includes(':stype') && appJs.includes(':task') && appJs.includes('eo:cat'), 'QA: 문장 타이핑·EE 원문·EO 카테고리 details도 열림 상태를 유지한다');
 ok(appJs.includes('ui.sentInput[ta.dataset.stypeInput]'), 'QA: 문장 타이핑 입력이 입력 즉시 저장돼 render에도 지워지지 않는다');
 ok(appJs.includes('function go(tab, view, param, pushStack) {\n  stopSpeak();') && appJs.includes('function back() {\n  stopSpeak();'), 'QA: 화면을 이동하면 TTS·딕테이션 반복이 정지한다');

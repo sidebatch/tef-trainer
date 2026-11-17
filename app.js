@@ -401,7 +401,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 43)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 44)</p>';
   h += '</div>';
   return h;
 }
@@ -619,13 +619,15 @@ function viewCedStudy() {
   const from = c.starts[di];
   const to = di + 1 < c.starts.length ? c.starts[di + 1] : c.pairs.length;
   const headM = c.pairs[from][0].match(/^Document \d+ \([^)]*\)/);
+  const lesson = (DATA.lesson || {})[item.id] || null;
   let h = '<div class="stack-md">';
-  h += '<p class="tab-note">문서를 한 개씩 넘겨 보며 공부하는 화면이에요. 카드를 좌우로 밀거나 버튼으로 넘기고, 문장을 탭하면 해석이 열려요.</p>';
+  h += '<p class="tab-note">수업처럼 진행되는 화면이에요. 질문 설명을 듣고, 문서를 한 개씩 넘기며 문장마다 왜 그렇게 해석되는지 확인한 뒤, 마지막에 정답 해설을 펼쳐 보세요.</p>';
   h += '<div class="row" style="justify-content:space-between;align-items:center">' +
     '<button class="mbtn" data-cednav="itemPrev"' + (c.ii === 0 ? ' disabled' : '') + '>‹ 이전 문항</button>' +
     '<b>문항 ' + (c.ii + 1) + ' / ' + c.items.length + '</b>' +
     '<button class="mbtn" data-cednav="itemNext"' + (c.ii === c.items.length - 1 ? ' disabled' : '') + '>다음 문항 ›</button></div>';
   if (item.stem) h += '<div class="stem"><span style="flex:1;min-width:0" class="fr">' + esc(item.stem) + '</span>' + speakBtn(item.stem) + '</div>';
+  if (lesson) h += '<div class="note-box"><b>선생님 · 질문</b><p style="margin:6px 0 0">' + esc(lesson.stemKo) + '</p><p style="margin:6px 0 0">' + esc(lesson.stemGuide) + '</p></div>';
   h += '<div class="card card-pad-lg" data-ced-swipe="1">' +
     '<div class="row" style="justify-content:space-between;align-items:center;margin-bottom:4px">' +
     '<button class="mbtn" data-cednav="docPrev"' + (di === 0 ? ' disabled' : '') + '>‹ 이전 문서</button>' +
@@ -635,8 +637,11 @@ function viewCedStudy() {
     c.starts.map((s, k) => '<button class="mbtn ced-dot' + (k === di ? ' on' : '') + '" data-cednav="docGo:' + k + '">' + (k + 1) + '</button>').join('') +
     '</div>' +
     sentencesHtml(item, c.pairs.slice(from, to), 'ce', from) +
+    (lesson ? '<div class="note-box" style="margin-top:12px"><b>선생님 해설 · 이 문서</b>' +
+      c.pairs.slice(from, to).map((p, k) => lesson.notes[from + k] ? '<p style="margin:8px 0 0"><b>문장 ' + (k + 1) + '</b> — ' + esc(lesson.notes[from + k]) + '</p>' : '').join('') + '</div>' : '') +
     '</div>';
   h += optionsHtml(item, answered);
+  if (lesson) h += '<details data-dkey="' + esc(item.id) + ':verdict"' + (ui.detailsOpen[item.id + ':verdict'] ? ' open' : '') + '><summary>선생님 정답 해설</summary><p style="line-height:1.7">' + esc(lesson.verdict) + '</p></details>';
   if (answered) {
     h += feedbackHtml(item, a);
     if (item.words && item.words.length) h += '<div><h4 class="sub-title">이 문항의 단어</h4>' + wordRows(item.words) + '</div>';
@@ -1516,7 +1521,7 @@ function findWordKr(fr) {
 
 /* ================= boot ================= */
 async function boot() {
-  const files = { ce: 'data/ce.json', co: 'data/co.json', ee: 'data/ee.json', eo: 'data/eo.json', refs: 'data/refs.json', optionKo: 'data/option_ko.json', sentKo: 'data/sent_ko.json', chunks: 'data/chunks.json', tts: 'data/tts.json', reading: 'data/reading.json' };
+  const files = { ce: 'data/ce.json', co: 'data/co.json', ee: 'data/ee.json', eo: 'data/eo.json', refs: 'data/refs.json', optionKo: 'data/option_ko.json', sentKo: 'data/sent_ko.json', chunks: 'data/chunks.json', tts: 'data/tts.json', reading: 'data/reading.json', lesson: 'data/lesson.json' };
   const entries = await Promise.all(Object.entries(files).map(async ([k, path]) => {
     const r = await fetch(path);
     if (!r.ok) throw new Error(path + ' ' + r.status);
