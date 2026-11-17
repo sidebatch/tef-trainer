@@ -228,9 +228,23 @@ window.addEventListener('popstate', () => {
   if (navStack.length) back();
   else history.back();
 });
+/* CE-D study tab: a horizontal swipe on the document card flips documents.
+   Vertical scrolling is untouched (touch-action: pan-y + dominance check). */
+let cedTouch = null;
+document.addEventListener('touchstart', (e) => {
+  const zone = e.target.closest ? e.target.closest('[data-ced-swipe]') : null;
+  cedTouch = zone && e.changedTouches.length ? { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY } : null;
+}, { passive: true });
+document.addEventListener('touchend', (e) => {
+  if (!cedTouch || !e.changedTouches.length) { cedTouch = null; return; }
+  const dx = e.changedTouches[0].clientX - cedTouch.x;
+  const dy = e.changedTouches[0].clientY - cedTouch.y;
+  cedTouch = null;
+  if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.4) cedFlipDoc(dx < 0 ? 1 : -1);
+}, { passive: true });
 function setTab(tab) {
   navStack = [];
-  const views = { home: 'home', ce: 'ceList', co: 'coHome', expr: 'exprHome', words: 'wordsHome' };
+  const views = { home: 'home', ce: 'ceList', ced: 'cedStudy', co: 'coHome', expr: 'exprHome', words: 'wordsHome' };
   go(tab, views[tab], null, false);
 }
 
@@ -272,16 +286,17 @@ function optionsHtml(item, answered) {
   }).join('');
   return '<div class="opt-wrap">' + rows + '</div>';
 }
-function sentencesHtml(item, pairs, kind) {
+function sentencesHtml(item, pairs, kind, idxOff) {
   const rows = pairs.map((p, idx) => {
+    const gidx = idx + (idxOff || 0);
     const fr = kind === 'stt' ? p.fr : p[0];
     const ko = kind === 'stt' ? p.ko : p[1];
-    const key = item.id + ':' + kind + ':' + idx;
+    const key = item.id + ':' + kind + ':' + gidx;
     const open = !!ui.sentOpen[key];
     const sentCls = kind === 'ce' ? 'sent-doc' : 'sent-script';
-    const rawChunks = ((DATA.chunks || {})[item.id] || [])[idx];
+    const rawChunks = ((DATA.chunks || {})[item.id] || [])[gidx];
     const sentChunks = rawChunks && rawChunks.length && DOC_HEAD_PAIR.test(rawChunks[0][0]) ? rawChunks.slice(1) : rawChunks;
-    const dcKey = item.id + ':dc:' + idx;
+    const dcKey = item.id + ':dc:' + gidx;
     const dcOpen = !!ui.dcOpen[dcKey];
     let koHtml = '';
     if (open) {
@@ -386,7 +401,7 @@ function viewHome() {
   h += '<section class="card"><h3 class="sec-title" style="font-size:16px;font-weight:600;margin:0 0 8px">공부 달력</h3>' +
     '<p class="small dim" style="line-height:1.65;margin-bottom:12px">날마다 실제로 공부한 기록(문항 수 · 단어 수)을 확인해요.</p>' +
     '<button class="btn" data-go="home|calendar">공부 달력 열기</button></section>';
-  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 42)</p>';
+  h += '<p class="fineprint">진도는 이 브라우저 · 이 기기에만 저장돼요. 다른 기기와는 이어지지 않아요. (버전 43)</p>';
   h += '</div>';
   return h;
 }
@@ -564,6 +579,70 @@ function viewCeItem(item) {
     h += sentTypeHtml(item);
     h += navItemHtml('읽기', item);
   }
+  h += '</div>';
+  return h;
+}
+/* ----- CE-D focused study tab (phone-first, added 2026-11-16 at the user's
+   request: study the CE-D mock set by flipping one document at a time —
+   buttons, dots or a horizontal swipe — with the question pinned on top.
+   Sentence taps (해석·직독직해·듣기) reuse sentencesHtml with a pair offset
+   so open-state and chunk lookups keep the item-wide sentence indices.) ----- */
+function cedDocStarts(pairs) {
+  const starts = [];
+  (pairs || []).forEach((p, i) => { if (/^Document \d+ /.test(p[0])) starts.push(i); });
+  return starts.length ? starts : [0];
+}
+function cedCurrent() {
+  const items = ceBySet('CE-D 모의고사 (1)(2)');
+  const ii = Math.min(Math.max(ui.cedItem || 0, 0), Math.max(items.length - 1, 0));
+  const item = items[ii] || null;
+  const pairs = item ? ((DATA.sentKo || {})[item.id] || (item.doc ? [[item.doc, item.trans || '']] : [])) : [];
+  return { items, ii, item, pairs, starts: cedDocStarts(pairs) };
+}
+function cedFlipDoc(dir) {
+  const c = cedCurrent();
+  const d = Math.min(Math.max((ui.cedDoc || 0) + dir, 0), Math.max(c.starts.length - 1, 0));
+  if (d !== (ui.cedDoc || 0)) { ui.cedDoc = d; render(); }
+}
+function cedFlipItem(dir) {
+  const c = cedCurrent();
+  const n = Math.min(Math.max(c.ii + dir, 0), Math.max(c.items.length - 1, 0));
+  if (n !== c.ii) { ui.cedItem = n; ui.cedDoc = 0; render(); window.scrollTo(0, 0); }
+}
+function viewCedStudy() {
+  const c = cedCurrent();
+  if (!c.item) return '<div class="card"><p>CE-D 모의고사 자료가 없어요.</p></div>';
+  const item = c.item;
+  const a = state.answers[item.id];
+  const answered = isDone(item.id);
+  const di = Math.min(Math.max(ui.cedDoc || 0, 0), c.starts.length - 1);
+  const from = c.starts[di];
+  const to = di + 1 < c.starts.length ? c.starts[di + 1] : c.pairs.length;
+  const headM = c.pairs[from][0].match(/^Document \d+ \([^)]*\)/);
+  let h = '<div class="stack-md">';
+  h += '<p class="tab-note">문서를 한 개씩 넘겨 보며 공부하는 화면이에요. 카드를 좌우로 밀거나 버튼으로 넘기고, 문장을 탭하면 해석이 열려요.</p>';
+  h += '<div class="row" style="justify-content:space-between;align-items:center">' +
+    '<button class="mbtn" data-cednav="itemPrev"' + (c.ii === 0 ? ' disabled' : '') + '>‹ 이전 문항</button>' +
+    '<b>문항 ' + (c.ii + 1) + ' / ' + c.items.length + '</b>' +
+    '<button class="mbtn" data-cednav="itemNext"' + (c.ii === c.items.length - 1 ? ' disabled' : '') + '>다음 문항 ›</button></div>';
+  if (item.stem) h += '<div class="stem"><span style="flex:1;min-width:0" class="fr">' + esc(item.stem) + '</span>' + speakBtn(item.stem) + '</div>';
+  h += '<div class="card card-pad-lg" data-ced-swipe="1">' +
+    '<div class="row" style="justify-content:space-between;align-items:center;margin-bottom:4px">' +
+    '<button class="mbtn" data-cednav="docPrev"' + (di === 0 ? ' disabled' : '') + '>‹ 이전 문서</button>' +
+    '<b class="fr">' + esc(headM ? headM[0] : ('문서 ' + (di + 1))) + '</b>' +
+    '<button class="mbtn" data-cednav="docNext"' + (di === c.starts.length - 1 ? ' disabled' : '') + '>다음 문서 ›</button></div>' +
+    '<div class="row" style="justify-content:center;gap:6px;margin-bottom:8px">' +
+    c.starts.map((s, k) => '<button class="mbtn ced-dot' + (k === di ? ' on' : '') + '" data-cednav="docGo:' + k + '">' + (k + 1) + '</button>').join('') +
+    '</div>' +
+    sentencesHtml(item, c.pairs.slice(from, to), 'ce', from) +
+    '</div>';
+  h += optionsHtml(item, answered);
+  if (answered) {
+    h += feedbackHtml(item, a);
+    if (item.words && item.words.length) h += '<div><h4 class="sub-title">이 문항의 단어</h4>' + wordRows(item.words) + '</div>';
+    h += sentTypeHtml(item);
+  }
+  h += '<button class="mbtn" data-cednav="openFull:' + esc(item.id) + '">이 문항을 일반 화면으로 보기</button>';
   h += '</div>';
   return h;
 }
@@ -1220,6 +1299,7 @@ function render() {
     else if (route.view === 'reading') html = viewReading(route.param);
     else if (route.view === 'setItems') html = viewSetItems(route.param.mod, route.param.set);
     else if (route.view === 'ceItem') html = viewCeItem(route.param);
+    else if (route.view === 'cedStudy') html = viewCedStudy();
     else if (route.view === 'coHome') html = viewCoHome();
     else if (route.view === 'coItem') html = viewCoItem(route.param);
     else if (route.view === 'exprHome') html = viewExprHome();
@@ -1280,8 +1360,19 @@ document.addEventListener('click', (ev) => {
   // row it would even record an answer the learner never meant to pick.
   const sel = window.getSelection ? window.getSelection() : null;
   if (sel && !sel.isCollapsed && sel.toString().trim() !== '') return;
-  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-pinset],[data-unpin],[data-optko],[data-sent],[data-dchunk],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-dict-play],[data-dict-slow],[data-dict-repeat],[data-stype-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday],[data-reading],[data-readdone],[data-rdko],[data-rdchunk]');
+  const t = ev.target.closest('[data-speak],[data-answer],[data-openitem],[data-go],[data-setlist],[data-goset],[data-pinset],[data-unpin],[data-optko],[data-sent],[data-dchunk],[data-addword],[data-play],[data-repeat],[data-retry],[data-dict-check],[data-dict-play],[data-dict-slow],[data-dict-repeat],[data-stype-check],[data-shadow],[data-drill],[data-chunk],[data-chunk-reset],[data-chunk-check],[data-swap],[data-retype-check],[data-stepdone],[data-eointro],[data-eocheck],[data-poster-reveal],[data-poster-done],[data-wordsub],[data-wordstate],[data-flip],[data-flashnav],[data-covocabsec],[data-idiom],[data-sujetfilter],[data-calnav],[data-calday],[data-reading],[data-readdone],[data-rdko],[data-rdchunk],[data-cednav]');
   // bottom nav + back handled separately below
+  const cedNavBtn = ev.target.closest('[data-cednav]');
+  if (cedNavBtn) {
+    const v = cedNavBtn.dataset.cednav;
+    if (v === 'docPrev') cedFlipDoc(-1);
+    else if (v === 'docNext') cedFlipDoc(1);
+    else if (v === 'itemPrev') cedFlipItem(-1);
+    else if (v === 'itemNext') cedFlipItem(1);
+    else if (v.indexOf('docGo:') === 0) { ui.cedDoc = parseInt(v.slice(6), 10) || 0; render(); }
+    else if (v.indexOf('openFull:') === 0) openItem(v.slice(9), '읽기');
+    return;
+  }
   if (ev.target.closest('.nav-btn')) { setTab(ev.target.closest('.nav-btn').dataset.tab); return; }
   if (ev.target.closest('#backBtn')) { if (navStack.length) history.back(); else back(); return; }
   if (!t) {
